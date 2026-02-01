@@ -95,6 +95,42 @@ Position as the **only agent-first GRC platform** built for continuous governanc
 
 Agentic AI GRC is designed for **accountability by design**, not liability transfer. AI outputs are recommendations, not decisions. Every material action requires human approval from a role-appropriate reviewer, with mandatory explainability and an immutable audit trail. Contractual terms are explicit: the AI assists, the human decides, the customer owns the outcome. This model aligns with emerging regulatory expectations (HKMA, MAS, EU AI Act) for AI in governance.
 
+### Stronger Liability Framework (6-Layer Mechanism)
+
+| Layer | Mechanism | Liability Clarity |
+|-------|-----------|-------------------|
+| **1. Explainability** | Every AI output includes sources, confidence score, and reasoning | User can evaluate quality of recommendation |
+| **2. Competence Gate** | High-risk actions require role-appropriate approver (e.g., 2L risk manager, not 1L analyst) | Approval authority matches decision gravity |
+| **3. Challenge Window** | Time-boxed period for human review before AI recommendation becomes actionable | Prevents rubber-stamping |
+| **4. Immutable Trail** | All AI outputs and human approvals logged to tamper-evident store | Audit can reconstruct decision chain |
+| **5. Confidence Thresholds** | Low-confidence AI outputs flagged for mandatory human drafting, not just review | AI knows when to defer |
+| **6. Contractual Clarity** | Terms of service explicitly state: AI assists, human decides, customer owns outcome | Legal boundary is unambiguous |
+
+### What Regulators Actually Want
+
+Based on HKMA, MAS, and EU AI Act guidance:
+
+| Regulator Expectation | Our Answer |
+|-----------------------|------------|
+| **Traceability** | Immutable audit trail with decision lineage |
+| **Explainability** | Plain-language + technical rationale for every recommendation |
+| **Accountability** | Named human approver for every material action |
+| **Human oversight** | Configurable HITL checkpoints by risk tier |
+| **Bias/fairness** | Ethics scoring engine (roadmap) |
+
+### Remaining Risk (Acknowledged)
+
+Even with all mitigations, these risks remain:
+
+| Risk | Description | Mitigation Approach |
+|------|-------------|---------------------|
+| **Novel regulatory interpretation** | AI trained on historical guidance may miss new expectations | Real-time regulatory feed + human review of gap analysis |
+| **Cascading errors** | One bad mapping propagates through linked controls | Confidence thresholds + periodic human-only audits |
+| **Over-trust** | Users stop critically reviewing AI outputs over time | Mandatory challenge windows + random human-draft requirements |
+| **Regulatory change** | New rules may impose stricter AI liability | Active participation in regulator sandboxes + legal monitoring |
+
+**Position:** We cannot eliminate liability risk, but we can make the risk explicit, bounded, and insurable. Transparency about remaining risk builds regulator trust.
+
 ---
 
 ## Explainability Framework Alignment
