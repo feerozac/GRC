@@ -1,0 +1,149 @@
+<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word">
+<head>
+<meta charset="UTF-8">
+<title>Agentic AI GRC Platform — Product Spec Summary</title>
+<style>
+body { font-family: Calibri, Arial, sans-serif; font-size: 11pt; line-height: 1.4; margin: 1in; }
+h1 { font-size: 18pt; color: #1a365d; border-bottom: 2px solid #2b6cb0; padding-bottom: 6px; }
+h2 { font-size: 14pt; color: #2d3748; margin-top: 18pt; }
+h3 { font-size: 12pt; color: #4a5568; margin-top: 12pt; }
+p { margin: 0 0 8pt; }
+table { border-collapse: collapse; width: 100%; margin: 12pt 0; }
+th, td { border: 1px solid #cbd5e0; padding: 6pt 8pt; text-align: left; vertical-align: top; }
+th { background: #edf2f7; font-weight: bold; }
+ul { margin: 6pt 0; padding-left: 20pt; }
+li { margin-bottom: 4pt; }
+.tagline { font-size: 14pt; font-weight: bold; color: #2b6cb0; margin: 12pt 0; font-style: italic; }
+.meta { font-size: 9pt; color: #718096; margin-bottom: 18pt; }
+</style>
+</head>
+<body>
+
+<h1>Agentic AI GRC Platform</h1>
+<p class="tagline">Explainable by design. Beyond automation. Metrics made human.</p>
+<p class="meta">Project: agent-grc | Author: Mark | Date: 2026-01-29 | Status: Product Brief / Spec Summary</p>
+
+<h2>1. Product Vision</h2>
+<p>Agentic AI GRC is an AI-native Governance, Risk & Compliance platform that turns fragmented controls, risks, and evidence into a single source of truth. It is built around three executive themes:</p>
+<ul>
+<li><strong>Explainability by design</strong> — ethics-encoded agents, traceable decisions, regulator-ready rationale</li>
+<li><strong>Beyond automation</strong> — agents work with people, not around them</li>
+<li><strong>Metrics made human</strong> — data translated into decisions and actions</li>
+</ul>
+<p>Core platform capabilities include:</p>
+<ul>
+<li>Virtual three lines of defence (3LOD) built in</li>
+<li>Real-time or near real-time regulatory development (e.g. HKMA, MAS)</li>
+<li>Review of NIST, ISO, COBIT (and other) frameworks</li>
+<li>Org chart reading and process-to-org mapping suggestions</li>
+<li>Annual report and strategy document analysis for governance issues (COBIT, COSO)</li>
+<li>KCI, KRI and KPI module linked to governance, process, regulatory, and policies/standards—with gap and metric suggestions</li>
+<li>AI agents that discuss indicators and make priority recommendations using strategy, regulatory context, and industry benchmarks</li>
+</ul>
+<p>So teams spend less time on manual GRC work and more on decision-making.</p>
+
+<h2>2. Tagline</h2>
+<p><strong>One platform. Agentic GRC. Decisions, not manual work.</strong></p>
+<p>Alternative: <em>Governance that thinks ahead—single source of truth, 3LOD, and AI-driven priorities.</em></p>
+
+<h2>3. Problem Summary</h2>
+<p>Organisations juggle risk registers, control libraries, issue trackers, and evidence across spreadsheets and point tools. Framework mapping (ISO 27001, NIST CSF, COBIT, HKMA, MAS) is manual and brittle; regulatory requirements are often discovered late; 3LOD work in silos; process/control ownership is misaligned to org structure; governance issues are identified ad hoc; and KCI/KRI/KPI are siloed with weak linkage and no strategy/benchmark-driven prioritisation.</p>
+
+<h2>4. Solution — Key Capabilities</h2>
+<table>
+<tr><th>Capability</th><th>Description</th></tr>
+<tr><td>Risk register</td><td>Central risk inventory; likelihood/impact; ownership; linkage to controls and issues.</td></tr>
+<tr><td>Control library + framework mappings</td><td>One control set mapped to ISO 27001, NIST CSF, COBIT, HKMA, MAS, PCI DSS (extensible).</td></tr>
+<tr><td>Real-time / near real-time regulatory development</td><td>Monitor HKMA, MAS, others; ingest and normalise requirements; feed into AI gap analysis; alert 2L/Regulatory Affairs.</td></tr>
+<tr><td>Framework review (NIST, ISO, COBIT)</td><td>Track version/control-set changes; AI-assisted posture review; gap reports.</td></tr>
+<tr><td>Issue & remediation tracking</td><td>Findings, actions, due dates; linkage to controls and risks.</td></tr>
+<tr><td>AI-driven executive narratives</td><td>Auto-generated plain-language summaries for boards and committees.</td></tr>
+<tr><td>AI gap analysis for new regulations</td><td>Compare posture to new/updated requirements; prioritise gaps; suggested control mappings.</td></tr>
+<tr><td>Evidence mapping</td><td>Link controls/requirements to artefacts; AI-assisted tagging and retrieval.</td></tr>
+<tr><td>Org chart reading & process-to-org mapping</td><td>Ingest org charts; AI suggests process/control mapping to units/roles; ownership aligned to org.</td></tr>
+<tr><td>Annual report & strategy → governance issues</td><td>Read reports/strategy; AI suggests governance issues with COBIT, COSO (and other) references.</td></tr>
+<tr><td>KCI, KRI and KPI module</td><td>Indicators linked to governance, process, regulatory, policies/standards; gap/metric suggestions; agents discuss and prioritise using strategy, regulatory, benchmarks.</td></tr>
+<tr><td>Virtual 3LOD</td><td>Explicit 1L/2L/3L views and workflows; challenge flow; reporting; autonomous AI agents across lines; adversarial checks; objective audit trails.</td></tr>
+<tr><td>Human-in-the-loop governance</td><td>Configurable checkpoints for human override/validation; escalation workflows for high-risk actions.</td></tr>
+<tr><td>Governance intelligence & ROI</td><td>Dashboards quantifying ROI of compliance automation; benchmarking vs industry peers.</td></tr>
+<tr><td>Ethics management</td><td>AI applies ethical guidelines (fairness, bias mitigation, transparency); ethics scoring in dashboards.</td></tr>
+<tr><td>Immutable audit & explainability</td><td>Tamper-evident (or optional blockchain) audit ledger; regulator-ready explainability reports; NL board summaries.</td></tr>
+<tr><td>Governance fit assessment</td><td>Map practices vs COBIT, NIST, PCI DSS, ISO 27k; gaps; maturity levels; best-practice alignment.</td></tr>
+<tr><td>Automated adversarial control testing</td><td>Adversarial AI agents automate control testing lifecycle (design, execution, monitoring, remediation).</td></tr>
+<tr><td>Continuous governance alignment</td><td>AI agents map decisions in real time to governance objectives and policies.</td></tr>
+<tr><td>Predictive governance intelligence</td><td>AI forecasts emerging compliance risks; horizon scanning (SEC, HKMA, EU Digital Act).</td></tr>
+<tr><td>Cross-enterprise audit consortium (future)</td><td>Multi-org anonymized audit trails on consortium blockchain; privacy-preserving; systemic risk detection.</td></tr>
+</table>
+
+<h2>5. Value Proposition (Stakeholders)</h2>
+<table>
+<tr><th>Stakeholder</th><th>Benefit</th></tr>
+<tr><td>CISO / Head of Risk</td><td>One place for risk, controls, issues; AI narratives; 2L oversight; org-aligned ownership; KCI/KRI/KPI priorities; human-in-the-loop checkpoints.</td></tr>
+<tr><td>Compliance / Audit</td><td>Multi-framework view; 3LOD; org-driven mapping; KCI/KRI/KPI with gap/metric suggestions; explainability reports; immutable audit trails.</td></tr>
+<tr><td>CFO</td><td>Governance intelligence dashboards (ROI of compliance automation); benchmarking vs industry peers.</td></tr>
+<tr><td>Chief Ethics Officer</td><td>Ethical guidelines applied by AI; ethics scoring in dashboards.</td></tr>
+<tr><td>Chief Compliance Officer / Board Governance Officer</td><td>Immutable audit; explainability; governance fit (COBIT/NIST/PCI DSS/ISO 27k, maturity).</td></tr>
+<tr><td>Regulated firms (HKMA/MAS)</td><td>Framework views; real-time regulatory updates; AI gap analysis; 3LOD evidence; predictive horizon scanning.</td></tr>
+<tr><td>Executives / Board</td><td>Clear narratives; 1L/2L/3L alignment; governance from strategy (COBIT/COSO); KCI/KRI/KPI priorities; predictive governance intelligence.</td></tr>
+</table>
+
+<h2>6. Differentiators</h2>
+<ul>
+<li>Agentic AI — proactive narratives, gap analysis, evidence mapping</li>
+<li>Virtual 3LOD — first-class 1L/2L/3L views, challenge workflows, reporting</li>
+<li>Multi-framework by design — ISO 27001, NIST CSF, COBIT, HKMA, MAS, PCI DSS; framework review</li>
+<li>Real-time regulatory intelligence — HKMA, MAS; near real-time surfacing</li>
+<li>Evidence-centric; Org-driven mapping; Document-driven governance (annual reports, strategy → COBIT/COSO)</li>
+<li>KCI/KRI/KPI with agent-driven priorities (strategy, regulatory, benchmarks)</li>
+<li>Human-in-the-loop; Governance intelligence & ROI; Ethics & explainability</li>
+<li>Adversarial control testing; Predictive governance; Cross-enterprise audit consortium (future)</li>
+</ul>
+
+<h2>7. Three Lines of Defence (3LOD)</h2>
+<ul>
+<li><strong>First line (1L):</strong> My controls, evidence, issues, attestations.</li>
+<li><strong>Second line (2L):</strong> Risk & control oversight; challenge status; framework coverage; KCI/KRI/KPI and priorities; open issues across 1L.</li>
+<li><strong>Third line (3L):</strong> Audit plan; control testing; findings; assurance opinion.</li>
+</ul>
+<p>Visibility and workflows scoped by line (and entity); separation clear for regulators and board.</p>
+
+<h2>8. Personas (Summary)</h2>
+<p><strong>Primary:</strong> CISO (Priya), Compliance Manager (Marcus), Risk Analyst (Sam), Internal Auditor (Jordan), Executive/Board (Alex).</p>
+<p><strong>Secondary:</strong> Regulatory Affairs, Control Owner, CFO, Chief Ethics Officer, Chief Compliance Officer / Board Governance Officer, Security Architect, Industry Regulator.</p>
+
+<h2>9. Top Use Cases (20)</h2>
+<ol>
+<li>Unified risk and control view</li>
+<li>AI executive narrative for board/committee</li>
+<li>AI gap analysis for new/updated regulation</li>
+<li>Evidence mapping and retrieval</li>
+<li>End-to-end issue and remediation tracking</li>
+<li>Virtual 3LOD: line-specific views and challenge flow</li>
+<li>Real-time regulatory development (HKMA, others)</li>
+<li>Framework review (NIST, ISO, COBIT)</li>
+<li>Org chart reading and process-to-org mapping</li>
+<li>Annual report and strategy → governance issues (COBIT, COSO)</li>
+<li>KCI/KRI/KPI module with linkage and agent priority recommendations</li>
+<li>Human-in-the-loop governance</li>
+<li>Governance intelligence & ROI</li>
+<li>Ethics management</li>
+<li>Immutable audit & explainability</li>
+<li>Governance fit assessment (COBIT / NIST / PCI DSS / ISO 27k)</li>
+<li>Automated adversarial control testing</li>
+<li>Continuous governance alignment</li>
+<li>Predictive governance intelligence</li>
+<li>Cross-enterprise audit consortium (future)</li>
+</ol>
+
+<h2>10. Non-Functional Requirements (Summary)</h2>
+<p><strong>Performance:</strong> 10K risks, 5K controls, 20K issues (&lt; 3 s p95); narrative &lt; 60 s; gap analysis &lt; 5 min.</p>
+<p><strong>Regulatory & framework:</strong> Near real-time regulatory ingestion (e.g. 24 h); NIST/ISO/COBIT review; org chart & process-to-org; annual report/strategy → governance; KCI/KRI/KPI module with agent priorities.</p>
+<p><strong>Security:</strong> Encryption (TLS 1.3, AES-256); RBAC by line of defence; 7-year tamper-evident audit log; optional blockchain-backed immutable ledger; human-in-the-loop checkpoints and escalation (NFR-23); governance intelligence & ROI dashboards (NFR-24); ethics guidelines and scoring (NFR-25); explainability reports (NFR-26); governance fit assessment (NFR-27); adversarial control testing (NFR-28); continuous alignment (NFR-29); predictive intelligence and regulatory feeds (NFR-30); cross-enterprise audit consortium future (NFR-31).</p>
+<p><strong>Availability:</strong> 99.5%; RPO ≤ 24 h, RTO ≤ 4 h.</p>
+<p><strong>Usability:</strong> Modern browsers; WCAG 2.1 AA for core journeys.</p>
+<p><strong>AI & data quality:</strong> Reviewable/versioned narratives; auditable gap analysis and evidence mapping; 3LOD views and reporting; APIs; extensible frameworks.</p>
+
+<p style="margin-top: 24pt; font-size: 9pt; color: #718096;">Full product brief: agentic-ai-grc-product-brief.md | This summary is for stakeholder communication and high-level product spec alignment.</p>
+
+</body>
+</html>

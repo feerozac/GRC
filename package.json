@@ -1,0 +1,23 @@
+{
+  "name": "agent-grc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@aws-sdk/client-bedrock-runtime": "^3.980.0",
+    "@modelcontextprotocol/sdk": "^1.25.3",
+    "@prisma/client": "^7.3.0",
+    "pptxgenjs": "^4.0.1",
+    "prisma": "^7.3.0",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.9.3",
+    "zod": "^4.3.6"
+  }
+}

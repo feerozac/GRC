@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Agentic AI GRC — Visual Wireframe</title>
+    <style>
+      :root {
+        --bg: #0f1115;
+        --panel: #151821;
+        --line: #2a2f3a;
+        --text: #e6e9ef;
+        --muted: #9aa3b2;
+        --accent: #6be7ff;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      }
+      header {
+        padding: 24px 32px;
+        border-bottom: 1px solid var(--line);
+        background: #0c0f14;
+      }
+      header h1 { margin: 0 0 6px 0; font-size: 22px; }
+      header p { margin: 0; color: var(--muted); font-size: 13px; }
+      .page { padding: 24px 24px 64px; }
+      .section { margin: 24px 0 48px; }
+      .section h2 { margin: 0 0 12px 0; font-size: 16px; color: var(--accent); }
+      .wireframe {
+        display: grid;
+        grid-template-columns: 220px 1fr;
+        gap: 16px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        overflow: hidden;
+        background: var(--panel);
+      }
+      .nav {
+        border-right: 1px solid var(--line);
+        padding: 12px;
+        background: #111520;
+      }
+      .nav .item {
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        padding: 6px 8px;
+        margin: 6px 0;
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .content { padding: 12px; }
+      .topbar {
+        display: grid;
+        grid-template-columns: 180px 1fr 80px;
+        gap: 8px;
+        margin-bottom: 12px;
+      }
+      .box {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 8px;
+        min-height: 28px;
+        background: #0f141f;
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .grid {
+        display: grid;
+        gap: 10px;
+      }
+      .grid.kpi { grid-template-columns: repeat(4, 1fr); }
+      .grid.two { grid-template-columns: 2fr 1fr; }
+      .grid.three { grid-template-columns: repeat(3, 1fr); }
+      .grid.list { grid-template-columns: 1fr; }
+      .table {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 8px;
+        font-size: 12px;
+        color: var(--muted);
+        background: #0f141f;
+        min-height: 120px;
+      }
+      .row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+      .tag { color: var(--accent); font-size: 11px; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Agentic AI GRC — Visual Wireframe</h1>
+      <p>Low‑fidelity layout guide based on the UI spec.</p>
+    </header>
+
+    <div class="page">
+      <div class="section">
+        <h2>Home Dashboard</h2>
+        <div class="wireframe">
+          <div class="nav">
+            <div class="item">Home</div><div class="item">Risks</div><div class="item">Controls</div>
+            <div class="item">Issues</div><div class="item">Evidence</div><div class="item">Reg Intel</div>
+            <div class="item">KCI/KRI/KPI</div><div class="item">Org & Process</div><div class="item">Docs</div>
+            <div class="item">3LOD</div><div class="item">Reports</div><div class="item">Admin</div>
+          </div>
+          <div class="content">
+            <div class="topbar">
+              <div class="box">&lt;Entity Switcher&gt;</div>
+              <div class="box">Global Search</div>
+              <div class="box">Alerts / User</div>
+            </div>
+            <div class="grid kpi">
+              <div class="box">Audit Readiness</div>
+              <div class="box">Open Issues</div>
+              <div class="box">Control Coverage</div>
+              <div class="box">Reg Update SLA</div>
+            </div>
+            <div class="grid two" style="margin-top: 10px;">
+              <div class="table">Trends: Risk Posture + Control Effectiveness</div>
+              <div class="table">AI Highlights (insights + approvals)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Risk Register</h2>
+        <div class="wireframe">
+          <div class="nav">
+            <div class="item">Risks</div><div class="item">Controls</div><div class="item">Issues</div>
+          </div>
+          <div class="content">
+            <div class="topbar">
+              <div class="box">Filters</div>
+              <div class="box">Search</div>
+              <div class="box">New Risk</div>
+            </div>
+            <div class="row">
+              <div class="table">Risk Table</div>
+              <div class="table">Risk Detail Drawer (links, evidence, AI)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Controls & Framework Mapping</h2>
+        <div class="wireframe">
+          <div class="nav">
+            <div class="item">Controls</div><div class="item">Frameworks</div>
+          </div>
+          <div class="content">
+            <div class="row">
+              <div class="table">Control List + Filters</div>
+              <div class="table">Control Detail + Mapping Matrix</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Issues & Remediation</h2>
+        <div class="wireframe">
+          <div class="nav">
+            <div class="item">Issues</div><div class="item">Remediation</div>
+          </div>
+          <div class="content">
+            <div class="row">
+              <div class="table">Issue List</div>
+              <div class="table">Issue Detail + Approvals</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Evidence Hub</h2>
+        <div class="wireframe">
+          <div class="nav">
+            <div class="item">Evidence</div><div class="item">Requests</div>
+          </div>
+          <div class="content">
+            <div class="grid two">
+              <div class="table">Evidence Library + AI Suggestions</div>
+              <div class="table">Completeness Panel</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Regulatory Intelligence</h2>
+        <div class="wireframe">
+          <div class="nav">
+            <div class="item">Reg Feed</div><div class="item">Gap Analysis</div>
+          </div>
+          <div class="content">
+            <div class="grid two">
+              <div class="table">Reg Timeline</div>
+              <div class="table">Gap Analysis Workspace + Explain Panel</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>KCI / KRI / KPI</h2>
+        <div class="wireframe">
+          <div class="nav">
+            <div class="item">Indicators</div><div class="item">Recommendations</div>
+          </div>
+          <div class="content">
+            <div class="grid two">
+              <div class="table">Indicator Catalog</div>
+              <div class="table">Suggested Metrics + Priority</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Org & Process</h2>
+        <div class="wireframe">
+          <div class="nav">
+            <div class="item">Org Chart</div><div class="item">Processes</div>
+          </div>
+          <div class="content">
+            <div class="grid two">
+              <div class="table">Org Chart View</div>
+              <div class="table">Process Map + Ownership</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Documents & Narratives</h2>
+        <div class="wireframe">
+          <div class="nav">
+            <div class="item">Documents</div><div class="item">Narratives</div>
+          </div>
+          <div class="content">
+            <div class="grid two">
+              <div class="table">Document Library + Extracted Issues</div>
+              <div class="table">Narrative Editor + Sources</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>3LOD Views</h2>
+        <div class="wireframe">
+          <div class="nav">
+            <div class="item">1L</div><div class="item">2L</div><div class="item">3L</div>
+          </div>
+          <div class="content">
+            <div class="grid three">
+              <div class="table">1L KPIs + Tasks</div>
+              <div class="table">2L KPIs + Challenges</div>
+              <div class="table">3L KPIs + Audit Plan</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Reports & Exports</h2>
+        <div class="wireframe">
+          <div class="nav">
+            <div class="item">Reports</div><div class="item">Exports</div>
+          </div>
+          <div class="content">
+            <div class="grid list">
+              <div class="table">Board Narrative Export (PPTX/DOCX/PDF)</div>
+              <div class="table">Explainability Report Pack</div>
+              <div class="table">Audit Trail Pack</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

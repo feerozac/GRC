@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Agentic AI GRC — Home Dashboard Mock</title>
+    <style>
+      :root {
+        --bg: #0b0f1a;
+        --panel: #0f172a;
+        --panel-2: #111b33;
+        --text: #e2e8f0;
+        --muted: #94a3b8;
+        --line: #22304a;
+        --neon-blue: #38bdf8;
+        --neon-teal: #22d3ee;
+        --neon-purple: #a855f7;
+        --neon-green: #34d399;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      }
+      .layout {
+        display: grid;
+        grid-template-columns: 240px 1fr;
+        min-height: 100vh;
+      }
+      .nav {
+        background: #0c1324;
+        border-right: 1px solid var(--line);
+        padding: 18px 14px;
+      }
+      .nav h2 {
+        margin: 0 0 16px 0;
+        font-size: 16px;
+        color: var(--neon-blue);
+      }
+      .nav .item {
+        padding: 8px 10px;
+        margin: 6px 0;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+      .nav .item.active {
+        color: var(--text);
+        border-color: var(--neon-blue);
+        box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.2);
+      }
+      .content {
+        padding: 18px 22px 40px;
+      }
+      .topbar {
+        display: grid;
+        grid-template-columns: 220px 1fr 140px;
+        gap: 10px;
+        margin-bottom: 16px;
+      }
+      .chip, .search, .icon-btn {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 10px 12px;
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .icon-btn { text-align: center; }
+      .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 6px 0 16px;
+      }
+      .header h1 {
+        margin: 0;
+        font-size: 20px;
+      }
+      .actions button {
+        margin-left: 8px;
+        background: transparent;
+        border: 1px solid var(--line);
+        color: var(--text);
+        padding: 8px 10px;
+        border-radius: 8px;
+        font-size: 12px;
+      }
+      .kpis {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+        margin-bottom: 14px;
+      }
+      .kpi {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-top: 3px solid var(--neon-purple);
+        border-radius: 12px;
+        padding: 12px;
+      }
+      .kpi h3 { margin: 0 0 6px; font-size: 12px; color: var(--muted); }
+      .kpi .value { font-size: 22px; font-weight: 700; }
+      .kpi .sub { font-size: 11px; color: var(--muted); }
+      .grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 12px;
+      }
+      .card {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 12px;
+        min-height: 180px;
+      }
+      .card h4 {
+        margin: 0 0 8px;
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .placeholder {
+        background: var(--panel-2);
+        border: 1px dashed var(--line);
+        border-radius: 10px;
+        height: 140px;
+        display: grid;
+        place-items: center;
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .insight {
+        border: 1px solid var(--line);
+        border-left: 3px solid var(--neon-teal);
+        border-radius: 10px;
+        padding: 10px;
+        margin-bottom: 8px;
+        background: #0f162b;
+      }
+      .insight .title { font-size: 12px; margin-bottom: 4px; }
+      .insight .meta { font-size: 11px; color: var(--muted); }
+      .badge {
+        display: inline-block;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        padding: 2px 6px;
+        font-size: 10px;
+        color: var(--muted);
+        margin-left: 6px;
+      }
+      .footer-actions {
+        margin-top: 14px;
+        display: flex;
+        gap: 10px;
+      }
+      .footer-actions button {
+        background: #0f162b;
+        color: var(--text);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 8px 10px;
+        font-size: 12px;
+      }
+      .accent-blue { border-top-color: var(--neon-blue); }
+      .accent-teal { border-top-color: var(--neon-teal); }
+      .accent-green { border-top-color: var(--neon-green); }
+    </style>
+  </head>
+  <body>
+    <div class="layout">
+      <aside class="nav">
+        <h2>Agentic AI GRC</h2>
+        <div class="item active">Home</div>
+        <div class="item">Risks</div>
+        <div class="item">Controls & Frameworks</div>
+        <div class="item">Issues & Remediation</div>
+        <div class="item">Evidence</div>
+        <div class="item">Regulatory Intelligence</div>
+        <div class="item">KCI / KRI / KPI</div>
+        <div class="item">Org & Process</div>
+        <div class="item">Documents</div>
+        <div class="item">3LOD Views</div>
+        <div class="item">Reports & Narratives</div>
+        <div class="item">Admin</div>
+      </aside>
+
+      <main class="content">
+        <div class="topbar">
+          <div class="chip">&lt;Entity Switcher&gt; APAC HQ</div>
+          <div class="search">Search risks, controls, issues, evidence…</div>
+          <div class="icon-btn">Alerts / User</div>
+        </div>
+
+        <div class="header">
+          <div>
+            <h1>Home</h1>
+            <div style="color: var(--muted); font-size: 12px;">Audit readiness, risk posture, and regulatory alignment</div>
+          </div>
+          <div class="actions">
+            <button>Generate Board Narrative</button>
+            <button>View Reg Updates</button>
+          </div>
+        </div>
+
+        <section class="kpis">
+          <div class="kpi accent-blue">
+            <h3>Audit Readiness</h3>
+            <div class="value">82%</div>
+            <div class="sub">+6% vs last quarter</div>
+          </div>
+          <div class="kpi accent-teal">
+            <h3>Open Issues</h3>
+            <div class="value">27</div>
+            <div class="sub">8 overdue</div>
+          </div>
+          <div class="kpi accent-green">
+            <h3>Control Coverage</h3>
+            <div class="value">91%</div>
+            <div class="sub">ISO + NIST mapped</div>
+          </div>
+          <div class="kpi">
+            <h3>Reg Update SLA</h3>
+            <div class="value">22h</div>
+            <div class="sub">HKMA / MAS feed</div>
+          </div>
+        </section>
+
+        <section class="grid">
+          <div class="card">
+            <h4>Trends</h4>
+            <div class="placeholder">Risk Posture + Control Effectiveness Charts</div>
+          </div>
+          <div class="card">
+            <h4>AI Highlights</h4>
+            <div class="insight">
+              <div class="title">Top 3 gaps in evidence mapping <span class="badge">Needs Review</span></div>
+              <div class="meta">Confidence 0.82 · 4 sources</div>
+            </div>
+            <div class="insight">
+              <div class="title">Reg change impact: HKMA circular update</div>
+              <div class="meta">Controls affected: 12 · 2 high priority</div>
+            </div>
+            <div class="insight">
+              <div class="title">Issue risk trending up in Payments</div>
+              <div class="meta">Recommended action: escalate</div>
+            </div>
+          </div>
+        </section>
+
+        <div class="footer-actions">
+          <button>Open Evidence Hub</button>
+          <button>Run Gap Analysis</button>
+          <button>View 3LOD Alignment</button>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

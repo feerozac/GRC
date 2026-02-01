@@ -1,0 +1,31 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Environment
+.env
+.env.*
+*.local
+
+# AWS
+AWSCLIV2.pkg
+
+# Build outputs
+dist/
+build/
+
+# IDE
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Logs
+*.log
+npm-debug.log*
+
+# Generated images (can regenerate)
+_bmad-output/images/
+
+# Cursor/IDE project files
+.cursor/projects/
