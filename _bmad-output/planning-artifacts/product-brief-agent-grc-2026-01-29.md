@@ -88,3 +88,149 @@ An agentic AI–enabled enterprise GRC platform that automates the work while pr
 ### Competitive Positioning
 
 Position as the **only agent-first GRC platform** built for continuous governance, not workflow automation with AI bolted on.
+
+---
+
+## Liability & Accountability Framework
+
+Agentic AI GRC is designed for **accountability by design**, not liability transfer. AI outputs are recommendations, not decisions. Every material action requires human approval from a role-appropriate reviewer, with mandatory explainability and an immutable audit trail. Contractual terms are explicit: the AI assists, the human decides, the customer owns the outcome. This model aligns with emerging regulatory expectations (HKMA, MAS, EU AI Act) for AI in governance.
+
+---
+
+## Explainability Framework Alignment
+
+Agentic AI GRC implements a **6-layer explainability framework** aligned to international standards:
+
+### Standards Alignment
+
+| Standard | Status | Relevance |
+|----------|--------|-----------|
+| **NIST AI RMF** | Voluntary; US baseline | Govern → Map → Measure → Manage structure |
+| **ISO/IEC 42001:2023** | Certifiable | AI Management System; PDCA audit trail |
+| **EU AI Act** | Legally binding (EU) | Transparency & human oversight (Art. 13, 14) |
+| **MAS AI Risk Guidelines** | Final 2026 | APAC financial services lifecycle controls |
+| **HKMA GenAI Principles** | Active | Hong Kong market alignment |
+
+### 6-Layer Explainability Model
+
+| Layer | Requirement | Framework Alignment |
+|-------|-------------|---------------------|
+| **1. Decision Transparency** | Every AI recommendation includes: sources, confidence score, reasoning chain | NIST AI RMF, EU AI Act Art. 13 |
+| **2. Audit Trail Integrity** | Immutable, tamper-evident log of all AI outputs + human approvals | ISO/IEC 42001, MAS lifecycle controls |
+| **3. Role-Appropriate Review** | High-risk outputs require approval by qualified reviewer (not rubber-stamp) | MAS human oversight, EU AI Act Art. 14 |
+| **4. Confidence Thresholds** | Low-confidence outputs flagged for mandatory human drafting | MAS proportionate approach |
+| **5. Regulator-Ready Reports** | On-demand explainability reports: plain language (board) + technical (auditor) | NIST Playbook, EU AI Act transparency |
+| **6. Continuous Monitoring** | Drift detection, periodic human-only audits, bias checks | ISO/IEC 42001 PDCA, MAS evaluation & testing |
+
+### Certification Roadmap
+
+| Milestone | Timeframe | Benefit |
+|-----------|-----------|---------|
+| **NIST AI RMF alignment** | Launch | US credibility, foundation for ISO |
+| **ISO/IEC 42001 certification** | Year 1 | International credibility, audit-ready |
+| **EU AI Act compliance** | Year 1-2 | EU market access |
+| **MAS/HKMA sandbox participation** | Year 1 | APAC regulator relationship |
+
+---
+
+## Go-to-Market Trust Strategy
+
+Enterprise buyers (CISOs, CROs) are risk-averse. "Nobody got fired for buying IBM" is a real barrier. Our trust-building strategy:
+
+| Tactic | Implementation | Outcome |
+|--------|----------------|---------|
+| **Regulator endorsement** | Participate in MAS/HKMA GenAI Sandboxes | "Regulator-vetted" positioning |
+| **Big 4 partnership** | Strategic alliance with Deloitte, KPMG, or PwC for implementation | Trust transfer via established brand |
+| **ISO/IEC 42001 certification** | Independent AI governance audit | Buyers can point to certification |
+| **Cyber insurance backing** | Partner with insurer to offer "AI GRC coverage" add-on | Transfers perceived risk |
+| **Pilot-first sales model** | 90-day paid pilot with defined success metrics | Low-risk entry for buyers |
+| **Case study velocity** | First 3 customers get discounted rates for public case studies | Social proof acceleration |
+
+---
+
+## Competitive Moat
+
+### Why Incumbents Can't Copy Quickly
+
+| Barrier | Incumbent Challenge | Time to Overcome |
+|---------|---------------------|------------------|
+| **Architecture debt** | ServiceNow/IBM built 10-15 years ago as workflow engines; agent-first requires core rearchitecture | 2-3 years |
+| **Data model lock-in** | Existing Risk → Control → Evidence schema; strategy-to-metrics lineage breaks deployments | 18+ months |
+| **Talent gap** | LLM/agent engineering ≠ enterprise workflow dev; hiring + culture integration slow | 12-18 months |
+| **Customer expectation anchor** | Customers bought "audit workflow"; pivot to "governance intelligence" confuses positioning | 12+ months |
+| **Cannibalization fear** | AI automating GRC work threatens professional services revenue; incentivized to go slow | Indefinite |
+
+### Time-to-Moat Calculation
+
+| Capability | Defensible Lead |
+|------------|-----------------|
+| Agent-first architecture | 18+ months |
+| 3LOD persona engine | 12+ months |
+| Strategy-to-metrics lineage | 18+ months |
+| APAC regulatory feed (24h SLA) | 12+ months |
+| **Total estimated lead** | **18-24 months** |
+
+---
+
+## Go-to-Market Economics
+
+Enterprise GRC deals take 9-18 months. Our strategy to reduce cash-to-close risk:
+
+### Revenue Model
+
+| Lever | Implementation | Benefit |
+|-------|----------------|---------|
+| **Mid-market wedge** | Target 500-2000 employee firms first | Faster cycles (3-6 months) |
+| **PLG component** | Free "Governance Health Check" tool (upload annual report → gap analysis) | Lead generation + upsell |
+| **Usage-based pricing** | Lower entry point + expansion as agents/users/documents scale | Land-and-expand |
+| **Channel leverage** | Big 4 / regional consultancies sell and implement | Platform fee + services split |
+| **APAC focus** | Smaller market but less competition | Faster regulator relationships |
+
+### Runway Protection
+
+| Scenario | Response |
+|----------|----------|
+| First 2 enterprise deals slip | Mid-market pipeline provides 6+ smaller deals to bridge |
+| Burn exceeds plan | Reduce R&D; core platform stable, prioritize sales engineering |
+| Competitor fast-follow | Double down on APAC; incumbents won't prioritize HK/SG first |
+
+---
+
+## Proof of Differentiation
+
+### The "Cannot Do" Test
+
+What can Agentic AI GRC do that IBM OpenPages literally cannot do today?
+
+| Capability | IBM OpenPages | Agentic AI GRC |
+|------------|---------------|----------------|
+| Ingest annual report → auto-generate governance objectives | ❌ No document AI | ✅ Native |
+| Map org chart to process ownership suggestions | ❌ Manual entry only | ✅ AI-proposed |
+| Real-time regulatory change → auto-gap analysis (24h SLA) | ❌ Quarterly manual updates | ✅ HKMA/MAS feeds |
+| 3LOD-persona agents with distinct challenge/audit behaviors | ❌ Single user role model | ✅ 1L/2L/3L personas |
+| Strategy statement → KCI/KRI linkage with confidence scores | ❌ No strategy ingestion | ✅ Round-trip lineage |
+| Adversarial control testing by AI red team | ❌ No adversarial capability | ✅ Built-in |
+
+### The 60-Second Demo
+
+> "Upload your annual report. In 60 seconds, we'll show you:
+> 1. Extracted strategic priorities
+> 2. Mapped governance objectives
+> 3. Suggested KCIs with confidence scores
+> 4. Gap analysis against HKMA guidelines
+>
+> IBM can't do step 1."
+
+This demo is the proof point for every sales conversation.
+
+---
+
+## Risk Summary (Shark Tank Stress Test)
+
+| Challenge | Risk | Mitigation |
+|-----------|------|------------|
+| **Enterprise trust** | CISOs won't risk career on unproven startup | Regulator sandbox + Big 4 + ISO cert + insurance |
+| **AI liability** | Who's liable when AI gets it wrong? | Accountability by design; human decides, AI assists |
+| **Incumbent fast-follow** | ServiceNow ships in 6 months | 18-24 month moat; architecture debt |
+| **Unit economics** | Long sales cycles burn cash | Mid-market wedge + PLG + channel + APAC focus |
+| **Differentiation proof** | "Agent-first" is just buzzwords | 60-second annual report demo |

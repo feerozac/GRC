@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Boardroom to Control Objectives — Prototype</title>
+    <title>Agentic AI GRC Platform — Prototype</title>
     <style>
       :root {
         --bg: #0b0f1a;
@@ -16,6 +16,8 @@
         --teal: #22d3ee;
         --purple: #a855f7;
         --green: #34d399;
+        --red: #f87171;
+        --orange: #fb923c;
       }
       * { box-sizing: border-box; }
       body {
@@ -23,6 +25,40 @@
         background: var(--bg);
         color: var(--text);
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      }
+      /* Navigation */
+      nav {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        padding: 0 22px;
+        background: #0c0f14;
+        border-bottom: 1px solid var(--line);
+      }
+      nav .logo {
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--text);
+        text-decoration: none;
+        padding: 14px 0;
+      }
+      nav .nav-links {
+        display: flex;
+        gap: 4px;
+      }
+      nav .nav-links a {
+        color: var(--muted);
+        text-decoration: none;
+        font-size: 13px;
+        padding: 14px 12px;
+        border-bottom: 2px solid transparent;
+        transition: color 0.2s, border-color 0.2s;
+        cursor: pointer;
+      }
+      nav .nav-links a:hover { color: var(--text); }
+      nav .nav-links a.active {
+        color: var(--blue);
+        border-bottom-color: var(--blue);
       }
       header {
         padding: 18px 22px;
@@ -32,6 +68,15 @@
       header h1 { margin: 0 0 6px; font-size: 20px; }
       header p { margin: 0; color: var(--muted); font-size: 12px; }
       .page { padding: 18px 22px 40px; }
+      .page-section { display: none; }
+      .page-section.active { display: block; }
+      .section-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+      }
+      .section-header h2 { margin: 0; font-size: 16px; }
       .grid {
         display: grid;
         gap: 12px;
@@ -166,15 +211,90 @@
       .active-step { box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.5); }
       .approved { border-left-color: var(--green); }
       .warning { border-left-color: var(--blue); }
+      /* Stat Cards */
+      .stat-card { text-align: center; padding: 16px; }
+      .stat-value { font-size: 32px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+      .stat-label { font-size: 12px; color: var(--muted); }
+      .stat-change { font-size: 11px; margin-top: 8px; }
+      .stat-change.positive { color: var(--green); }
+      .stat-change.negative { color: var(--red); }
+      /* Progress Bar */
+      .progress-bar { height: 6px; background: var(--panel-2); border-radius: 3px; overflow: hidden; margin-top: 8px; }
+      .progress-bar .fill { height: 100%; border-radius: 3px; transition: width 0.3s; }
+      .progress-bar .fill.green { background: var(--green); }
+      .progress-bar .fill.blue { background: var(--blue); }
+      .progress-bar .fill.orange { background: var(--orange); }
+      .progress-bar .fill.red { background: var(--red); }
+      /* Status Indicators */
+      .status { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; }
+      .status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; }
+      .status.green::before { background: var(--green); }
+      .status.orange::before { background: var(--orange); }
+      .status.red::before { background: var(--red); }
+      .status.blue::before { background: var(--blue); }
+      /* Alert Boxes */
+      .alert { padding: 12px; border-radius: 8px; font-size: 13px; margin-bottom: 12px; }
+      .alert.info { background: rgba(56, 189, 248, 0.1); border: 1px solid var(--blue); color: var(--blue); }
+      .alert.success { background: rgba(52, 211, 153, 0.1); border: 1px solid var(--green); color: var(--green); }
+      .alert.warning { background: rgba(251, 146, 60, 0.1); border: 1px solid var(--orange); color: var(--orange); }
+      .alert.error { background: rgba(248, 113, 113, 0.1); border: 1px solid var(--red); color: var(--red); }
+      /* Accordion */
+      .accordion-item { border: 1px solid var(--line); border-radius: 8px; margin-bottom: 8px; overflow: hidden; }
+      .accordion-header { display: flex; align-items: center; justify-content: space-between; padding: 12px; background: #0f162b; cursor: pointer; font-size: 13px; }
+      .accordion-header::after { content: "+"; font-size: 16px; color: var(--muted); }
+      .accordion-item.open .accordion-header::after { content: "-"; }
+      .accordion-content { padding: 0; max-height: 0; overflow: hidden; transition: max-height 0.3s, padding 0.3s; }
+      .accordion-item.open .accordion-content { padding: 12px; max-height: 500px; }
+      /* Timeline */
+      .timeline { position: relative; padding-left: 20px; }
+      .timeline::before { content: ""; position: absolute; left: 6px; top: 0; bottom: 0; width: 2px; background: var(--line); }
+      .timeline-item { position: relative; padding: 12px 0; }
+      .timeline-item::before { content: ""; position: absolute; left: -20px; top: 16px; width: 10px; height: 10px; background: var(--panel); border: 2px solid var(--blue); border-radius: 50%; }
+      .timeline-item.completed::before { background: var(--green); border-color: var(--green); }
+      .timeline-date { font-size: 11px; color: var(--muted); margin-bottom: 4px; }
+      .timeline-content { font-size: 13px; }
+      /* Button variants */
+      .btn { cursor: pointer; transition: background 0.2s, border-color 0.2s; }
+      .btn:hover { background: var(--panel-2); border-color: var(--blue); }
+      .btn.primary { background: var(--blue); border-color: var(--blue); color: #0b0f1a; }
+      .btn.primary:hover { background: #5bc9f9; }
+      /* Card clickable */
+      .card.clickable { cursor: pointer; transition: border-color 0.2s, box-shadow 0.2s; }
+      .card.clickable:hover { border-color: var(--blue); box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.3); }
+      /* Form Elements */
+      .form-group { margin-bottom: 16px; }
+      .form-group label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+      .form-group input, .form-group select { width: 100%; padding: 10px; background: var(--panel-2); border: 1px solid var(--line); border-radius: 8px; color: var(--text); font-size: 13px; }
+      .form-group input:focus, .form-group select:focus { outline: none; border-color: var(--blue); }
+      @media (max-width: 768px) { .grid.two, .grid.three { grid-template-columns: 1fr; } }
     </style>
   </head>
   <body>
-    <header>
-      <h1>Boardroom → Control Objectives</h1>
-      <p>Single‑page prototype: ingest boardroom inputs, map to governance objectives and controls, review with explainability.</p>
-    </header>
+    <nav>
+      <a class="logo">Agentic AI GRC</a>
+      <div class="nav-links">
+        <a class="active" data-page="workflow">Workflow</a>
+        <a data-page="dashboard">Dashboard</a>
+        <a data-page="about">About</a>
+        <a data-page="help">Help</a>
+      </div>
+    </nav>
 
     <div class="page">
+      <!-- WORKFLOW PAGE -->
+      <div class="page-section active" id="page-workflow">
+      <div class="section-header">
+        <h2>Boardroom → Control Objectives</h2>
+        <div style="display: flex; gap: 8px;">
+          <span class="status green">System Online</span>
+          <button class="btn primary">Export Report</button>
+        </div>
+      </div>
+
+      <div class="alert info">
+        <strong>Workflow Active:</strong> Ingest boardroom inputs, map to governance objectives and controls, review with explainability.
+      </div>
+
       <div class="card">
         <h2>Flow Overview</h2>
         <div class="flow" id="flow-steps">
@@ -433,6 +553,109 @@
             <button class="btn" id="approve-explain">Approve</button>
           </div>
         </div>
+      </div>
+
+      <!-- 6-Layer Explainability Framework -->
+      <div class="grid two" style="margin-top: 12px;">
+        <div class="card">
+          <h2>6-Layer Explainability Framework</h2>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Layer</th>
+                <th>Requirement</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1. Decision Transparency</td>
+                <td>Sources, confidence, reasoning</td>
+                <td style="color: var(--green);">✓ Active</td>
+              </tr>
+              <tr>
+                <td>2. Audit Trail Integrity</td>
+                <td>Immutable log of AI + human actions</td>
+                <td style="color: var(--green);">✓ Active</td>
+              </tr>
+              <tr>
+                <td>3. Role-Appropriate Review</td>
+                <td>Qualified reviewer for high-risk</td>
+                <td style="color: var(--green);">✓ Active</td>
+              </tr>
+              <tr>
+                <td>4. Confidence Thresholds</td>
+                <td>Low-confidence → human draft</td>
+                <td style="color: var(--blue);">◐ 87%</td>
+              </tr>
+              <tr>
+                <td>5. Regulator-Ready Reports</td>
+                <td>Plain language + technical</td>
+                <td style="color: var(--green);">✓ Active</td>
+              </tr>
+              <tr>
+                <td>6. Continuous Monitoring</td>
+                <td>Drift detection, bias checks</td>
+                <td style="color: var(--blue);">◐ Scheduled</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card">
+          <h2>Standards Alignment</h2>
+          <ul class="list">
+            <li>NIST AI RMF <span class="tag" style="border-color: var(--green);">Aligned</span></li>
+            <li>ISO/IEC 42001:2023 <span class="tag" style="border-color: var(--blue);">In Progress</span></li>
+            <li>EU AI Act (Art. 13, 14) <span class="tag" style="border-color: var(--green);">Aligned</span></li>
+            <li>MAS AI Risk Guidelines <span class="tag" style="border-color: var(--green);">Aligned</span></li>
+            <li>HKMA GenAI Principles <span class="tag" style="border-color: var(--green);">Aligned</span></li>
+          </ul>
+          <button class="btn">Generate Compliance Report</button>
+        </div>
+      </div>
+
+      <!-- Liability & Accountability -->
+      <div class="grid two" style="margin-top: 12px;">
+        <div class="card">
+          <h2>Liability & Accountability</h2>
+          <ul class="list">
+            <li>AI outputs are <strong>recommendations</strong>, not decisions <span class="tag">Policy</span></li>
+            <li>Human approval required for material actions <span class="tag">HITL Gate</span></li>
+            <li>Immutable audit trail for all AI + human actions <span class="tag">Audit</span></li>
+            <li>Contractual clarity: AI assists, human decides, customer owns <span class="tag">Legal</span></li>
+          </ul>
+        </div>
+        <div class="card">
+          <h2>Confidence Scoring</h2>
+          <div style="margin-bottom: 10px;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+              <span>Control Mapping Confidence</span>
+              <span style="color: var(--green);">92%</span>
+            </div>
+            <div style="background: var(--panel-2); border-radius: 4px; height: 8px;">
+              <div style="background: var(--green); width: 92%; height: 100%; border-radius: 4px;"></div>
+            </div>
+          </div>
+          <div style="margin-bottom: 10px;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+              <span>Regulatory Gap Analysis</span>
+              <span style="color: var(--blue);">78%</span>
+            </div>
+            <div style="background: var(--panel-2); border-radius: 4px; height: 8px;">
+              <div style="background: var(--blue); width: 78%; height: 100%; border-radius: 4px;"></div>
+            </div>
+          </div>
+          <div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+              <span>KCI Suggestion</span>
+              <span style="color: var(--teal);">85%</span>
+            </div>
+            <div style="background: var(--panel-2); border-radius: 4px; height: 8px;">
+              <div style="background: var(--teal); width: 85%; height: 100%; border-radius: 4px;"></div>
+            </div>
+          </div>
+          <p style="margin-top: 10px; font-size: 11px; color: var(--muted);">Outputs below 70% threshold require human drafting</p>
+        </div>
         <div class="card" id="evidence-card">
           <h2>Metrics & Evidence</h2>
           <ul class="list">
@@ -443,6 +666,342 @@
           <button class="btn" id="create-monitoring">Create Monitoring</button>
         </div>
       </div>
+      </div><!-- END WORKFLOW PAGE -->
+
+      <!-- DASHBOARD PAGE -->
+      <div class="page-section" id="page-dashboard">
+        <div class="section-header">
+          <h2>Governance Dashboard</h2>
+          <div style="display: flex; gap: 8px;">
+            <button class="btn">Refresh</button>
+            <button class="btn primary">Export Report</button>
+          </div>
+        </div>
+
+        <div class="grid four" style="grid-template-columns: repeat(4, 1fr); margin-bottom: 12px;">
+          <div class="card stat-card">
+            <div class="stat-value" style="color: var(--green);">94%</div>
+            <div class="stat-label">Control Effectiveness</div>
+            <div class="stat-change positive">↑ 3% from last month</div>
+          </div>
+          <div class="card stat-card">
+            <div class="stat-value" style="color: var(--blue);">47</div>
+            <div class="stat-label">Active Controls</div>
+            <div class="stat-change positive">↑ 5 new this quarter</div>
+          </div>
+          <div class="card stat-card">
+            <div class="stat-value" style="color: var(--orange);">8</div>
+            <div class="stat-label">Open Issues</div>
+            <div class="stat-change negative">↑ 2 from last week</div>
+          </div>
+          <div class="card stat-card">
+            <div class="stat-value" style="color: var(--teal);">12h</div>
+            <div class="stat-label">Avg Reg Response</div>
+            <div class="stat-change positive">↓ 6h improvement</div>
+          </div>
+        </div>
+
+        <div class="grid two" style="margin-bottom: 12px;">
+          <div class="card">
+            <h2>Framework Coverage</h2>
+            <div style="margin-top: 12px;">
+              <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                <span>ISO 27001</span><span style="color: var(--green);">92%</span>
+              </div>
+              <div class="progress-bar"><div class="fill green" style="width: 92%;"></div></div>
+            </div>
+            <div style="margin-top: 12px;">
+              <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                <span>NIST CSF</span><span style="color: var(--green);">88%</span>
+              </div>
+              <div class="progress-bar"><div class="fill green" style="width: 88%;"></div></div>
+            </div>
+            <div style="margin-top: 12px;">
+              <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                <span>HKMA Guidelines</span><span style="color: var(--blue);">76%</span>
+              </div>
+              <div class="progress-bar"><div class="fill blue" style="width: 76%;"></div></div>
+            </div>
+            <div style="margin-top: 12px;">
+              <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                <span>MAS TRM</span><span style="color: var(--orange);">64%</span>
+              </div>
+              <div class="progress-bar"><div class="fill orange" style="width: 64%;"></div></div>
+            </div>
+          </div>
+          <div class="card">
+            <h2>Recent Activity</h2>
+            <div class="timeline">
+              <div class="timeline-item completed">
+                <div class="timeline-date">Today, 10:32 AM</div>
+                <div class="timeline-content">Control IAM-003 evidence updated by 1L Ops Agent</div>
+              </div>
+              <div class="timeline-item completed">
+                <div class="timeline-date">Today, 09:15 AM</div>
+                <div class="timeline-content">HKMA regulatory change detected and analyzed</div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-date">Yesterday, 4:45 PM</div>
+                <div class="timeline-content">Quarterly access recertification flagged for remediation</div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-date">Yesterday, 2:30 PM</div>
+                <div class="timeline-content">Board strategy document ingested and processed</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid two">
+          <div class="card">
+            <h2>Risk Heat Map</h2>
+            <table class="table" style="margin-top: 8px;">
+              <thead>
+                <tr><th>Risk Area</th><th>Impact</th><th>Likelihood</th><th>Status</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Regulatory Non-Compliance</td><td>High</td><td>Low</td><td><span class="status green">Green</span></td></tr>
+                <tr><td>Data Privacy Breach</td><td>High</td><td>Medium</td><td><span class="status orange">Amber</span></td></tr>
+                <tr><td>Access Control Failure</td><td>Medium</td><td>Medium</td><td><span class="status orange">Amber</span></td></tr>
+                <tr><td>Evidence Gap</td><td>Medium</td><td>High</td><td><span class="status red">Red</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card">
+            <h2>Agent Performance</h2>
+            <div class="agent-grid" style="margin-top: 8px;">
+              <div class="agent-card" style="border-left: 3px solid var(--blue);">
+                <h3>1L Ops Agent</h3>
+                <div style="font-size: 24px; font-weight: 600; color: var(--blue);">156</div>
+                <div class="muted" style="font-size: 11px;">Actions this week</div>
+              </div>
+              <div class="agent-card" style="border-left: 3px solid var(--purple);">
+                <h3>2L Risk Agent</h3>
+                <div style="font-size: 24px; font-weight: 600; color: var(--purple);">89</div>
+                <div class="muted" style="font-size: 11px;">Reviews completed</div>
+              </div>
+              <div class="agent-card" style="border-left: 3px solid var(--green);">
+                <h3>3L Audit Agent</h3>
+                <div style="font-size: 24px; font-weight: 600; color: var(--green);">34</div>
+                <div class="muted" style="font-size: 11px;">Tests executed</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- END DASHBOARD PAGE -->
+
+      <!-- ABOUT PAGE -->
+      <div class="page-section" id="page-about">
+        <div class="section-header">
+          <h2>About the Platform</h2>
+        </div>
+
+        <div class="grid two" style="margin-bottom: 12px;">
+          <div class="card">
+            <h2>Overview</h2>
+            <p style="font-size: 13px; line-height: 1.6; color: var(--muted);">
+              The Agentic AI GRC Platform transforms boardroom priorities into actionable control objectives. 
+              Using AI-powered agents and explainable decision-making, organizations maintain continuous compliance 
+              while reducing manual audit preparation time.
+            </p>
+            <p style="font-size: 13px; line-height: 1.6; color: var(--muted); margin-top: 12px;">
+              The platform bridges the gap between strategic governance decisions and operational control 
+              implementation through automated mapping, intelligent recommendations, and real-time monitoring.
+            </p>
+          </div>
+          <div class="card">
+            <h2>Key Capabilities</h2>
+            <ul class="list">
+              <li><strong>Boardroom Theme Extraction</strong><div class="muted" style="font-size: 11px; margin-top: 4px;">AI-powered extraction of strategic priorities from board documents</div></li>
+              <li><strong>Framework Mapping</strong><div class="muted" style="font-size: 11px; margin-top: 4px;">Automatic alignment to COBIT, COSO, ISO 27001, NIST CSF, and regulatory frameworks</div></li>
+              <li><strong>Control Tower</strong><div class="muted" style="font-size: 11px; margin-top: 4px;">Real-time monitoring of KCIs, KRIs, and risk appetite alignment</div></li>
+              <li><strong>Explainable AI</strong><div class="muted" style="font-size: 11px; margin-top: 4px;">Full transparency into AI decision rationale with source citations</div></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 12px;">
+          <h2>Three Lines of Defense Model</h2>
+          <p style="font-size: 13px; color: var(--muted); margin-bottom: 16px;">
+            The platform implements a comprehensive three-line defense model through specialized AI agents:
+          </p>
+          <div class="agent-grid">
+            <div class="agent-card" style="border-left: 3px solid var(--blue);">
+              <h3>1st Line: Operations Agent</h3>
+              <div class="agent-role">Control Implementation & Evidence</div>
+              <ul style="margin: 12px 0 0; padding-left: 16px; font-size: 12px; color: var(--muted);">
+                <li>Defines and implements operational controls</li>
+                <li>Manages evidence collection and documentation</li>
+                <li>Ensures day-to-day compliance with policies</li>
+                <li>Performs control self-assessments (RCSA)</li>
+              </ul>
+            </div>
+            <div class="agent-card" style="border-left: 3px solid var(--purple);">
+              <h3>2nd Line: Risk Agent</h3>
+              <div class="agent-role">Risk Oversight & Governance</div>
+              <ul style="margin: 12px 0 0; padding-left: 16px; font-size: 12px; color: var(--muted);">
+                <li>Monitors risk posture and appetite alignment</li>
+                <li>Maps controls to governance frameworks</li>
+                <li>Reviews and challenges 1st line assessments</li>
+                <li>Manages regulatory change impact analysis</li>
+              </ul>
+            </div>
+            <div class="agent-card" style="border-left: 3px solid var(--green);">
+              <h3>3rd Line: Audit Agent</h3>
+              <div class="agent-role">Independent Assurance</div>
+              <ul style="margin: 12px 0 0; padding-left: 16px; font-size: 12px; color: var(--muted);">
+                <li>Provides independent control testing</li>
+                <li>Validates evidence quality and completeness</li>
+                <li>Identifies control gaps and weaknesses</li>
+                <li>Supports external audit preparation</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid two" style="margin-bottom: 12px;">
+          <div class="card">
+            <h2>Supported Frameworks</h2>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px;">
+              <div class="pill" style="border-color: var(--blue);">COBIT 2019</div>
+              <div class="pill" style="border-color: var(--teal);">COSO ERM</div>
+              <div class="pill" style="border-color: var(--purple);">ISO 27001</div>
+              <div class="pill" style="border-color: var(--green);">NIST CSF</div>
+              <div class="pill" style="border-color: var(--orange);">HKMA</div>
+              <div class="pill" style="border-color: var(--blue);">MAS TRM</div>
+              <div class="pill">SOC 2</div>
+              <div class="pill">PCI DSS</div>
+              <div class="pill">GDPR</div>
+              <div class="pill">Basel III</div>
+            </div>
+            <p style="font-size: 12px; color: var(--muted); margin-top: 16px;">
+              Custom frameworks can be added. The platform automatically maps controls across multiple 
+              frameworks to identify coverage gaps and redundancies.
+            </p>
+          </div>
+          <div class="card">
+            <h2>Platform Benefits</h2>
+            <ul class="rec-list">
+              <li><div style="display: flex; justify-content: space-between;"><strong>Reduced Audit Prep Time</strong><span class="tag" style="border-color: var(--green); color: var(--green);">-60%</span></div><div class="muted" style="font-size: 11px; margin-top: 4px;">Continuous evidence collection eliminates last-minute scrambles</div></li>
+              <li><div style="display: flex; justify-content: space-between;"><strong>Improved Control Coverage</strong><span class="tag" style="border-color: var(--green); color: var(--green);">+35%</span></div><div class="muted" style="font-size: 11px; margin-top: 4px;">AI-driven gap analysis identifies missing controls</div></li>
+              <li><div style="display: flex; justify-content: space-between;"><strong>Faster Reg Response</strong><span class="tag" style="border-color: var(--green); color: var(--green);">&lt;24h</span></div><div class="muted" style="font-size: 11px; margin-top: 4px;">Automated regulatory change impact assessment</div></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Version Information</h2>
+          <table class="table" style="width: auto;">
+            <tbody>
+              <tr><td>Platform Version</td><td>1.0.0 (Prototype)</td></tr>
+              <tr><td>AI Engine</td><td>v2.3.1</td></tr>
+              <tr><td>Framework Library</td><td>2026.Q1</td></tr>
+              <tr><td>Last Updated</td><td>January 2026</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div><!-- END ABOUT PAGE -->
+
+      <!-- HELP PAGE -->
+      <div class="page-section" id="page-help">
+        <div class="section-header">
+          <h2>Help & Documentation</h2>
+          <div style="display: flex; gap: 8px;">
+            <input type="text" placeholder="Search documentation..." style="padding: 8px 12px; background: var(--panel-2); border: 1px solid var(--line); border-radius: 8px; color: var(--text); font-size: 13px; width: 250px;" />
+            <button class="btn">Search</button>
+          </div>
+        </div>
+
+        <div class="grid three" style="margin-bottom: 12px;">
+          <div class="card clickable">
+            <h2>Getting Started</h2>
+            <p class="muted" style="font-size: 12px;">Learn the basics of using the GRC Platform to transform boardroom priorities into control objectives.</p>
+            <div style="margin-top: 12px;"><span class="tag">5 min read</span><span class="tag">Beginner</span></div>
+          </div>
+          <div class="card clickable">
+            <h2>Workflow Guide</h2>
+            <p class="muted" style="font-size: 12px;">Step-by-step instructions for the boardroom-to-control workflow process.</p>
+            <div style="margin-top: 12px;"><span class="tag">10 min read</span><span class="tag">Essential</span></div>
+          </div>
+          <div class="card clickable">
+            <h2>Agent Documentation</h2>
+            <p class="muted" style="font-size: 12px;">Understand how the three-line defense agents work and how to configure them.</p>
+            <div style="margin-top: 12px;"><span class="tag">15 min read</span><span class="tag">Advanced</span></div>
+          </div>
+        </div>
+
+        <div class="grid two" style="margin-bottom: 12px;">
+          <div class="card">
+            <h2>Frequently Asked Questions</h2>
+            <div class="accordion-item open">
+              <div class="accordion-header">How do I upload boardroom documents?</div>
+              <div class="accordion-content"><p class="muted" style="font-size: 12px; line-height: 1.6;">Navigate to the Workflow page and use the "Upload Document" button. Supported formats include PDF, DOCX, and plain text. You can also paste content directly.</p></div>
+            </div>
+            <div class="accordion-item">
+              <div class="accordion-header">What governance frameworks are supported?</div>
+              <div class="accordion-content"><p class="muted" style="font-size: 12px; line-height: 1.6;">The platform supports COBIT 2019, COSO ERM, ISO 27001, NIST CSF, HKMA, MAS TRM, SOC 2, PCI DSS, GDPR, and Basel III. Custom frameworks can be added.</p></div>
+            </div>
+            <div class="accordion-item">
+              <div class="accordion-header">How does the AI extraction work?</div>
+              <div class="accordion-content"><p class="muted" style="font-size: 12px; line-height: 1.6;">The AI analyzes boardroom documents to identify strategic themes, risk statements, and compliance commitments, then maps these to governance objectives with full explainability.</p></div>
+            </div>
+            <div class="accordion-item">
+              <div class="accordion-header">What is the three-line defense model?</div>
+              <div class="accordion-content"><p class="muted" style="font-size: 12px; line-height: 1.6;">The three-line model separates responsibilities: 1st Line (Operations) manages controls, 2nd Line (Risk) provides oversight, and 3rd Line (Audit) delivers independent assurance.</p></div>
+            </div>
+            <div class="accordion-item">
+              <div class="accordion-header">How do I challenge an AI decision?</div>
+              <div class="accordion-content"><p class="muted" style="font-size: 12px; line-height: 1.6;">In the Explainability Panel, click "Challenge" to flag a decision for review. Provide your rationale and it will be routed to the appropriate stakeholder.</p></div>
+            </div>
+          </div>
+          <div class="card">
+            <h2>Quick Reference</h2>
+            <h3 style="margin-top: 12px; font-size: 13px;">Workflow Steps</h3>
+            <ul class="list" style="margin-bottom: 16px;">
+              <li><strong>1. Boardroom Inputs</strong><div class="muted" style="font-size: 11px;">Upload or paste board documents</div></li>
+              <li style="border-left-color: var(--teal);"><strong>2. Governance Objectives</strong><div class="muted" style="font-size: 11px;">Review extracted themes and mappings</div></li>
+              <li style="border-left-color: var(--purple);"><strong>3. Control Objectives</strong><div class="muted" style="font-size: 11px;">Define and approve control objectives</div></li>
+              <li style="border-left-color: var(--blue);"><strong>4. Risk Appetite</strong><div class="muted" style="font-size: 11px;">Translate risk tolerance to policy</div></li>
+              <li style="border-left-color: var(--green);"><strong>5. Metrics</strong><div class="muted" style="font-size: 11px;">Set up KRIs, KCIs, and monitoring</div></li>
+            </ul>
+            <h3 style="font-size: 13px;">Status Indicators</h3>
+            <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 8px;">
+              <div style="display: flex; align-items: center; gap: 12px;"><span class="status green">Green</span><span class="muted" style="font-size: 12px;">On track / Within appetite</span></div>
+              <div style="display: flex; align-items: center; gap: 12px;"><span class="status orange">Amber</span><span class="muted" style="font-size: 12px;">Near threshold / Needs attention</span></div>
+              <div style="display: flex; align-items: center; gap: 12px;"><span class="status red">Red</span><span class="muted" style="font-size: 12px;">Exceeds appetite / Critical issue</span></div>
+              <div style="display: flex; align-items: center; gap: 12px;"><span class="status blue">Blue</span><span class="muted" style="font-size: 12px;">In progress / Pending review</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid two">
+          <div class="card">
+            <h2>Keyboard Shortcuts</h2>
+            <table class="table">
+              <thead><tr><th>Shortcut</th><th>Action</th></tr></thead>
+              <tbody>
+                <tr><td><code style="background: var(--panel-2); padding: 2px 6px; border-radius: 4px;">Ctrl + /</code></td><td>Open command palette</td></tr>
+                <tr><td><code style="background: var(--panel-2); padding: 2px 6px; border-radius: 4px;">Ctrl + S</code></td><td>Save current changes</td></tr>
+                <tr><td><code style="background: var(--panel-2); padding: 2px 6px; border-radius: 4px;">Ctrl + E</code></td><td>Run AI extraction</td></tr>
+                <tr><td><code style="background: var(--panel-2); padding: 2px 6px; border-radius: 4px;">?</code></td><td>Show help</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card">
+            <h2>Contact Support</h2>
+            <p class="muted" style="font-size: 12px; margin-bottom: 16px;">Need additional help? Our support team is available to assist you.</p>
+            <div class="form-group">
+              <label>Subject</label>
+              <input type="text" placeholder="Brief description of your issue" />
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <button class="btn primary">Submit Request</button>
+              <button class="btn">Schedule Call</button>
+            </div>
+          </div>
+        </div>
+      </div><!-- END HELP PAGE -->
+
     </div>
 
     <script>
@@ -487,6 +1046,42 @@
 
       approveExplain.addEventListener("click", () => {
         explainCard.classList.add("approved");
+      });
+
+      // Page Navigation
+      document.querySelectorAll('nav .nav-links a').forEach(link => {
+        link.addEventListener('click', function() {
+          const page = this.dataset.page;
+          // Update nav active state
+          document.querySelectorAll('nav .nav-links a').forEach(l => l.classList.remove('active'));
+          this.classList.add('active');
+          // Show/hide pages
+          document.querySelectorAll('.page-section').forEach(p => p.classList.remove('active'));
+          document.getElementById('page-' + page).classList.add('active');
+        });
+      });
+
+      // Accordion functionality
+      document.querySelectorAll('.accordion-header').forEach(header => {
+        header.addEventListener('click', function() {
+          this.parentElement.classList.toggle('open');
+        });
+      });
+
+      // Button click feedback
+      document.querySelectorAll('.btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          this.style.transform = 'scale(0.98)';
+          setTimeout(() => { this.style.transform = ''; }, 100);
+        });
+      });
+
+      // Clickable card feedback
+      document.querySelectorAll('.card.clickable').forEach(card => {
+        card.addEventListener('click', function() {
+          this.style.transform = 'scale(0.99)';
+          setTimeout(() => { this.style.transform = ''; }, 100);
+        });
       });
     </script>
   </body>

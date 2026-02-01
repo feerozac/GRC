@@ -99,6 +99,75 @@ li { margin-bottom: 4pt; }
 <li>Adversarial control testing; Predictive governance; Cross-enterprise audit consortium (future)</li>
 </ul>
 
+<h2>6a. Liability & Accountability Framework</h2>
+<p>Agentic AI GRC is designed for <strong>accountability by design</strong>, not liability transfer:</p>
+<ul>
+<li><strong>AI Assists:</strong> AI outputs are recommendations, not decisions. Every material action requires human approval.</li>
+<li><strong>Human Decides:</strong> Role-appropriate reviewer validates high-risk outputs from a role-appropriate reviewer (not rubber-stamp).</li>
+<li><strong>Customer Owns:</strong> Contractual clarity: AI assists, human decides, customer owns outcome. Aligns with HKMA, MAS, EU AI Act expectations.</li>
+</ul>
+
+<h2>6b. Explainability Framework (6-Layer Model)</h2>
+<p>Aligned to NIST AI RMF, ISO/IEC 42001:2023, EU AI Act, MAS AI Risk Guidelines, HKMA GenAI Principles:</p>
+<table>
+<tr><th>Layer</th><th>Requirement</th><th>Framework Alignment</th></tr>
+<tr><td>1. Decision Transparency</td><td>Sources, confidence score, reasoning chain</td><td>NIST AI RMF, EU AI Act Art. 13</td></tr>
+<tr><td>2. Audit Trail Integrity</td><td>Immutable, tamper-evident log of AI + human actions</td><td>ISO/IEC 42001, MAS lifecycle controls</td></tr>
+<tr><td>3. Role-Appropriate Review</td><td>High-risk outputs require qualified reviewer</td><td>MAS human oversight, EU AI Act Art. 14</td></tr>
+<tr><td>4. Confidence Thresholds</td><td>Low-confidence outputs flagged for human drafting</td><td>MAS proportionate approach</td></tr>
+<tr><td>5. Regulator-Ready Reports</td><td>Plain language (board) + technical (auditor)</td><td>NIST Playbook, EU AI Act transparency</td></tr>
+<tr><td>6. Continuous Monitoring</td><td>Drift detection, periodic audits, bias checks</td><td>ISO/IEC 42001 PDCA, MAS evaluation</td></tr>
+</table>
+<p><strong>Certification Roadmap:</strong> NIST AI RMF alignment (launch) → ISO/IEC 42001 certification (Year 1) → EU AI Act compliance (Year 1-2) → MAS/HKMA sandbox participation (Year 1).</p>
+
+<h2>6c. Go-to-Market Trust Strategy</h2>
+<table>
+<tr><th>Tactic</th><th>Implementation</th><th>Outcome</th></tr>
+<tr><td>Regulator endorsement</td><td>MAS/HKMA GenAI Sandbox participation</td><td>"Regulator-vetted" positioning</td></tr>
+<tr><td>Big 4 partnership</td><td>Deloitte, KPMG, or PwC implementation alliance</td><td>Trust transfer via established brand</td></tr>
+<tr><td>ISO/IEC 42001 certification</td><td>Independent AI governance audit</td><td>Buyers can point to certification</td></tr>
+<tr><td>Cyber insurance backing</td><td>Partner with insurer for "AI GRC coverage" add-on</td><td>Transfers perceived risk</td></tr>
+<tr><td>Pilot-first sales model</td><td>90-day paid pilot with defined success metrics</td><td>Low-risk entry for buyers</td></tr>
+</table>
+
+<h2>6d. Competitive Moat (18-24 Month Lead)</h2>
+<table>
+<tr><th>Barrier</th><th>Incumbent Challenge</th><th>Time to Overcome</th></tr>
+<tr><td>Architecture debt</td><td>ServiceNow/IBM built as workflow engines; agent-first requires rearchitecture</td><td>2-3 years</td></tr>
+<tr><td>Data model lock-in</td><td>Risk → Control → Evidence schema; strategy-to-metrics breaks deployments</td><td>18+ months</td></tr>
+<tr><td>Talent gap</td><td>LLM/agent engineering ≠ enterprise workflow dev</td><td>12-18 months</td></tr>
+<tr><td>Cannibalization fear</td><td>AI automating GRC work threatens services revenue</td><td>Indefinite</td></tr>
+</table>
+
+<h2>6e. Go-to-Market Economics</h2>
+<ul>
+<li><strong>Mid-market wedge:</strong> Target 500-2000 employee firms first (3-6 month cycles)</li>
+<li><strong>PLG component:</strong> Free "Governance Health Check" tool (upload annual report → gap analysis → upsell)</li>
+<li><strong>Usage-based pricing:</strong> Lower entry point + expansion as agents/users/documents scale</li>
+<li><strong>Channel leverage:</strong> Big 4 / regional consultancies sell and implement (platform fee + services split)</li>
+<li><strong>APAC focus:</strong> Smaller market but less competition, faster regulator relationships</li>
+</ul>
+
+<h2>6f. Proof of Differentiation — The 60-Second Demo</h2>
+<p>"Upload your annual report. In 60 seconds, we'll show you:</p>
+<ol>
+<li>Extracted strategic priorities</li>
+<li>Mapped governance objectives</li>
+<li>Suggested KCIs with confidence scores</li>
+<li>Gap analysis against HKMA guidelines</li>
+</ol>
+<p><strong>IBM can't do step 1.</strong>"</p>
+
+<h2>6g. Risk Summary (Shark Tank Stress Test)</h2>
+<table>
+<tr><th>Challenge</th><th>Risk</th><th>Mitigation</th></tr>
+<tr><td>Enterprise trust</td><td>CISOs won't risk career on unproven startup</td><td>Regulator sandbox + Big 4 + ISO cert + insurance</td></tr>
+<tr><td>AI liability</td><td>Who's liable when AI gets it wrong?</td><td>Accountability by design; human decides, AI assists</td></tr>
+<tr><td>Incumbent fast-follow</td><td>ServiceNow ships in 6 months</td><td>18-24 month moat; architecture debt</td></tr>
+<tr><td>Unit economics</td><td>Long sales cycles burn cash</td><td>Mid-market wedge + PLG + channel + APAC focus</td></tr>
+<tr><td>Differentiation proof</td><td>"Agent-first" is just buzzwords</td><td>60-second annual report demo</td></tr>
+</table>
+
 <h2>7. Three Lines of Defence (3LOD)</h2>
 <ul>
 <li><strong>First line (1L):</strong> My controls, evidence, issues, attestations.</li>

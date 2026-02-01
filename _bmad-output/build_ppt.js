@@ -308,12 +308,31 @@ addPillarsSlide("Board‑Defensible by Design", [
   { title: "Automation Without Dilution", body: "Work is automated while governance rigor stays intact.", accent: COLORS.neonPurple }
 ]);
 
-addBulletSlide("Defenses to Key Challenges", [
-  "Liability: human‑in‑the‑loop gates for high‑risk decisions; approvals mapped to 1L/2L/3L.",
-  "Explainability at scale: plain‑language executive narrative + technical rationale on demand.",
-  "Cost vs trust: automation handles repeatable work; assurance strengthened by continuous evidence.",
-  "Strategy → metrics: multi‑source interpretation with human validation and standards mapping.",
-  "3LOD trust: persona‑aligned agents preserve independence; transparent challenge flow."
+addPillarsSlide("Liability & Accountability Framework", [
+  { title: "AI Assists", body: "AI outputs are recommendations, not decisions. Every material action requires human approval.", accent: COLORS.neonBlue },
+  { title: "Human Decides", body: "Role-appropriate reviewer validates high-risk outputs. No rubber-stamping.", accent: COLORS.neonTeal },
+  { title: "Customer Owns", body: "Contractual clarity: AI assists, human decides, customer owns outcome. Regulator-aligned.", accent: COLORS.neonPurple }
+]);
+
+addGridSlide("6-Layer Explainability Model", [
+  { title: "1–2: Transparency + Audit", body: "Every AI recommendation: sources, confidence, reasoning chain. Immutable tamper-evident logs.", accent: COLORS.neonBlue },
+  { title: "3–4: Review + Thresholds", body: "High-risk = qualified reviewer. Low-confidence = mandatory human drafting.", accent: COLORS.neonTeal },
+  { title: "5: Regulator-Ready", body: "On-demand reports: plain language (board) + technical (auditor). NIST/ISO/EU AI Act aligned.", accent: COLORS.neonPurple },
+  { title: "6: Continuous Monitoring", body: "Drift detection, periodic human audits, bias checks. ISO 42001 PDCA cycle.", accent: COLORS.neonGreen }
+]);
+
+addPillarsSlide("Standards Alignment", [
+  { title: "NIST AI RMF", body: "Govern → Map → Measure → Manage. US baseline. Launch alignment.", accent: COLORS.neonBlue },
+  { title: "ISO/IEC 42001", body: "AI Management System. Certifiable. Year 1 target.", accent: COLORS.neonTeal },
+  { title: "MAS / HKMA / EU AI Act", body: "APAC financial services + EU transparency requirements. Sandbox participation.", accent: COLORS.neonPurple }
+]);
+
+addBulletSlide("Shark Tank: Key Challenges Addressed", [
+  "Enterprise trust: Regulator sandbox + Big 4 partnership + ISO cert + cyber insurance backing.",
+  "AI liability: Accountability by design — human decides, AI assists, immutable audit trail.",
+  "Incumbent fast-follow: 18-24 month moat; architecture debt; data model lock-in.",
+  "Unit economics: Mid-market wedge + PLG lead gen + channel leverage + APAC focus.",
+  "Differentiation proof: 60-second annual report demo — IBM can't do step 1."
 ]);
 
 addCompetitorTableSlide("Competitive Landscape (Snapshot)", [
@@ -328,6 +347,34 @@ addPillarsSlide("Why They Can’t Copy Fast", [
   { title: "Architecture Debt", body: "Incumbents built for workflows, not agent‑first governance.", accent: COLORS.neonBlue },
   { title: "APAC Focus Gap", body: "HKMA/MAS near‑real‑time intelligence is under‑served.", accent: COLORS.neonTeal },
   { title: "Governance Exoskeleton", body: "Strategy→objectives→policies→metrics→logs is a new data model.", accent: COLORS.neonPurple }
+]);
+
+addGridSlide("Competitive Moat — 18‑24 Month Lead", [
+  { title: "Agent‑First Architecture", body: "18+ months. Incumbents must rearchitect core, not add features.", accent: COLORS.neonBlue },
+  { title: "3LOD Persona Engine", body: "12+ months. Distinct 1L/2L/3L behaviors with challenge flows.", accent: COLORS.neonTeal },
+  { title: "Strategy‑to‑Metrics Lineage", body: "18+ months. Schema changes break existing deployments.", accent: COLORS.neonPurple },
+  { title: "APAC Regulatory Feed", body: "12+ months. HKMA/MAS 24h SLA. Relationship‑driven moat.", accent: COLORS.neonGreen }
+]);
+
+addPillarsSlide("Go‑to‑Market Trust Strategy", [
+  { title: "Regulator Endorsement", body: "MAS/HKMA GenAI Sandbox participation. 'Regulator‑vetted' positioning.", accent: COLORS.neonBlue },
+  { title: "Big 4 Partnership", body: "Deloitte/KPMG/PwC implementation alliance. Trust transfer via brand.", accent: COLORS.neonTeal },
+  { title: "Insurance + Certification", body: "ISO 42001 cert + cyber insurer AI GRC coverage add‑on.", accent: COLORS.neonPurple }
+]);
+
+addPillarsSlide("Go‑to‑Market Economics", [
+  { title: "Mid‑Market Wedge", body: "500‑2000 employees. 3‑6 month cycles. Land‑and‑expand.", accent: COLORS.neonBlue },
+  { title: "PLG Lead Gen", body: "Free 'Governance Health Check' — upload annual report → gap analysis → upsell.", accent: COLORS.neonTeal },
+  { title: "Channel Leverage", body: "Big 4 / regional consultancies sell & implement. Platform fee + services split.", accent: COLORS.neonPurple }
+]);
+
+addMetricSlide("The 60‑Second Demo", "60s", "Proof of differentiation", [
+  "1. Upload your annual report.",
+  "2. Extracted strategic priorities.",
+  "3. Mapped governance objectives.",
+  "4. Suggested KCIs with confidence scores.",
+  "5. Gap analysis against HKMA guidelines.",
+  "IBM can't do step 1."
 ]);
 
 addGridSlide("SWOT — Agentic AI GRC", [
