@@ -248,11 +248,14 @@
       /* Timeline */
       .timeline { position: relative; padding-left: 20px; }
       .timeline::before { content: ""; position: absolute; left: 6px; top: 0; bottom: 0; width: 2px; background: var(--line); }
-      .timeline-item { position: relative; padding: 12px 0; }
+      .timeline-item { position: relative; padding: 12px 0; padding-left: 24px; }
       .timeline-item::before { content: ""; position: absolute; left: -20px; top: 16px; width: 10px; height: 10px; background: var(--panel); border: 2px solid var(--blue); border-radius: 50%; }
       .timeline-item.completed::before { background: var(--green); border-color: var(--green); }
+      .timeline-marker { position: absolute; left: 0; top: 14px; width: 12px; height: 12px; border-radius: 50%; }
       .timeline-date { font-size: 11px; color: var(--muted); margin-bottom: 4px; }
       .timeline-content { font-size: 13px; }
+      .timeline-title { font-weight: 500; margin-bottom: 2px; }
+      @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
       /* Button variants */
       .btn { cursor: pointer; transition: background 0.2s, border-color 0.2s; }
       .btn:hover { background: var(--panel-2); border-color: var(--blue); }
@@ -274,6 +277,7 @@
       <a class="logo">Evonix</a>
       <div class="nav-links">
         <a class="active" data-page="workflow">Workflow</a>
+        <a data-page="policy-agent">Policy Agent</a>
         <a data-page="dashboard">Dashboard</a>
         <a data-page="about">About</a>
         <a data-page="help">Help</a>
@@ -1001,6 +1005,299 @@
           </div>
         </div>
       </div><!-- END HELP PAGE -->
+
+      <!-- POLICY AGENT PAGE -->
+      <div class="page-section" id="page-policy-agent">
+        <div class="section-header">
+          <h2>Autonomous Policy & Standards Agent</h2>
+          <div style="display: flex; gap: 8px;">
+            <button class="btn" id="upload-docs">Upload Documents</button>
+            <button class="btn primary" id="run-policy-agent">Run Policy Agent</button>
+          </div>
+        </div>
+
+        <!-- Input Sources -->
+        <div class="card" style="margin-bottom: 12px;">
+          <h2>Input Sources</h2>
+          <div class="grid three" style="gap: 12px;">
+            <div style="background: var(--panel-2); border-radius: 8px; padding: 12px; border: 1px dashed var(--line);">
+              <div style="font-size: 13px; font-weight: 500; margin-bottom: 8px;">📋 Board Documents</div>
+              <div style="font-size: 11px; color: var(--muted);">
+                <div>• Board Minutes Q4 2025.pdf <span class="tag" style="border-color: var(--green);">Processed</span></div>
+                <div>• Strategy Deck 2026.pptx <span class="tag" style="border-color: var(--green);">Processed</span></div>
+                <div>• Risk Appetite Statement.docx <span class="tag" style="border-color: var(--blue);">Pending</span></div>
+              </div>
+            </div>
+            <div style="background: var(--panel-2); border-radius: 8px; padding: 12px; border: 1px dashed var(--line);">
+              <div style="font-size: 13px; font-weight: 500; margin-bottom: 8px;">📜 Existing Policies</div>
+              <div style="font-size: 11px; color: var(--muted);">
+                <div>• Data Encryption Policy v2.1 <span class="tag" style="border-color: var(--orange);">Outdated</span></div>
+                <div>• Access Control Policy v3.0 <span class="tag" style="border-color: var(--green);">Current</span></div>
+                <div>• Incident Response Plan v1.5 <span class="tag" style="border-color: var(--orange);">Review Due</span></div>
+              </div>
+            </div>
+            <div style="background: var(--panel-2); border-radius: 8px; padding: 12px; border: 1px dashed var(--line);">
+              <div style="font-size: 13px; font-weight: 500; margin-bottom: 8px;">🔔 Regulatory Triggers</div>
+              <div style="font-size: 11px; color: var(--muted);">
+                <div>• HKMA GenAI Circular (Jan 2026) <span class="tag" style="border-color: var(--red);">New</span></div>
+                <div>• MAS TRM Update (Dec 2025) <span class="tag" style="border-color: var(--blue);">Analyzing</span></div>
+                <div>• NIST CSF 2.0 (Aug 2025) <span class="tag" style="border-color: var(--green);">Mapped</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Agent Processing Pipeline -->
+        <div class="card" style="margin-bottom: 12px;">
+          <h2>Agent Processing Pipeline</h2>
+          <div style="display: flex; align-items: center; gap: 8px; padding: 12px 0; overflow-x: auto;">
+            <div style="background: var(--green); color: var(--bg); padding: 8px 16px; border-radius: 8px; font-size: 12px; font-weight: 500; white-space: nowrap;">
+              1. Extract Objectives ✓
+            </div>
+            <div style="color: var(--muted);">→</div>
+            <div style="background: var(--green); color: var(--bg); padding: 8px 16px; border-radius: 8px; font-size: 12px; font-weight: 500; white-space: nowrap;">
+              2. Research Frameworks ✓
+            </div>
+            <div style="color: var(--muted);">→</div>
+            <div style="background: var(--blue); color: var(--bg); padding: 8px 16px; border-radius: 8px; font-size: 12px; font-weight: 500; white-space: nowrap; animation: pulse 2s infinite;">
+              3. Gap Analysis ◐
+            </div>
+            <div style="color: var(--muted);">→</div>
+            <div style="background: var(--panel-2); color: var(--muted); padding: 8px 16px; border-radius: 8px; font-size: 12px; font-weight: 500; white-space: nowrap;">
+              4. Draft Policies
+            </div>
+            <div style="color: var(--muted);">→</div>
+            <div style="background: var(--panel-2); color: var(--muted); padding: 8px 16px; border-radius: 8px; font-size: 12px; font-weight: 500; white-space: nowrap;">
+              5. Route for Review
+            </div>
+          </div>
+        </div>
+
+        <!-- Framework Knowledge Base -->
+        <div class="grid two" style="margin-bottom: 12px;">
+          <div class="card">
+            <h2>Framework Knowledge Base (20+ Indexed)</h2>
+            <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px;">
+              <span class="pill" style="border-color: var(--purple);">COBIT 2019</span>
+              <span class="pill" style="border-color: var(--purple);">ITIL v4</span>
+              <span class="pill" style="border-color: var(--purple);">COSO ERM</span>
+              <span class="pill" style="border-color: var(--blue);">NIST 800-53 r5</span>
+              <span class="pill" style="border-color: var(--blue);">NIST CSF 2.0</span>
+              <span class="pill" style="border-color: var(--blue);">ISO 27001</span>
+              <span class="pill" style="border-color: var(--blue);">ISO 27002</span>
+              <span class="pill" style="border-color: var(--teal);">FIPS 140-3</span>
+              <span class="pill" style="border-color: var(--teal);">FIPS 197</span>
+              <span class="pill" style="border-color: var(--green);">PCI DSS v4</span>
+              <span class="pill" style="border-color: var(--green);">SOC 2</span>
+              <span class="pill" style="border-color: var(--orange);">HKMA SPM</span>
+              <span class="pill" style="border-color: var(--orange);">MAS TRM</span>
+              <span class="pill" style="border-color: var(--orange);">Basel III</span>
+              <span class="pill">CIS Controls v8</span>
+            </div>
+            <div style="font-size: 11px; color: var(--muted);">
+              Agent cross-references overlapping requirements automatically (e.g., NIST AC-2 ↔ ISO A.9 ↔ COBIT DSS05.04)
+            </div>
+          </div>
+          <div class="card">
+            <h2>Cross-Framework Mapping</h2>
+            <table class="table" style="font-size: 11px;">
+              <thead>
+                <tr>
+                  <th>Domain</th>
+                  <th>NIST 800-53</th>
+                  <th>ISO 27001</th>
+                  <th>COBIT</th>
+                  <th>PCI DSS</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Access Control</td>
+                  <td>AC-1 to AC-25</td>
+                  <td>A.9</td>
+                  <td>DSS05.04</td>
+                  <td>Req 7, 8</td>
+                </tr>
+                <tr>
+                  <td>Encryption</td>
+                  <td>SC-13</td>
+                  <td>A.10</td>
+                  <td>DSS05.03</td>
+                  <td>Req 3, 4</td>
+                </tr>
+                <tr>
+                  <td>Change Mgmt</td>
+                  <td>CM-1 to CM-14</td>
+                  <td>A.12.1.2</td>
+                  <td>BAI06</td>
+                  <td>Req 6.5</td>
+                </tr>
+                <tr>
+                  <td>Incident Resp</td>
+                  <td>IR-1 to IR-10</td>
+                  <td>A.16</td>
+                  <td>DSS02</td>
+                  <td>Req 12.10</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Gap Analysis Results -->
+        <div class="card" style="margin-bottom: 12px;">
+          <h2>Gap Analysis Results</h2>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Policy/Standard</th>
+                <th>Gap Identified</th>
+                <th>Frameworks Affected</th>
+                <th>Priority</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Data Encryption Policy v2.1</strong></td>
+                <td>No FIPS 140-3 reference for cryptographic modules</td>
+                <td>FIPS 140-3, NIST 800-57, ISO 27001 A.10</td>
+                <td><span style="color: var(--red);">High</span></td>
+                <td><button class="btn" style="padding: 4px 8px; font-size: 10px;">Draft Revision</button></td>
+              </tr>
+              <tr>
+                <td><strong>Missing: Key Management Policy</strong></td>
+                <td>No formal key lifecycle management documented</td>
+                <td>NIST 800-57, PCI DSS Req 3.5-3.7</td>
+                <td><span style="color: var(--red);">High</span></td>
+                <td><button class="btn" style="padding: 4px 8px; font-size: 10px;">Draft New</button></td>
+              </tr>
+              <tr>
+                <td><strong>Incident Response Plan v1.5</strong></td>
+                <td>Missing AI-specific incident procedures</td>
+                <td>EU AI Act, MAS TRM</td>
+                <td><span style="color: var(--orange);">Medium</span></td>
+                <td><button class="btn" style="padding: 4px 8px; font-size: 10px;">Draft Revision</button></td>
+              </tr>
+              <tr>
+                <td><strong>Access Control Policy v3.0</strong></td>
+                <td>Zero Trust architecture not addressed</td>
+                <td>NIST 800-207, HKMA GenAI</td>
+                <td><span style="color: var(--orange);">Medium</span></td>
+                <td><button class="btn" style="padding: 4px 8px; font-size: 10px;">Draft Revision</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Policy Draft Panel -->
+        <div class="grid two">
+          <div class="card">
+            <h2>Policy Draft: Data Encryption Policy v3.0</h2>
+            <div style="background: var(--panel-2); border-radius: 8px; padding: 12px; font-size: 12px; max-height: 300px; overflow-y: auto;">
+              <div style="color: var(--green); margin-bottom: 8px;">+ Section 4.2 Cryptographic Module Requirements (NEW)</div>
+              <div style="padding-left: 12px; border-left: 2px solid var(--green); margin-bottom: 12px;">
+                <p>4.2.1 All cryptographic modules used for protecting sensitive data SHALL be validated to FIPS 140-3 Level 2 or higher.</p>
+                <p style="color: var(--muted); font-size: 10px;">📎 Citation: FIPS 140-3 §4.1, NIST SP 800-57 Part 1 §5.2</p>
+              </div>
+              <div style="color: var(--green); margin-bottom: 8px;">+ Section 4.3 Key Management Lifecycle (NEW)</div>
+              <div style="padding-left: 12px; border-left: 2px solid var(--green); margin-bottom: 12px;">
+                <p>4.3.1 Cryptographic keys SHALL follow the lifecycle defined in NIST SP 800-57:</p>
+                <ul style="margin: 4px 0; padding-left: 16px;">
+                  <li>Pre-operational, Operational, Post-operational, Destroyed</li>
+                </ul>
+                <p style="color: var(--muted); font-size: 10px;">📎 Citation: NIST SP 800-57 Part 1 §7, ISO 27001 A.10.1.2</p>
+              </div>
+              <div style="color: var(--blue); margin-bottom: 8px;">~ Section 5.1 Approved Algorithms (MODIFIED)</div>
+              <div style="padding-left: 12px; border-left: 2px solid var(--blue);">
+                <p><span style="text-decoration: line-through; color: var(--red);">AES-256 is required for data at rest.</span></p>
+                <p style="color: var(--green);">AES-256-GCM (FIPS 197 compliant) is required for data at rest. AES-128 is acceptable only for legacy systems with documented exception approval.</p>
+                <p style="color: var(--muted); font-size: 10px;">📎 Citation: FIPS 197, NIST SP 800-38D</p>
+              </div>
+            </div>
+            <div style="margin-top: 12px; display: flex; gap: 8px; align-items: center;">
+              <span style="font-size: 11px; color: var(--muted);">Confidence:</span>
+              <div style="background: var(--panel-2); border-radius: 4px; height: 8px; width: 100px;">
+                <div style="background: var(--green); width: 91%; height: 100%; border-radius: 4px;"></div>
+              </div>
+              <span style="font-size: 11px; color: var(--green);">91% High</span>
+            </div>
+            <div style="margin-top: 12px; display: flex; gap: 8px;">
+              <button class="btn">View Full Draft</button>
+              <button class="btn">Edit</button>
+              <button class="btn primary" id="approve-policy">Approve & Publish</button>
+            </div>
+          </div>
+          <div class="card">
+            <h2>Agent Rationale</h2>
+            <div style="background: var(--panel-2); border-radius: 8px; padding: 12px; font-size: 12px;">
+              <p><strong>Why this revision is needed:</strong></p>
+              <ul style="margin: 8px 0; padding-left: 16px; color: var(--muted);">
+                <li>Board approved "Zero Trust" strategy in Q4 2025 minutes (p. 3)</li>
+                <li>Zero Trust requires FIPS-validated encryption per NIST 800-207</li>
+                <li>Current policy (v2.1) references AES-256 but lacks FIPS validation requirement</li>
+                <li>HKMA GenAI Circular (Jan 2026) requires "industry-standard encryption"</li>
+              </ul>
+              <p><strong>Frameworks mandating this change:</strong></p>
+              <div style="display: flex; flex-wrap: wrap; gap: 4px; margin: 8px 0;">
+                <span class="pill" style="border-color: var(--teal);">FIPS 140-3</span>
+                <span class="pill" style="border-color: var(--blue);">NIST 800-57</span>
+                <span class="pill" style="border-color: var(--blue);">ISO 27001 A.10</span>
+                <span class="pill" style="border-color: var(--orange);">HKMA GenAI</span>
+              </div>
+              <p><strong>Impact on related artifacts:</strong></p>
+              <ul style="margin: 8px 0; padding-left: 16px; color: var(--muted);">
+                <li>Key Management Policy → requires creation</li>
+                <li>IT Security Standard → Section 3.2 needs update</li>
+                <li>Control AC-SC-13 → evidence mapping required</li>
+              </ul>
+            </div>
+            <div style="margin-top: 12px;">
+              <button class="btn">View Sources</button>
+              <button class="btn">Challenge</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Audit Trail -->
+        <div class="card" style="margin-top: 12px;">
+          <h2>Policy Agent Audit Trail</h2>
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="timeline-marker" style="background: var(--green);"></div>
+              <div class="timeline-content">
+                <div class="timeline-title">Board Minutes Processed</div>
+                <div class="timeline-meta">2 hours ago • Policy Research Agent</div>
+                <div style="font-size: 11px; color: var(--muted);">Extracted 3 governance objectives from Q4 2025 board minutes</div>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-marker" style="background: var(--green);"></div>
+              <div class="timeline-content">
+                <div class="timeline-title">Framework Research Complete</div>
+                <div class="timeline-meta">1 hour ago • Policy Research Agent</div>
+                <div style="font-size: 11px; color: var(--muted);">Cross-referenced FIPS 140-3, NIST 800-57, ISO 27001, HKMA GenAI</div>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-marker" style="background: var(--blue);"></div>
+              <div class="timeline-content">
+                <div class="timeline-title">Gap Analysis In Progress</div>
+                <div class="timeline-meta">30 mins ago • Policy Drafting Agent</div>
+                <div style="font-size: 11px; color: var(--muted);">Reviewing 4 existing policies against 847 framework requirements</div>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-marker" style="background: var(--purple);"></div>
+              <div class="timeline-content">
+                <div class="timeline-title">Draft Ready for Review</div>
+                <div class="timeline-meta">Just now • Policy Drafting Agent</div>
+                <div style="font-size: 11px; color: var(--muted);">Data Encryption Policy v3.0 draft generated (Confidence: 91%)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- END POLICY AGENT PAGE -->
 
     </div>
 
