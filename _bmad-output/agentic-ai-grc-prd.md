@@ -1,10 +1,11 @@
+
 # Product Requirements Document (PRD)
-Project: agent-grc  
+Project: Evonix  
 Date: 2026-01-31  
 Status: Draft
 
 ## 1. Overview
-Agentic AI GRC is an AI-native Governance, Risk & Compliance platform that consolidates risks, controls, issues, and evidence into a single source of truth. The platform embeds AI agents aligned to the three lines of defence (1L/2L/3L) to automate repetitive work while preserving human accountability and regulator-ready explainability.
+Evonix is an AI-native Governance, Risk & Compliance platform that consolidates risks, controls, issues, and evidence into a single source of truth. The platform embeds AI agents aligned to the three lines of defence (1L/2L/3L) to automate repetitive work while preserving human accountability and regulator-ready explainability.
 
 ## 2. Goals and Success Metrics
 ### Goals
@@ -57,6 +58,8 @@ Agentic AI GRC is an AI-native Governance, Risk & Compliance platform that conso
 5. Upload org chart, accept suggested ownership mappings.
 6. Upload annual report or strategy doc and accept suggested governance issues.
 7. Define KCIs/KRIs/KPIs and accept agent priority recommendations.
+8. **Policy Agent Workflow:** Upload board minutes with "Zero Trust" strategy → Agent extracts encryption requirements → Agent cross-references FIPS 140-3, NIST 800-57, ISO 27001 A.10 → Agent reviews existing encryption policy → Agent drafts revision with citations → 1L Policy Owner reviews and approves → Policy v3.0 published with full audit trail.
+9. **Framework Gap Analysis:** Select target frameworks (e.g., PCI DSS v4.0) → Agent maps existing controls → Agent identifies gaps against 300+ requirements → Agent prioritizes gaps by risk → Agent drafts remediation policies with framework citations.
 
 ## 6. Functional Requirements
 ### Risk and Control Management
@@ -92,8 +95,30 @@ Agentic AI GRC is an AI-native Governance, Risk & Compliance platform that conso
 - FR-18: Suggest missing policies/standards and missing metrics.
 - FR-19: Generate agent-driven priority recommendations using strategy, regulatory, and benchmark context.
 
+### Autonomous Policy & Standards Agent
+- FR-20: Ingest boardroom inputs (board minutes, strategy documents, risk appetite statements) and extract governance objectives.
+- FR-21: Maintain indexed framework knowledge base covering 20+ international standards:
+  - Governance: COBIT 2019, ITIL v4/v5, COSO ERM, ISO 38500
+  - Security: NIST 800-53 Rev 5, NIST CSF 2.0, ISO 27001/27002/27017/27018/27701, CIS Controls v8
+  - Cryptography: FIPS 140-3, FIPS 197, FIPS 186-5, NIST SP 800-57
+  - Industry: PCI DSS v4.0, SOC 2, HIPAA, Basel III/IV, HKMA SPM, MAS TRM
+- FR-22: Cross-map control requirements across frameworks (e.g., NIST AC-2 ↔ ISO A.9 ↔ COBIT DSS05.04 ↔ PCI Req 7).
+- FR-23: Review existing policies/standards against framework requirements and identify gaps, conflicts, and outdated provisions.
+- FR-24: Draft new policies or revisions with:
+  - Tracked changes (for revisions)
+  - Framework citations (e.g., "Aligns to NIST 800-53 AC-2")
+  - Confidence score (High/Medium/Low)
+  - Rationale explaining why the change is needed
+- FR-25: Route policy drafts based on confidence:
+  - Low → 2L Risk Manager drafts manually
+  - Medium → 2L Risk Manager reviews AI draft
+  - High → 1L Policy Owner reviews and approves
+- FR-26: Generate framework mapping matrix showing policy ↔ framework requirement coverage.
+- FR-27: Trigger policy review automatically when regulatory changes or framework updates are detected.
+- FR-28: Maintain full audit trail from boardroom input → policy artifact with all intermediate decisions.
+
 ### Human-in-the-loop
-- FR-20: Configure human validation checkpoints and escalation rules for high-risk actions.
+- FR-29: Configure human validation checkpoints and escalation rules for high-risk actions.
 
 ## 7. Non-Functional Requirements
 ### Performance
@@ -116,10 +141,15 @@ Agentic AI GRC is an AI-native Governance, Risk & Compliance platform that conso
 
 ## 8. Data and Integrations
 ### Data Sources
-- Regulatory feeds (HKMA, MAS).
-- Framework control sets (NIST/ISO/COBIT/PCI DSS).
+- Regulatory feeds (HKMA, MAS, SEC, EU).
+- Framework control sets (20+ frameworks indexed at control-level granularity):
+  - COBIT 2019, ITIL v4/v5, COSO ERM, ISO 38500
+  - NIST 800-53 Rev 5, NIST CSF 2.0, ISO 27001/27002/27017/27018/27701, CIS Controls v8
+  - FIPS 140-3, FIPS 197, FIPS 186-5, NIST SP 800-57
+  - PCI DSS v4.0, SOC 2, HIPAA, Basel III/IV, HKMA SPM, MAS TRM
 - Org charts (CSV or HR/identity API).
 - Annual reports and strategy documents (upload or API).
+- Existing policy and standards documents (upload for AI review).
 
 ### Integrations
 - API access for risk, control, issue, and evidence (CRUD + query).

@@ -5,13 +5,13 @@ date: 2026-01-29
 author: Mark
 ---
 
-# Product Brief: agent-grc
+# Product Brief: Evonix
 
 <!-- Content will be appended sequentially through collaborative workflow steps -->
 
 ## Executive Summary
 
-Agentic AI GRC is an enterprise governance, risk, and compliance platform built to eliminate the manual, time‑intensive work of remediation, compliance, regulatory approvals, control testing, and risk identification. It embeds AI agents with distinct personas aligned to the three lines of defence (1L/2L/3L) so governance stays fully engaged while repetitive work is automated. The result is faster decision cycles, audit‑ready outcomes, and regulator‑friendly accountability without sacrificing human oversight.
+Evonix is an enterprise governance, risk, and compliance platform built to eliminate the manual, time‑intensive work of remediation, compliance, regulatory approvals, control testing, and risk identification. It embeds AI agents with distinct personas aligned to the three lines of defence (1L/2L/3L) so governance stays fully engaged while repetitive work is automated. The result is faster decision cycles, audit‑ready outcomes, and regulator‑friendly accountability without sacrificing human oversight.
 
 ---
 
@@ -43,6 +43,174 @@ An agentic AI–enabled enterprise GRC platform that automates the work while pr
 
 ---
 
+## Autonomous Policy & Standards Agent Workflow
+
+### Overview
+
+Evonix introduces an **Autonomous Policy Agent** that transforms boardroom intent into auditable, framework-aligned policies and standards — without manual research or drafting. The agent operates as a policy research assistant, framework analyst, and technical writer combined.
+
+### Agent Workflow: Boardroom → Policy Artifacts
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                        INPUTS (Multi-Modal Ingestion)                       │
+├─────────────────────────────────────────────────────────────────────────────┤
+│  • Board minutes / strategy documents                                       │
+│  • Annual reports / CEO/CFO statements                                      │
+│  • Risk appetite statements                                                 │
+│  • Existing policies & standards (current state)                            │
+│  • Org chart / process documentation                                        │
+│  • Regulatory notices (HKMA, MAS, SEC, etc.)                                │
+└─────────────────────────────────────────────────────────────────────────────┘
+                                      │
+                                      ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                    POLICY RESEARCH AGENT (Autonomous)                       │
+├─────────────────────────────────────────────────────────────────────────────┤
+│  1. Extract governance objectives from inputs                               │
+│  2. Identify applicable frameworks based on industry, region, risk profile  │
+│  3. Cross-reference requirements across multiple frameworks                 │
+│  4. Map existing policies to framework requirements                         │
+│  5. Identify gaps, conflicts, and outdated provisions                       │
+└─────────────────────────────────────────────────────────────────────────────┘
+                                      │
+                                      ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                   FRAMEWORK KNOWLEDGE BASE (Indexed)                        │
+├─────────────────────────────────────────────────────────────────────────────┤
+│  GOVERNANCE & IT MANAGEMENT                                                 │
+│  • COBIT 2019 (40 governance objectives)                                    │
+│  • ITIL v4 / v5 (service management practices)                              │
+│  • COSO ERM (enterprise risk management)                                    │
+│  • ISO 38500 (IT governance)                                                │
+│                                                                             │
+│  SECURITY & CONTROLS                                                        │
+│  • NIST 800-53 Rev 5 (security & privacy controls)                          │
+│  • NIST CSF 2.0 (cybersecurity framework)                                   │
+│  • ISO/IEC 27001:2022 (ISMS requirements)                                   │
+│  • ISO/IEC 27002:2022 (security controls guidance)                          │
+│  • ISO/IEC 27017 (cloud security)                                           │
+│  • ISO/IEC 27018 (cloud privacy)                                            │
+│  • ISO/IEC 27701 (privacy management)                                       │
+│  • CIS Controls v8                                                          │
+│                                                                             │
+│  CRYPTOGRAPHY & DATA PROTECTION                                             │
+│  • FIPS 140-3 (cryptographic module validation)                             │
+│  • FIPS 197 (AES encryption standard)                                       │
+│  • FIPS 186-5 (digital signature standard)                                  │
+│  • NIST SP 800-57 (key management)                                          │
+│  • GDPR (data protection requirements)                                      │
+│                                                                             │
+│  INDUSTRY-SPECIFIC                                                          │
+│  • PCI DSS v4.0 (payment card industry)                                     │
+│  • SOC 2 Type II (trust service criteria)                                   │
+│  • HIPAA (healthcare — US)                                                  │
+│  • Basel III / IV (banking capital & risk)                                  │
+│  • HKMA SPM modules (Hong Kong banking)                                     │
+│  • MAS TRM / cyber hygiene (Singapore financial)                            │
+└─────────────────────────────────────────────────────────────────────────────┘
+                                      │
+                                      ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                   POLICY DRAFTING AGENT (With HITL)                         │
+├─────────────────────────────────────────────────────────────────────────────┤
+│  For each identified gap or outdated provision:                             │
+│                                                                             │
+│  1. ANALYZE existing policy/standard (if any)                               │
+│     → Extract current provisions                                            │
+│     → Identify what's missing vs. framework requirements                    │
+│                                                                             │
+│  2. RESEARCH framework requirements                                         │
+│     → Pull specific control language from indexed frameworks                │
+│     → Cross-map overlapping requirements (e.g., NIST↔ISO↔COBIT)             │
+│     → Identify conflicts or superseded guidance                             │
+│                                                                             │
+│  3. DRAFT recommendation                                                    │
+│     → Option A: Revise existing policy with tracked changes                 │
+│     → Option B: Draft new policy from template                              │
+│     → Include framework citations (e.g., "Aligns to NIST 800-53 AC-2")      │
+│     → Assign confidence score (High/Medium/Low)                             │
+│                                                                             │
+│  4. EXPLAIN rationale                                                       │
+│     → Why this change is needed                                             │
+│     → Which frameworks mandate/recommend it                                 │
+│     → Impact on related policies/controls                                   │
+│     → Risk of non-compliance                                                │
+│                                                                             │
+│  5. ROUTE for review                                                        │
+│     → Low confidence → 2L Risk Manager drafts manually                      │
+│     → Medium confidence → 2L Risk Manager reviews AI draft                  │
+│     → High confidence → 1L Policy Owner reviews + approves                  │
+└─────────────────────────────────────────────────────────────────────────────┘
+                                      │
+                                      ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                         OUTPUTS (Auditable Artifacts)                       │
+├─────────────────────────────────────────────────────────────────────────────┤
+│  • Draft policy documents (Word/Markdown with tracked changes)              │
+│  • Framework mapping matrix (policy ↔ framework requirements)               │
+│  • Gap analysis report (what's missing, priority, effort)                   │
+│  • Conflict resolution log (where frameworks disagree)                      │
+│  • Approval workflow record (who approved, when, rationale)                 │
+│  • Audit trail (full lineage from boardroom input to final policy)          │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### Supported Framework Cross-Mapping
+
+The agent automatically identifies overlapping requirements across frameworks to avoid redundant policies:
+
+| Control Domain | COBIT 2019 | NIST 800-53 | ISO 27001 | PCI DSS | ITIL v4 |
+|----------------|------------|-------------|-----------|---------|---------|
+| Access Control | DSS05.04 | AC-1 to AC-25 | A.9 | Req 7, 8 | Access Mgmt |
+| Change Management | BAI06 | CM-1 to CM-14 | A.12.1.2 | Req 6.5 | Change Enablement |
+| Incident Response | DSS02 | IR-1 to IR-10 | A.16 | Req 12.10 | Incident Mgmt |
+| Risk Assessment | APO12 | RA-1 to RA-10 | A.8.2 | Req 12.2 | Risk Mgmt |
+| Encryption | DSS05.03 | SC-13 | A.10 | Req 3, 4 | — |
+| Audit Logging | DSS05.07 | AU-1 to AU-16 | A.12.4 | Req 10 | — |
+
+### Policy Lifecycle Automation
+
+| Stage | Traditional Approach | Evonix Agent Approach |
+|-------|---------------------|----------------------|
+| **Gap Identification** | Annual manual audit (weeks) | Continuous monitoring (minutes) |
+| **Framework Research** | Consultant engagement ($50K+) | AI retrieves + cross-maps instantly |
+| **Policy Drafting** | SME writes from scratch (days) | AI drafts with citations (minutes) |
+| **Review Cycle** | Email/Word track changes (weeks) | In-platform workflow with HITL gates |
+| **Approval** | Manual signature chase | Automated routing + audit trail |
+| **Publication** | Manual upload to SharePoint | Auto-publish to policy portal |
+| **Ongoing Review** | Calendar reminder (often missed) | Agent monitors for regulatory triggers |
+
+### Example: FIPS Encryption Policy Workflow
+
+**Trigger:** Board approves "Zero Trust" strategy in Q1 board pack.
+
+1. **Agent ingests** board minutes → extracts "implement zero trust architecture"
+2. **Agent identifies** encryption is a core ZTA requirement
+3. **Agent researches** FIPS 140-3, NIST 800-57, ISO 27001 A.10
+4. **Agent reviews** existing "Data Encryption Policy v2.1" → finds no FIPS reference
+5. **Agent drafts** revision:
+   - Adds FIPS 140-3 Level 2 requirement for cryptographic modules
+   - Adds NIST 800-57 key management lifecycle
+   - Adds approval workflow for cryptographic exceptions
+   - Confidence: **High** (well-defined framework requirements)
+6. **Agent routes** to 1L IT Security Policy Owner for review
+7. **Policy Owner approves** → Policy v3.0 published with full audit trail
+
+**Time to policy update:** 2 hours (vs. traditional 3-4 weeks)
+
+### Key Differentiator: Why Competitors Can't Do This
+
+| Barrier | Incumbent Challenge | Evonix Advantage |
+|---------|---------------------|------------------|
+| **Framework indexing** | No structured, queryable framework database | 20+ frameworks indexed with control-level granularity |
+| **Cross-mapping intelligence** | Manual mapping maintained by consultants | AI maintains dynamic cross-reference matrix |
+| **Document generation** | No policy authoring capability | AI drafts with tracked changes + citations |
+| **Context understanding** | Can't interpret boardroom language | LLM understands strategic intent → translates to control requirements |
+| **Continuous triggers** | Static annual review cycles | Real-time monitoring for regulatory changes |
+
+---
+
 ## Competitive Analysis
 
 ### Evaluation Criteria (Weighted)
@@ -61,7 +229,7 @@ An agentic AI–enabled enterprise GRC platform that automates the work while pr
 
 | Vendor | Agentic AI (25%) | 3LOD (20%) | Explainability (15%) | Strategy→Metrics (15%) | APAC Reg (10%) | Org/Doc (10%) | Audit Speed (5%) | **Weighted Score** |
 |--------|------------------|------------|---------------------|------------------------|----------------|---------------|------------------|-------------------|
-| **Agentic AI GRC (Ours)** | 5 | 5 | 5 | 5 | 5 | 5 | 5 | **5.00** |
+| **Evonix (Ours)** | 5 | 5 | 5 | 5 | 5 | 5 | 5 | **5.00** |
 | IBM OpenPages | 4 | 3 | 3 | 2 | 3 | 2 | 3 | **2.95** |
 | ServiceNow GRC | 4 | 2 | 3 | 2 | 2 | 2 | 3 | **2.65** |
 | AuditBoard | 3 | 3 | 4 | 2 | 2 | 2 | 4 | **2.80** |
@@ -93,7 +261,7 @@ Position as the **only agent-first GRC platform** built for continuous governanc
 
 ## Liability & Accountability Framework
 
-Agentic AI GRC is designed for **accountability by design**, not liability transfer. AI outputs are recommendations, not decisions. Every material action requires human approval from a role-appropriate reviewer, with mandatory explainability and an immutable audit trail. Contractual terms are explicit: the AI assists, the human decides, the customer owns the outcome. This model aligns with emerging regulatory expectations (HKMA, MAS, EU AI Act) for AI in governance.
+Evonix is designed for **accountability by design**, not liability transfer. AI outputs are recommendations, not decisions. Every material action requires human approval from a role-appropriate reviewer, with mandatory explainability and an immutable audit trail. Contractual terms are explicit: the AI assists, the human decides, the customer owns the outcome. This model aligns with emerging regulatory expectations (HKMA, MAS, EU AI Act) for AI in governance.
 
 ### Stronger Liability Framework (6-Layer Mechanism)
 
@@ -135,7 +303,7 @@ Even with all mitigations, these risks remain:
 
 ## Explainability Framework Alignment
 
-Agentic AI GRC implements a **6-layer explainability framework** aligned to international standards:
+Evonix implements a **6-layer explainability framework** aligned to international standards:
 
 ### Standards Alignment
 
@@ -236,16 +404,19 @@ Enterprise GRC deals take 9-18 months. Our strategy to reduce cash-to-close risk
 
 ### The "Cannot Do" Test
 
-What can Agentic AI GRC do that IBM OpenPages literally cannot do today?
+What can Evonix do that IBM OpenPages literally cannot do today?
 
-| Capability | IBM OpenPages | Agentic AI GRC |
-|------------|---------------|----------------|
+| Capability | IBM OpenPages | Evonix |
+|------------|---------------|--------|
 | Ingest annual report → auto-generate governance objectives | ❌ No document AI | ✅ Native |
 | Map org chart to process ownership suggestions | ❌ Manual entry only | ✅ AI-proposed |
 | Real-time regulatory change → auto-gap analysis (24h SLA) | ❌ Quarterly manual updates | ✅ HKMA/MAS feeds |
 | 3LOD-persona agents with distinct challenge/audit behaviors | ❌ Single user role model | ✅ 1L/2L/3L personas |
 | Strategy statement → KCI/KRI linkage with confidence scores | ❌ No strategy ingestion | ✅ Round-trip lineage |
 | Adversarial control testing by AI red team | ❌ No adversarial capability | ✅ Built-in |
+| Cross-framework policy drafting (COBIT↔NIST↔ISO↔PCI) | ❌ Manual consultant work | ✅ AI drafts with citations |
+| Auto-detect FIPS/encryption compliance gaps | ❌ No framework library | ✅ 20+ frameworks indexed |
+| Board strategy → policy artifact with audit trail | ❌ Disconnected workflows | ✅ End-to-end lineage |
 
 ### The 60-Second Demo
 
