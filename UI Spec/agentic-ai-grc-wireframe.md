@@ -1,4 +1,4 @@
-# Wireframe — Agentic AI GRC
+# Wireframe — Evonix
 Project: agent-grc  
 Date: 2026-01-31  
 

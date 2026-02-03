@@ -4,7 +4,7 @@ const PptxGenJS = require("pptxgenjs");
 const outPath = path.join(__dirname, "wireframes.pptx");
 const pres = new PptxGenJS();
 pres.layout = "LAYOUT_WIDE";
-pres.title = "Agentic AI GRC Wireframes";
+pres.title = "Evonix Wireframes";
 
 const COLORS = {
   bg: "0B0F1A",
