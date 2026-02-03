@@ -81,6 +81,93 @@ Evonix is an AI-native Governance, Risk & Compliance platform that consolidates 
 - FR-10: Generate executive narratives with editable output and versioning.
 - FR-11: Provide explainability reports (plain language + technical rationale).
 
+### 6-Layer Explainability Framework
+The following requirements implement the Evonix explainability framework aligned to NIST AI RMF, ISO/IEC 42001, EU AI Act, MAS, and HKMA guidelines.
+
+**Layer 1: Decision Transparency**
+- FR-EX-01: Every AI recommendation must include:
+  - Source documents cited (with page/section references)
+  - Confidence score (0-100%)
+  - Reasoning chain (step-by-step logic leading to recommendation)
+- FR-EX-02: Display reasoning in both summary view (1-2 sentences) and detailed view (full chain).
+- FR-EX-03: Allow users to drill down from recommendation → sources → original documents.
+
+**Layer 2: Audit Trail Integrity**
+- FR-EX-04: Log every AI output with:
+  - Unique event ID, timestamp (ISO 8601), agent/model version
+  - Input hash and output hash (SHA-256)
+  - Confidence score, sources cited count
+  - Human action required flag, routing decision
+- FR-EX-05: Audit log must be tamper-evident (cryptographic chaining or blockchain-backed).
+- FR-EX-06: Audit log retention: minimum 7 years, configurable per jurisdiction.
+- FR-EX-07: Provide audit log export in JSON, CSV, and PDF formats.
+
+**Layer 3: Role-Appropriate Review**
+- FR-EX-08: Route AI outputs based on confidence thresholds:
+  - High (≥80%): Route to 1L Policy/Control Owner for review
+  - Medium (60-79%): Route to 2L Risk Manager for review
+  - Low (<60%): Route to 2L Risk Manager for manual drafting (AI provides research only)
+- FR-EX-09: Thresholds must be configurable per output type and risk tier.
+- FR-EX-10: Prevent approval by unqualified roles (enforce competence gate).
+- FR-EX-11: Record approver identity, role, timestamp, and any comments.
+
+**Layer 4: Confidence Thresholds**
+- FR-EX-12: Calculate confidence scores based on:
+  - Source quality and recency
+  - Framework coverage (how many frameworks support the recommendation)
+  - Historical accuracy of similar recommendations (backtesting)
+- FR-EX-13: Flag low-confidence outputs with visual indicator (e.g., amber/red).
+- FR-EX-14: Require explicit acknowledgment before acting on low-confidence outputs.
+
+**Layer 5: Regulator-Ready Reports**
+- FR-EX-15: Generate on-demand explainability reports with two formats:
+  - Board summary: Plain language, 1-2 pages, focus on business impact
+  - Auditor detail: Technical rationale, full source citations, audit trail excerpt
+- FR-EX-16: Support scheduled report generation (e.g., quarterly for regulatory submission).
+- FR-EX-17: Include mapping to specific regulatory requirements (e.g., "Addresses HKMA GenAI Circular §4.2").
+
+**Layer 6: Continuous Monitoring**
+- FR-EX-18: Detect confidence drift: Alert if recommendation accuracy degrades over time.
+- FR-EX-19: Schedule periodic human-only audits (no AI involvement) for random sample of decisions.
+- FR-EX-20: Log and report on bias indicators (e.g., systematic over/under-confidence by domain).
+- FR-EX-21: Alert when source frameworks are updated (e.g., NIST 800-53 Rev 6 published).
+
+**Explainability Output Examples**
+
+*Example 1: Policy Gap Detection Output*
+```
+RECOMMENDATION: Revise Data Encryption Policy to include FIPS 140-3
+CONFIDENCE: 91% (High)
+SOURCES:
+  • Board Minutes Q4 2025, p.3 — "Zero Trust architecture approved"
+  • NIST 800-207 §3.1 — "FIPS-validated encryption required for ZTA"
+  • FIPS 140-3 §4.1 — Cryptographic module validation requirements
+  • Current Policy v2.1 §4.2 — No FIPS reference found
+REASONING CHAIN:
+  1. Board approved Zero Trust strategy
+  2. Zero Trust requires FIPS-validated encryption (per NIST 800-207)
+  3. Current policy specifies AES-256 but not FIPS validation
+  4. Gap identified: Policy does not meet ZTA encryption requirements
+ROUTING: 1L Policy Owner (confidence ≥80%)
+```
+
+*Example 2: Regulatory Change Response Output*
+```
+REGULATORY ALERT: HKMA GenAI Circular (Jan 2026)
+NEW REQUIREMENT: §4.2 — Explainability documentation required
+GAP ANALYSIS:
+  ✅ Layer 1 (Decision Transparency) — Compliant
+  ✅ Layer 2 (Audit Trail) — Compliant
+  ⚠️ Layer 5 (Regulator-Ready Reports) — Partial gap
+     Current: On-demand reports available
+     Required: Periodic submission to HKMA (quarterly)
+RECOMMENDED ACTIONS:
+  1. Configure quarterly explainability report generation
+  2. Map audit trail fields to HKMA template
+CONFIDENCE: 87% (High)
+ROUTING: 2L Compliance Manager
+```
+
 ### Virtual 3LOD
 - FR-12: Provide line-specific views (1L, 2L, 3L) with scoped permissions.
 - FR-13: Enable 2L challenge workflows and 3L evidence requests.

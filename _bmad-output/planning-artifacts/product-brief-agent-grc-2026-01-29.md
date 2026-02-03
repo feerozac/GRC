@@ -303,17 +303,18 @@ Even with all mitigations, these risks remain:
 
 ## Explainability Framework Alignment
 
-Evonix implements a **6-layer explainability framework** aligned to international standards:
+Evonix implements a **6-layer explainability framework** designed to satisfy regulatory expectations from MAS, HKMA, and international standards bodies.
 
-### Standards Alignment
+### Standards Mapping (Detailed)
 
-| Standard | Status | Relevance |
-|----------|--------|-----------|
-| **NIST AI RMF** | Voluntary; US baseline | Govern → Map → Measure → Manage structure |
-| **ISO/IEC 42001:2023** | Certifiable | AI Management System; PDCA audit trail |
-| **EU AI Act** | Legally binding (EU) | Transparency & human oversight (Art. 13, 14) |
-| **MAS AI Risk Guidelines** | Final 2026 | APAC financial services lifecycle controls |
-| **HKMA GenAI Principles** | Active | Hong Kong market alignment |
+| Layer | Source/Inspiration | Specific Reference |
+|-------|-------------------|-------------------|
+| **1. Decision Transparency** | NIST AI RMF "Explainability"; EU AI Act | NIST AI RMF Map 1.1, EU AI Act Art. 13(1) |
+| **2. Audit Trail Integrity** | ISO/IEC 42001 audit requirements; MAS Model Risk | ISO/IEC 42001:2023 §9.2, MAS Model Risk Mgmt |
+| **3. Role-Appropriate Review** | EU AI Act "Human Oversight"; MAS proportionality | EU AI Act Art. 14(1)-(4), MAS FEAT Principles |
+| **4. Confidence Thresholds** | MAS "proportionate approach"; NIST uncertainty | MAS Guidelines §5.3, NIST AI RMF Measure 2.1 |
+| **5. Regulator-Ready Reports** | NIST AI RMF Playbook; EU AI Act transparency | NIST AI RMF Govern 4.1, EU AI Act Art. 13(2) |
+| **6. Continuous Monitoring** | ISO/IEC 42001 continual improvement; MAS monitoring | ISO/IEC 42001 §10, MAS Guidelines §6 |
 
 ### 6-Layer Explainability Model
 
@@ -326,6 +327,158 @@ Evonix implements a **6-layer explainability framework** aligned to internationa
 | **5. Regulator-Ready Reports** | On-demand explainability reports: plain language (board) + technical (auditor) | NIST Playbook, EU AI Act transparency |
 | **6. Continuous Monitoring** | Drift detection, periodic human-only audits, bias checks | ISO/IEC 42001 PDCA, MAS evaluation & testing |
 
+### Worked Example 1: Policy Gap Detection
+
+**Scenario:** Agent detects that the Data Encryption Policy v2.1 lacks FIPS 140-3 reference.
+
+**Layer 1 — Decision Transparency Output:**
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│ RECOMMENDATION: Revise Data Encryption Policy to include FIPS 140-3    │
+├─────────────────────────────────────────────────────────────────────────┤
+│ CONFIDENCE: 91% (High)                                                 │
+├─────────────────────────────────────────────────────────────────────────┤
+│ SOURCES:                                                               │
+│   • Board Minutes Q4 2025, p.3 — "Zero Trust architecture approved"    │
+│   • NIST 800-207 §3.1 — "FIPS-validated encryption required for ZTA"   │
+│   • FIPS 140-3 §4.1 — Cryptographic module validation requirements     │
+│   • Current Policy v2.1 §4.2 — No FIPS reference found                 │
+├─────────────────────────────────────────────────────────────────────────┤
+│ REASONING CHAIN:                                                       │
+│   1. Board approved Zero Trust strategy (source: Board Minutes)        │
+│   2. Zero Trust requires FIPS-validated encryption (source: NIST 800-207)│
+│   3. Current policy specifies AES-256 but not FIPS validation          │
+│   4. Gap: Policy does not meet ZTA encryption requirements             │
+│   5. Recommendation: Add FIPS 140-3 Level 2 requirement                │
+├─────────────────────────────────────────────────────────────────────────┤
+│ IMPACT IF NOT ADDRESSED:                                               │
+│   • Non-compliance with board-approved strategy                        │
+│   • Potential regulatory finding (HKMA expects industry-standard crypto)│
+│   • Audit observation on policy-strategy misalignment                  │
+└─────────────────────────────────────────────────────────────────────────┘
+```
+
+**Layer 2 — Audit Trail Entry:**
+```json
+{
+  "event_id": "EVX-2026-01-29-00142",
+  "timestamp": "2026-01-29T14:32:18.447Z",
+  "event_type": "AI_RECOMMENDATION",
+  "agent": "policy-research-agent-v2.1",
+  "model_version": "evonix-grc-llm-2026.01",
+  "input_hash": "sha256:a3f2c9...",
+  "output_hash": "sha256:7b4e1d...",
+  "confidence_score": 0.91,
+  "recommendation_id": "REC-POL-00089",
+  "sources_cited": 4,
+  "human_action_required": true,
+  "routing_decision": "1L_REVIEW",
+  "immutable_ledger_tx": "0x7f3a2b..."
+}
+```
+
+**Layer 3 — Role-Appropriate Review:**
+- Confidence 91% (High) → Routes to **1L Policy Owner** for review
+- If confidence were 65% (Medium) → Would route to **2L Risk Manager** for review
+- If confidence were 45% (Low) → Would require **2L Risk Manager to draft manually**
+
+**Layer 4 — Confidence Threshold Applied:**
+- 91% > 80% threshold → AI draft accepted for human review
+- Human can: Approve, Edit, Reject, or Challenge
+
+**Layer 5 — Regulator-Ready Report (Board Summary):**
+> "The AI governance system identified that our Data Encryption Policy does not reference FIPS 140-3, which is required for the Zero Trust architecture the Board approved in Q4 2025. A policy revision has been drafted and is pending approval from the IT Security Policy Owner. This finding was detected automatically within 24 hours of the Board's strategy approval."
+
+**Layer 6 — Continuous Monitoring:**
+- Quarterly validation: Re-check policy against framework updates
+- Drift detection: Alert if FIPS 140-3 is superseded by FIPS 140-4
+- Bias check: Verify confidence calibration against historical accuracy
+
+---
+
+### Worked Example 2: Regulatory Change Response
+
+**Scenario:** HKMA publishes new GenAI Circular requiring "explainability documentation for AI-assisted decisions."
+
+**Timeline:**
+```
+T+0h    HKMA publishes circular
+T+2h    Evonix regulatory feed ingests document
+T+4h    AI gap analysis complete
+T+6h    Compliance Manager notified with gap report
+T+24h   Draft response plan ready for 2L review
+```
+
+**Layer 1 — Decision Transparency Output:**
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│ REGULATORY ALERT: HKMA GenAI Circular (Jan 2026)                       │
+├─────────────────────────────────────────────────────────────────────────┤
+│ NEW REQUIREMENT: §4.2 — "Authorized institutions must maintain         │
+│ documentation demonstrating explainability of AI-assisted decisions    │
+│ in risk management and compliance functions."                          │
+├─────────────────────────────────────────────────────────────────────────┤
+│ GAP ANALYSIS:                                                          │
+│   ✅ Layer 1 (Decision Transparency) — Compliant                       │
+│   ✅ Layer 2 (Audit Trail) — Compliant                                 │
+│   ✅ Layer 3 (Role-Appropriate Review) — Compliant                     │
+│   ⚠️ Layer 5 (Regulator-Ready Reports) — Partial gap                   │
+│      Current: On-demand reports available                              │
+│      Required: Periodic submission to HKMA (quarterly)                 │
+├─────────────────────────────────────────────────────────────────────────┤
+│ RECOMMENDED ACTIONS:                                                   │
+│   1. Configure quarterly explainability report generation              │
+│   2. Map Evonix audit trail fields to HKMA template                    │
+│   3. Document in AI Governance Policy                                  │
+├─────────────────────────────────────────────────────────────────────────┤
+│ CONFIDENCE: 87% (High)                                                 │
+│ ROUTING: 2L Compliance Manager for review                              │
+└─────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+### Regulator Perspective: MAS View
+
+| MAS Expectation | Evonix Answer | Assessment |
+|-----------------|---------------|------------|
+| **Model Risk Management** | Confidence thresholds + validation | ✅ Aligned |
+| **Accountability** | Named human approver for material actions | ✅ Aligned |
+| **Explainability** | Sources + reasoning + plain language | ✅ Aligned |
+| **Audit Trail** | Immutable log with decision lineage | ✅ Aligned |
+| **Ongoing Monitoring** | Drift detection, periodic audits | ✅ Aligned |
+| **Proportionality** | HITL gates scaled to risk level | ✅ Aligned |
+
+**MAS would likely ask:**
+1. "How are confidence thresholds calibrated?" → Backtesting against historical accuracy
+2. "Is the audit trail truly tamper-evident?" → Blockchain-backed or cryptographic chaining
+3. "What constitutes a 'material action'?" → Defined in configuration; default = policy change, control modification, regulatory response
+
+### Regulator Perspective: HKMA View
+
+| HKMA Expectation | Evonix Answer | Assessment |
+|------------------|---------------|------------|
+| **Data Governance** | Framework indexing with version control | ⚠️ Enhance data lineage |
+| **Model Risk Management** | Confidence scoring + validation | ✅ Aligned |
+| **Explainability** | Plain language + technical rationale | ✅ Aligned |
+| **Human Oversight** | HITL checkpoints with challenge windows | ✅ Aligned |
+| **Training Records** | User certification module (roadmap) | ⚠️ Roadmap item |
+
+**HKMA would likely ask:**
+1. "How are staff trained to interpret AI outputs?" → User certification module (roadmap)
+2. "What is the escalation path when AI confidence is low?" → Documented in Layer 3
+3. "What happens when AI gets it wrong?" → Incident response procedure required
+
+### Gaps to Address (Honest Assessment)
+
+| Gap | Regulator Concern | Mitigation / Roadmap |
+|-----|-------------------|----------------------|
+| **Calibration evidence** | "How do you know 70% means 70%?" | Backtesting module (v1.1) |
+| **Training records** | "Are users trained to interpret confidence?" | User certification module (v1.2) |
+| **AI incident response** | "What happens when AI gets it wrong?" | Document procedure (pre-launch) |
+| **Model versioning** | "Which model version produced this?" | Add to audit trail (v1.0) |
+| **Data lineage** | "Where did framework data come from?" | Document sources and update cadence (v1.0) |
+
 ### Certification Roadmap
 
 | Milestone | Timeframe | Benefit |
@@ -334,6 +487,7 @@ Evonix implements a **6-layer explainability framework** aligned to internationa
 | **ISO/IEC 42001 certification** | Year 1 | International credibility, audit-ready |
 | **EU AI Act compliance** | Year 1-2 | EU market access |
 | **MAS/HKMA sandbox participation** | Year 1 | APAC regulator relationship |
+| **Confidence calibration backtesting** | Year 1 | Quantitative proof of AI reliability |
 
 ---
 

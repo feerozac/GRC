@@ -1,7 +1,7 @@
 <html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word">
 <head>
 <meta charset="UTF-8">
-<title>Agentic AI GRC Platform — Product Spec Summary</title>
+<title>Evonix — Product Spec Summary</title>
 <style>
 body { font-family: Calibri, Arial, sans-serif; font-size: 11pt; line-height: 1.4; margin: 1in; }
 h1 { font-size: 18pt; color: #1a365d; border-bottom: 2px solid #2b6cb0; padding-bottom: 6px; }
@@ -19,12 +19,12 @@ li { margin-bottom: 4pt; }
 </head>
 <body>
 
-<h1>Agentic AI GRC Platform</h1>
+<h1>Evonix</h1>
 <p class="tagline">Explainable by design. Beyond automation. Metrics made human.</p>
 <p class="meta">Project: agent-grc | Author: Mark | Date: 2026-01-29 | Status: Product Brief / Spec Summary</p>
 
 <h2>1. Product Vision</h2>
-<p>Agentic AI GRC is an AI-native Governance, Risk & Compliance platform that turns fragmented controls, risks, and evidence into a single source of truth. It is built around three executive themes:</p>
+<p>Evonix is an AI-native Governance, Risk & Compliance platform that turns fragmented controls, risks, and evidence into a single source of truth. It is built around three executive themes:</p>
 <ul>
 <li><strong>Explainability by design</strong> — ethics-encoded agents, traceable decisions, regulator-ready rationale</li>
 <li><strong>Beyond automation</strong> — agents work with people, not around them</li>
@@ -111,14 +111,58 @@ li { margin-bottom: 4pt; }
 <p>Aligned to NIST AI RMF, ISO/IEC 42001:2023, EU AI Act, MAS AI Risk Guidelines, HKMA GenAI Principles:</p>
 <table>
 <tr><th>Layer</th><th>Requirement</th><th>Framework Alignment</th></tr>
-<tr><td>1. Decision Transparency</td><td>Sources, confidence score, reasoning chain</td><td>NIST AI RMF, EU AI Act Art. 13</td></tr>
-<tr><td>2. Audit Trail Integrity</td><td>Immutable, tamper-evident log of AI + human actions</td><td>ISO/IEC 42001, MAS lifecycle controls</td></tr>
-<tr><td>3. Role-Appropriate Review</td><td>High-risk outputs require qualified reviewer</td><td>MAS human oversight, EU AI Act Art. 14</td></tr>
-<tr><td>4. Confidence Thresholds</td><td>Low-confidence outputs flagged for human drafting</td><td>MAS proportionate approach</td></tr>
-<tr><td>5. Regulator-Ready Reports</td><td>Plain language (board) + technical (auditor)</td><td>NIST Playbook, EU AI Act transparency</td></tr>
-<tr><td>6. Continuous Monitoring</td><td>Drift detection, periodic audits, bias checks</td><td>ISO/IEC 42001 PDCA, MAS evaluation</td></tr>
+<tr><td>1. Decision Transparency</td><td>Sources, confidence score, reasoning chain</td><td>NIST AI RMF Map 1.1, EU AI Act Art. 13(1)</td></tr>
+<tr><td>2. Audit Trail Integrity</td><td>Immutable, tamper-evident log of AI + human actions</td><td>ISO/IEC 42001 §9.2, MAS Model Risk Mgmt</td></tr>
+<tr><td>3. Role-Appropriate Review</td><td>High-risk outputs require qualified reviewer</td><td>EU AI Act Art. 14(1)-(4), MAS FEAT Principles</td></tr>
+<tr><td>4. Confidence Thresholds</td><td>Low-confidence outputs flagged for human drafting</td><td>MAS Guidelines §5.3, NIST AI RMF Measure 2.1</td></tr>
+<tr><td>5. Regulator-Ready Reports</td><td>Plain language (board) + technical (auditor)</td><td>NIST AI RMF Govern 4.1, EU AI Act Art. 13(2)</td></tr>
+<tr><td>6. Continuous Monitoring</td><td>Drift detection, periodic audits, bias checks</td><td>ISO/IEC 42001 §10, MAS Guidelines §6</td></tr>
 </table>
-<p><strong>Certification Roadmap:</strong> NIST AI RMF alignment (launch) → ISO/IEC 42001 certification (Year 1) → EU AI Act compliance (Year 1-2) → MAS/HKMA sandbox participation (Year 1).</p>
+
+<h3>Worked Example 1: Policy Gap Detection</h3>
+<p><strong>Scenario:</strong> Agent detects Data Encryption Policy v2.1 lacks FIPS 140-3 reference after Board approves Zero Trust strategy.</p>
+<table>
+<tr><th>Field</th><th>Value</th></tr>
+<tr><td>Recommendation</td><td>Revise Data Encryption Policy to include FIPS 140-3</td></tr>
+<tr><td>Confidence</td><td>91% (High)</td></tr>
+<tr><td>Sources</td><td>Board Minutes Q4 2025 p.3; NIST 800-207 §3.1; FIPS 140-3 §4.1; Current Policy v2.1 §4.2</td></tr>
+<tr><td>Reasoning</td><td>Board approved ZTA → ZTA requires FIPS encryption (NIST 800-207) → Current policy lacks FIPS reference → Gap identified</td></tr>
+<tr><td>Routing</td><td>1L Policy Owner (confidence ≥80%)</td></tr>
+<tr><td>Audit Trail</td><td>Event ID EVX-2026-01-29-00142; Agent v2.1; Input/output hashes; Timestamp ISO 8601</td></tr>
+</table>
+
+<h3>Worked Example 2: Regulatory Change Response</h3>
+<p><strong>Scenario:</strong> HKMA publishes GenAI Circular requiring explainability documentation.</p>
+<table>
+<tr><th>Field</th><th>Value</th></tr>
+<tr><td>Alert</td><td>HKMA GenAI Circular (Jan 2026) — New requirement §4.2</td></tr>
+<tr><td>Gap Analysis</td><td>✅ Layers 1-4 compliant; ⚠️ Layer 5 partial gap (quarterly submission required)</td></tr>
+<tr><td>Recommended Actions</td><td>1. Configure quarterly report generation; 2. Map audit fields to HKMA template</td></tr>
+<tr><td>Confidence</td><td>87% (High)</td></tr>
+<tr><td>Routing</td><td>2L Compliance Manager</td></tr>
+<tr><td>Response Time</td><td>Gap analysis within 4 hours of publication</td></tr>
+</table>
+
+<h3>Regulator Perspective</h3>
+<table>
+<tr><th>Regulator</th><th>Key Expectation</th><th>Evonix Answer</th><th>Status</th></tr>
+<tr><td>MAS</td><td>Model Risk Management</td><td>Confidence thresholds + validation</td><td>✅ Aligned</td></tr>
+<tr><td>MAS</td><td>Accountability</td><td>Named human approver for material actions</td><td>✅ Aligned</td></tr>
+<tr><td>HKMA</td><td>Explainability</td><td>Sources + reasoning + plain language</td><td>✅ Aligned</td></tr>
+<tr><td>HKMA</td><td>Training Records</td><td>User certification module</td><td>⚠️ Roadmap</td></tr>
+<tr><td>Both</td><td>Audit Trail</td><td>Immutable log with decision lineage</td><td>✅ Aligned</td></tr>
+</table>
+
+<h3>Gaps to Address</h3>
+<table>
+<tr><th>Gap</th><th>Regulator Concern</th><th>Mitigation</th></tr>
+<tr><td>Calibration evidence</td><td>"How do you know 70% means 70%?"</td><td>Backtesting module (v1.1)</td></tr>
+<tr><td>Training records</td><td>"Are users trained to interpret confidence?"</td><td>User certification module (v1.2)</td></tr>
+<tr><td>AI incident response</td><td>"What happens when AI gets it wrong?"</td><td>Document procedure (pre-launch)</td></tr>
+<tr><td>Model versioning</td><td>"Which model version produced this?"</td><td>Add to audit trail (v1.0)</td></tr>
+</table>
+
+<p><strong>Certification Roadmap:</strong> NIST AI RMF alignment (launch) → ISO/IEC 42001 certification (Year 1) → EU AI Act compliance (Year 1-2) → MAS/HKMA sandbox participation (Year 1) → Confidence calibration backtesting (Year 1).</p>
 
 <h2>6c. Go-to-Market Trust Strategy</h2>
 <table>
