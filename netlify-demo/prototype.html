@@ -278,6 +278,8 @@
       <div class="nav-links">
         <a class="active" data-page="workflow">Workflow</a>
         <a data-page="policy-agent">Policy Agent</a>
+        <a data-page="cyber-defence">Cyber Defence</a>
+        <a data-page="ai-security">AI Security & IAM</a>
         <a data-page="dashboard">Dashboard</a>
         <a data-page="about">About</a>
         <a data-page="help">Help</a>
@@ -1295,9 +1297,300 @@
                 <div style="font-size: 11px; color: var(--muted);">Data Encryption Policy v3.0 draft generated (Confidence: 91%)</div>
               </div>
             </div>
+</div>
+      </div>
+      </div><!-- END POLICY AGENT PAGE -->
+
+      <!-- CYBER DEFENCE PAGE -->
+      <div class="page-section" id="page-cyber-defence">
+        <div class="section-header">
+          <h2>Agentic Cyber Defence</h2>
+          <div style="display: flex; gap: 8px;">
+            <span class="status green">Agents Online</span>
+            <button class="btn">Sync Threat Intel</button>
+            <button class="btn primary">New Incident</button>
           </div>
         </div>
-      </div><!-- END POLICY AGENT PAGE -->
+
+        <div class="alert info">
+          <strong>Agentic Cyber Defence:</strong> Detection, response, and threat intel agents with full explainability and GRC linkage.
+        </div>
+
+        <!-- Cyber agents -->
+        <div class="card" style="margin-bottom: 12px;">
+          <h2>Cyber Defence Agents</h2>
+          <div class="agent-grid" style="grid-template-columns: repeat(4, 1fr);">
+            <div class="agent-card" style="border-left: 3px solid var(--blue);">
+              <h3>Detection Agent</h3>
+              <div class="agent-role">Triage alerts, enrich with threat intel</div>
+              <span class="agent-status">Active</span>
+            </div>
+            <div class="agent-card" style="border-left: 3px solid var(--purple);">
+              <h3>Response Agent</h3>
+              <div class="agent-role">Recommend/execute isolate, block, escalate</div>
+              <span class="agent-status">Active</span>
+            </div>
+            <div class="agent-card" style="border-left: 3px solid var(--teal);">
+              <h3>Orchestration Agent</h3>
+              <div class="agent-role">Correlate alerts → incidents; link to GRC</div>
+              <span class="agent-status">Active</span>
+            </div>
+            <div class="agent-card" style="border-left: 3px solid var(--orange);">
+              <h3>Threat Intel Agent</h3>
+              <div class="agent-role">Ingest feeds; match IOCs to alerts</div>
+              <span class="agent-status">Active</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid two" style="margin-bottom: 12px;">
+          <div class="card">
+            <h2>Recent Alerts</h2>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Time</th>
+                  <th>Severity</th>
+                  <th>Title</th>
+                  <th>Agent</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>10:45</td>
+                  <td><span style="color: var(--red);">Critical</span></td>
+                  <td>Unusual admin login from new region</td>
+                  <td>Detection</td>
+                  <td><span class="tag" style="border-color: var(--blue);">Triaging</span></td>
+                </tr>
+                <tr>
+                  <td>10:32</td>
+                  <td><span style="color: var(--orange);">High</span></td>
+                  <td>EDR: suspicious PowerShell execution</td>
+                  <td>Detection</td>
+                  <td><span class="tag" style="border-color: var(--green);">Resolved</span></td>
+                </tr>
+                <tr>
+                  <td>09:18</td>
+                  <td><span style="color: var(--orange);">Medium</span></td>
+                  <td>Phishing email reported by user</td>
+                  <td>Detection</td>
+                  <td><span class="tag" style="border-color: var(--blue);">Investigating</span></td>
+                </tr>
+              </tbody>
+            </table>
+            <button class="btn">View All Alerts</button>
+          </div>
+          <div class="card">
+            <h2>Active Incidents</h2>
+            <ul class="list">
+              <li>
+                INC-001: Possible credential compromise — Admin account
+                <span class="tag" style="border-color: var(--red);">Critical</span>
+                <span class="tag">Open</span>
+              </li>
+              <li>
+                INC-002: Phishing campaign — 3 users reported
+                <span class="tag" style="border-color: var(--orange);">High</span>
+                <span class="tag">Contained</span>
+              </li>
+            </ul>
+            <div style="margin-top: 10px;">
+              <button class="btn">Open Incident INC-001</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid two" style="margin-bottom: 12px;">
+          <div class="card">
+            <h2>Response Actions (Pending Approval)</h2>
+            <ul class="rec-list">
+              <li>
+                <strong>Isolate host</strong> — WORKSTATION-07 (Detection Agent)
+                <div class="muted" style="font-size: 11px; margin-top: 4px;">Rationale: EDR flagged suspicious process; host in scope of INC-001.</div>
+                <div style="margin-top: 8px;">
+                  <button class="btn" style="padding: 4px 8px; font-size: 10px;">View rationale</button>
+                  <button class="btn primary" style="padding: 4px 8px; font-size: 10px;">Approve</button>
+                  <button class="btn" style="padding: 4px 8px; font-size: 10px;">Reject</button>
+                </div>
+              </li>
+              <li>
+                <strong>Block IP</strong> — 203.0.113.42 (Response Agent)
+                <div class="muted" style="font-size: 11px; margin-top: 4px;">Rationale: Threat intel match; C2 indicator for INC-001.</div>
+                <div style="margin-top: 8px;">
+                  <button class="btn" style="padding: 4px 8px; font-size: 10px;">View rationale</button>
+                  <button class="btn primary" style="padding: 4px 8px; font-size: 10px;">Approve</button>
+                  <button class="btn" style="padding: 4px 8px; font-size: 10px;">Reject</button>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="card">
+            <h2>Cyber → GRC Linkage</h2>
+            <table class="table" style="font-size: 11px;">
+              <thead>
+                <tr>
+                  <th>Alert / Incident</th>
+                  <th>Linked Risk</th>
+                  <th>Linked Control</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>INC-001 (Credential compromise)</td>
+                  <td>R-012: Unauthorized access</td>
+                  <td>IAM-003 Access recertification</td>
+                </tr>
+                <tr>
+                  <td>EDR PowerShell alert</td>
+                  <td>R-008: Malware / compromise</td>
+                  <td>SEC-002 EDR monitoring</td>
+                </tr>
+              </tbody>
+            </table>
+            <p class="muted" style="font-size: 11px; margin-top: 8px;">Orchestration Agent links cyber events to risks and controls for audit trail and evidence.</p>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 12px;">
+          <h2>Explainability — Cyber Actions</h2>
+          <p class="muted" style="font-size: 12px; margin-bottom: 12px;">Every agent recommendation includes rationale, confidence, and optional human approval. Full trail in Audit Trail Pack.</p>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Action</th>
+                <th>Agent</th>
+                <th>Rationale</th>
+                <th>Confidence</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Isolate host WORKSTATION-07</td>
+                <td>Response Agent</td>
+                <td>EDR flagged; host in INC-001 scope; contain first, investigate after</td>
+                <td>88%</td>
+                <td><span class="tag" style="border-color: var(--blue);">Pending approval</span></td>
+              </tr>
+              <tr>
+                <td>Block IP 203.0.113.42</td>
+                <td>Response Agent</td>
+                <td>Threat intel C2 indicator; matched to INC-001</td>
+                <td>92%</td>
+                <td><span class="tag" style="border-color: var(--blue);">Pending approval</span></td>
+              </tr>
+              <tr>
+                <td>Escalate INC-001 to 2L Risk</td>
+                <td>Orchestration Agent</td>
+                <td>Critical severity; link to risk R-012 for governance review</td>
+                <td>95%</td>
+                <td><span class="tag" style="border-color: var(--green);">Approved</span></td>
+              </tr>
+            </tbody>
+          </table>
+          <button class="btn">Export Cyber Audit Trail</button>
+        </div>
+      </div><!-- END CYBER DEFENCE PAGE -->
+
+      <!-- AI SECURITY & IAM PAGE -->
+      <div class="page-section" id="page-ai-security">
+        <div class="section-header">
+          <h2>AI Security &amp; IAM for Agents</h2>
+          <span class="status green">Aligned</span>
+        </div>
+
+        <div class="alert info">
+          <strong>Design priority:</strong> Security &gt; Stability &gt; Performance &gt; Intelligence. Agents operate as coworkers with separate identity, explicit delegation, and real-time authorization—not ahead-of-time OAuth scopes.
+        </div>
+
+        <div class="grid two" style="margin-bottom: 12px;">
+          <div class="card">
+            <h2>North Star</h2>
+            <div class="flow" style="grid-template-columns: 1fr; gap: 12px;">
+              <div class="step green" style="text-align: left; border-left: 4px solid var(--green);">1. Security — Minimize harm, blast radius, irreversibility</div>
+              <div class="step teal" style="text-align: left; border-left: 4px solid var(--teal);">2. Stability — Predictability, debuggability, failure containment</div>
+              <div class="step blue" style="text-align: left; border-left: 4px solid var(--blue);">3. Performance — Reduce friction and wasted effort</div>
+              <div class="step purple" style="text-align: left; border-left: 4px solid var(--purple);">4. Intelligence — Usefulness within the above constraints</div>
+            </div>
+            <p class="muted" style="font-size: 11px; margin-top: 10px;">When tradeoffs arise, the higher-priority constraint wins.</p>
+          </div>
+          <div class="card">
+            <h2>Coworker Model</h2>
+            <ul class="list">
+              <li><strong>Identity</strong> — Agent has its own accounts; never uses human credentials</li>
+              <li><strong>Authority</strong> — Explicitly delegated, revocable; no shared sessions</li>
+              <li><strong>Execution</strong> — Constrained by infrastructure, tooling, review</li>
+            </ul>
+            <p class="muted" style="font-size: 11px; margin-top: 8px;">Separation of identity, authority, and execution. Compromise in one does not propagate.</p>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 12px;">
+          <h2>IAM for Agents — OAuth vs Real-Time Authorization</h2>
+          <div class="grid two" style="gap: 16px; margin-top: 10px;">
+            <div style="border: 1px solid var(--red); border-radius: 10px; padding: 12px; background: rgba(248, 113, 113, 0.05);">
+              <h3 style="font-size: 13px; margin: 0 0 8px; color: var(--red);">❌ Ahead of time (OAuth-style)</h3>
+              <ul class="list" style="margin: 0; padding-left: 16px; font-size: 12px; color: var(--muted);">
+                <li>Predefined scopes (e.g. calendar.read, calendar.write)</li>
+                <li>Known, static clients; consent baked in before the call</li>
+                <li>API only checks &quot;was approval granted?&quot;</li>
+              </ul>
+              <p class="muted" style="font-size: 11px; margin-top: 8px;">Breaks with AI agents: intent and behavior are not known ahead of time; tool/API calls are composable; behavior emerges at runtime. Authorizing ahead of time is dangerous.</p>
+            </div>
+            <div style="border: 1px solid var(--green); border-radius: 10px; padding: 12px; background: rgba(52, 211, 153, 0.05);">
+              <h3 style="font-size: 13px; margin: 0 0 8px; color: var(--green);">✓ Real-time, context-aware</h3>
+              <p style="font-size: 12px; color: var(--text); margin: 0 0 8px;">Authorization for AI agents must become:</p>
+              <blockquote style="margin: 0; padding: 10px; border-left: 3px solid var(--green); background: var(--panel-2); border-radius: 6px; font-size: 12px; color: var(--muted);">Is this action acceptable, <strong>at this specific moment</strong>, given <strong>what&apos;s already happened</strong>, which derives from <strong>some authority</strong>?</blockquote>
+              <p class="muted" style="font-size: 11px; margin-top: 8px;">Evonix: every agent action has rationale, confidence, and audit trail; material actions require human approval (HITL).</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid two" style="margin-bottom: 12px;">
+          <div class="card">
+            <h2>Threat Model (Addressed)</h2>
+            <table class="table" style="font-size: 11px;">
+              <thead>
+                <tr><th>Threat</th><th>Mitigation</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Silent authority escalation</td><td>Identity separation, HITL, capability mismatch detection</td></tr>
+                <tr><td>Runaway automation</td><td>API caps, research-loop detection, pause/stop</td></tr>
+                <tr><td>Credential compromise</td><td>Assistant-owned accounts only, revocation workflows</td></tr>
+                <tr><td>Tool/skill poisoning</td><td>Four-phase skill pipeline, human approval gate</td></tr>
+                <tr><td>Orphaned automation</td><td>Fail-closed, account auto-deletion, physical kill-switch</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card">
+            <h2>Explainability &amp; Cyber Defence</h2>
+            <ul class="list">
+              <li><strong>DecisionLog</strong> — Rationale, confidence, sources per agent output</li>
+              <li><strong>AuditTrailEntry</strong> — Every material action (approve, challenge, export)</li>
+              <li><strong>6-Layer Framework</strong> — Transparency, audit integrity, HITL, confidence thresholds, regulator-ready reports</li>
+              <li><strong>Cyber agents</strong> — Detection, Response, Orchestration, Threat Intel; same IAM and explainability model</li>
+            </ul>
+            <div style="margin-top: 10px;">
+              <button class="btn">Open Explainability Panel</button>
+              <button class="btn">Open Cyber Defence</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Non-Goals</h2>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+            <span class="pill" style="border-color: var(--muted);">No high availability</span>
+            <span class="pill" style="border-color: var(--muted);">No unattended autonomy</span>
+            <span class="pill" style="border-color: var(--muted);">No trust accumulation</span>
+            <span class="pill" style="border-color: var(--muted);">No silent recovery</span>
+            <span class="pill" style="border-color: var(--muted);">No plugin inheritance</span>
+            <span class="pill" style="border-color: var(--muted);">No opaque memory</span>
+          </div>
+        </div>
+      </div><!-- END AI SECURITY & IAM PAGE -->
 
     </div>
 

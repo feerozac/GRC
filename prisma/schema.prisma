@@ -1,8 +1,7 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+// Evonix Next Gen GRC — Explainability & Agentic Cyber Defence
 
 generator client {
   provider = "prisma-client"
@@ -11,4 +10,114 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ---------------------------------------------------------------------------
+// EXPLAINABILITY — Decision transparency, audit trail, challenges
+// ---------------------------------------------------------------------------
+
+model DecisionLog {
+  id            String   @id @default(cuid())
+  createdAt     DateTime @default(now())
+  agentId       String?  // 1L Ops, 2L Risk, 3L Audit, Policy Agent, Cyber Agent
+  agentRole     String?
+  decisionType  String   // e.g. control_mapping, gap_analysis, kci_suggestion, policy_draft
+  inputRef      String?  // document id, risk id, control id
+  outputSummary String?
+  rationale     String?  // plain-language explanation
+  confidence    Float?   // 0–1
+  sources       Json?    // [{ title, page?, url?, excerpt }]
+  frameworkRefs String[] // e.g. ["COBIT EDM03", "NIST AC-2"]
+  status        String   @default("pending") // pending, approved, challenged
+  approvedBy    String?
+  approvedAt    DateTime?
+  challenges    Challenge[]
+}
+
+model AuditTrailEntry {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  actorType String   // human | agent
+  actorId   String?  // user id or agent id
+  action    String   // e.g. approve, challenge, edit, export, escalate
+  entityType String? // decision_log, control, risk, incident, policy
+  entityId  String?
+  payload   Json?    // action-specific details
+  ipAddress String?
+}
+
+model Challenge {
+  id            String   @id @default(cuid())
+  createdAt     DateTime @default(now())
+  decisionLogId String
+  decisionLog   DecisionLog @relation(fields: [decisionLogId], references: [id])
+  raisedBy      String?  // user id
+  rationale     String?
+  status        String   @default("open") // open, resolved, rejected
+  resolvedBy    String?
+  resolvedAt   DateTime?
+  resolution    String?
+}
+
+// ---------------------------------------------------------------------------
+// AGENTIC CYBER DEFENCE — Alerts, incidents, response, threat intel
+// ---------------------------------------------------------------------------
+
+model CyberAlert {
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+  source      String   // siem, edr, ids, email_sec, threat_intel
+  severity    String   // critical, high, medium, low, info
+  title       String
+  description String?
+  rawPayload  Json?    // original alert payload
+  status      String   @default("new") // new, triaged, investigating, resolved, suppressed
+  assignedAgent String? // Detection Agent, Response Agent, etc.
+  riskId      String?  // link to GRC risk register
+  controlId   String?  // link to control
+  incidentId  String?
+  incident    Incident? @relation(fields: [incidentId], references: [id])
+  responseActions ResponseAction[]
+}
+
+model Incident {
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  title       String
+  severity    String   // critical, high, medium, low
+  status      String   @default("open") // open, contained, eradicating, recovering, closed
+  summary     String?
+  rootCause   String?
+  riskId      String?
+  alerts      CyberAlert[]
+  responseActions ResponseAction[]
+}
+
+model ResponseAction {
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+  agentId     String   // e.g. Response Agent, Orchestration Agent
+  actionType  String   // isolate, block, notify, escalate, create_ticket, run_playbook
+  targetRef   String?  // host, user, ip, alert id
+  payload     Json?
+  status      String   @default("pending") // pending, completed, failed, rolled_back
+  rationale   String?  // explainability: why this action
+  confidence  Float?
+  approvedBy  String?  // human-in-the-loop
+  approvedAt  DateTime?
+  alertId     String?
+  alert       CyberAlert? @relation(fields: [alertId], references: [id])
+  incidentId  String?
+  incident    Incident? @relation(fields: [incidentId], references: [id])
+}
+
+model ThreatIntelFeed {
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+  name        String
+  source      String   // vendor, isac, open_source
+  lastSync    DateTime?
+  indicators  Json?    // iocs, hashes, domains, ips (structure per feed)
 }
