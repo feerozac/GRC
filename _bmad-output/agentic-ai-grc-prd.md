@@ -1,11 +1,11 @@
 
 # Product Requirements Document (PRD)
 Project: Evonix  
-Date: 2026-01-31  
-Status: Draft
+Date: 2026-02-07 (updated from 2026-01-31)  
+Status: Draft — expanded with Explainability, AI Security & IAM, Agentic Cyber Defence, Regulatory Risk Strategy
 
 ## 1. Overview
-Evonix is an AI-native Governance, Risk & Compliance platform that consolidates risks, controls, issues, and evidence into a single source of truth. The platform embeds AI agents aligned to the three lines of defence (1L/2L/3L) to automate repetitive work while preserving human accountability and regulator-ready explainability.
+Evonix is an AI-native Governance, Risk & Compliance platform that consolidates risks, controls, issues, and evidence into a single source of truth. The platform embeds AI agents aligned to the three lines of defence (1L/2L/3L) to automate repetitive work while preserving human accountability and regulator-ready explainability. Evonix differentiates through a **6-Layer Explainability Framework** (per-decision rationale, confidence scoring, structured challenge, regulator-ready reports, continuous monitoring), **AI Security & IAM for Agents** (coworker model with dedicated identities, real-time context-aware authorization, fail-closed operations), and **Agentic Cyber Defence** (detection, response, orchestration, and threat intelligence agents integrated with GRC).
 
 ## 2. Goals and Success Metrics
 ### Goals
@@ -33,11 +33,16 @@ Evonix is an AI-native Governance, Risk & Compliance platform that consolidates 
 - Org chart ingestion and process-to-org mapping suggestions.
 - Document-driven governance issues (annual reports/strategy) with COBIT/COSO references.
 - Human-in-the-loop checkpoints and audit trail.
+- **6-Layer Explainability Framework** — DecisionLog, AuditTrailEntry, Challenge, confidence scoring, regulator-ready reports, continuous monitoring.
+- **AI Security & IAM for Agents** — Coworker model, dedicated agent identities, real-time context-aware authorization, skill security pipeline, alert-driven operational states, API spend caps.
+- **Agentic Cyber Defence** — Detection, Response, Orchestration, and Threat Intel agents; CyberAlert/Incident/ResponseAction data model; HITL for critical actions; Cyber → GRC linkage.
+- **Regulatory Risk Strategy** — Regulation-to-artifact mapping, evidence-by-design, on-demand Explainability Report and Audit Trail Pack.
 
 ### Out of Scope (v1)
 - Cross-enterprise audit consortium.
 - Global regulator coverage beyond configured APAC sources (except by explicit contract).
 - Fully autonomous remediation actions without human validation.
+- Fully autonomous cyber response for critical/high severity (always requires HITL in v1).
 
 ## 4. Personas
 ### Primary
@@ -49,6 +54,8 @@ Evonix is an AI-native Governance, Risk & Compliance platform that consolidates 
 
 ### Secondary
 - Regulatory Affairs (2L), Control Owners (1L), CFO, Chief Ethics Officer, Chief Compliance Officer.
+- **SOC / Cyber Operations (1L/2L)**: Triage alerts, approve/reject agent-recommended response actions, review incidents; primary users of Agentic Cyber Defence features.
+- **Security Architect / Platform Admin**: Configure agent identities, delegation scopes, skill approval, operational state thresholds, API spend caps; primary users of AI Security & IAM features.
 
 ## 5. User Journeys (MVP)
 1. Create risk, map controls, link issues, and view evidence in one place.
@@ -60,6 +67,10 @@ Evonix is an AI-native Governance, Risk & Compliance platform that consolidates 
 7. Define KCIs/KRIs/KPIs and accept agent priority recommendations.
 8. **Policy Agent Workflow:** Upload board minutes with "Zero Trust" strategy → Agent extracts encryption requirements → Agent cross-references FIPS 140-3, NIST 800-57, ISO 27001 A.10 → Agent reviews existing encryption policy → Agent drafts revision with citations → 1L Policy Owner reviews and approves → Policy v3.0 published with full audit trail.
 9. **Framework Gap Analysis:** Select target frameworks (e.g., PCI DSS v4.0) → Agent maps existing controls → Agent identifies gaps against 300+ requirements → Agent prioritizes gaps by risk → Agent drafts remediation policies with framework citations.
+10. **Cyber Alert → Incident → Response (Agentic Cyber Defence):** SIEM fires alert → Detection Agent triages, enriches with threat intel, assigns severity → alert stored as CyberAlert → Orchestration Agent correlates to existing incident or creates new Incident → Response Agent recommends action (e.g. isolate host) with rationale and confidence → SOC analyst approves/rejects (HITL) → ResponseAction executed and logged in AuditTrailEntry → Incident links to GRC risk register and control library.
+11. **Explainability Challenge:** AI recommends control change → User disagrees → User raises Challenge (rationale, evidence) → 2L reviewer assesses → Resolution logged with outcome and reasoning → DecisionLog updated with challenge result → Regulator-ready audit trail includes both original recommendation and challenge.
+12. **Regulatory Impact Assessment:** New HKMA circular published → platform ingests → FR-47 impact assessment runs against 6-layer framework → maps new requirements to existing DecisionLog, AuditTrailEntry, Challenge artifacts → identifies gaps (e.g. quarterly submission not configured) → generates gap report with prioritized actions → 2L Compliance Manager reviews.
+13. **Agent Skill Onboarding (AI Security):** New tool proposed for Response Agent (e.g. "firewall-rule-update") → FR-34 four-phase pipeline: (1) text analysis of skill definition, (2) multi-perspective risk review, (3) capability mismatch detection, (4) human approval → approved skill registered with scoped delegation → agent can now use skill within authorized bounds.
 
 ## 6. Functional Requirements
 ### Risk and Control Management
@@ -207,6 +218,30 @@ ROUTING: 2L Compliance Manager
 ### Human-in-the-loop
 - FR-29: Configure human validation checkpoints and escalation rules for high-risk actions.
 
+### AI Security & IAM for Agents
+- FR-30: Each AI agent (1L Ops, 2L Risk, 3L Audit, Policy Agent, Cyber Defence agents) shall operate with its own dedicated identity (accounts, credentials, sessions); agents shall never use human credentials or sessions (coworker model).
+- FR-31: Authority shall be explicitly delegated to each agent and revocable at any time; delegation shall be scoped (e.g. agent X can recommend but not execute; agent Y can execute isolate-host only with human approval).
+- FR-32: Authorization for agent actions shall be evaluated in real time and context-aware: "Is this action acceptable, at this specific moment, given what has already happened, which derives from some authority?" — not ahead-of-time static scopes (OAuth-style).
+- FR-33: Agent identity, delegation, and all authorization decisions shall be recorded in AuditTrailEntry.
+- FR-34: Implement four-phase skill security analysis pipeline for any new agent skill or tool: (1) pre-ingestion text analysis, (2) multi-perspective risk review (security, authority, failure-mode, drift), (3) capability mismatch detection, (4) human-in-the-loop approval. Silence = rejection.
+- FR-35: Implement alert-driven operational states for agents: Normal → Degraded (early warning) → Paused (uncertainty threshold) → Stopped (severe risk). Fail-closed: when uncertain, default to inaction. No bypassing alerts or indefinite retries.
+- FR-36: Hard API spend caps per agent; research-loop detection (high query volume with low artifact output); automatic pause on cap exhaustion or loop detection.
+- FR-37: No agent may install skills, modify its own code, rotate credentials, or expand its own permissions autonomously. All such changes require human authorization.
+
+### Agentic Cyber Defence
+- FR-38: Provide cyber defence agents: Detection Agent (triage alerts, enrich with threat intel, suggest severity), Response Agent (recommend/execute isolate, block, notify, escalate, run playbook), Orchestration Agent (correlate alerts → incidents; link to GRC risks and controls), Threat Intel Agent (ingest feeds, match IOCs).
+- FR-39: Every cyber agent action shall include rationale, confidence, and sources; material actions (isolate host, block IP, escalate incident) require human approval (HITL) before execution for critical/high severity.
+- FR-40: Alerts shall be stored as CyberAlert (source, severity, title, status, assigned agent, risk/control/incident links); incidents as Incident (title, severity, status, summary, root cause, linked alerts and response actions); response actions as ResponseAction (agent, action type, target, payload, status, rationale, confidence, approvedBy).
+- FR-41: Cyber alerts and incidents shall link to GRC risk register (risk ID) and control library (control ID) so cyber events feed risk posture and control effectiveness evidence.
+- FR-42: Provide Cyber Defence page in UI: alerts table, active incidents, response actions pending approval (with rationale), Cyber → GRC linkage table, explainability table for cyber actions, "Export Cyber Audit Trail" button.
+- FR-43: Ingest and normalise threat intelligence feeds (ThreatIntelFeed: name, source, last sync, indicators/IOCs).
+
+### Regulatory Risk Strategy (embedded)
+- FR-44: Map each applicable regulation (EU AI Act Art. 13/14, NIST AI RMF, ISO 42001, MAS TRM, HKMA GenAI) to concrete Evonix artifacts: DecisionLog (Layer 1), AuditTrailEntry (Layer 2), Challenge (Layer 3–4), Explainability Report and Audit Trail Pack (Layer 5), continuous monitoring results (Layer 6). Mapping shall be documented and reviewable.
+- FR-45: Normal platform operation shall produce regulatory evidence by default (evidence-by-design): no separate "compliance run" required to generate explainability artifacts.
+- FR-46: On-demand generation of Explainability Report (plain language, 1–2 pages, business impact) and Audit Trail Pack (technical, full source citations, audit trail excerpt) for a configurable scope (e.g. time window, process, entity, incident).
+- FR-47: When regulations change, platform shall support impact assessment against the 6-layer framework and existing controls; changes to thresholds, HITL rules, or mappings shall be logged in AuditTrailEntry.
+
 ## 7. Non-Functional Requirements
 ### Performance
 - NFR-1: Support at least 10,000 risks, 5,000 controls, and 20,000 issues.
@@ -217,6 +252,23 @@ ROUTING: 2L Compliance Manager
 - NFR-4: TLS 1.3 in transit; AES-256 at rest.
 - NFR-5: RBAC by 1L/2L/3L and entity scoping.
 - NFR-6: Audit log retained at least 7 years; tamper-evident storage.
+
+### AI Security & Agent Operations
+- NFR-11: Each agent identity shall have separate credentials, session isolation, and least-privilege access; no shared secrets between agents or between agents and humans.
+- NFR-12: Authorization decisions shall be evaluated per-action (not per-session); latency of authorization check shall not exceed 200 ms p99.
+- NFR-13: Agent operational state transitions (Normal → Degraded → Paused → Stopped) shall complete within 5 seconds; fail-closed: agents shall default to inaction when authorization or state is uncertain.
+- NFR-14: API spend caps shall be configurable per agent; cap exhaustion shall trigger automatic pause and alert within 30 seconds.
+- NFR-15: Skill security pipeline (FR-34) shall enforce silence = rejection: any skill not explicitly approved within configured SLA shall be auto-rejected.
+
+### Cyber Defence
+- NFR-16: Cyber alerts shall be ingested and triaged within 60 seconds of receipt (p95).
+- NFR-17: Critical/high severity alerts shall surface HITL approval prompt within 30 seconds of response recommendation.
+- NFR-18: Cyber → GRC linkage (alert/incident to risk/control) shall be available in dashboards within 5 minutes of incident creation.
+
+### Explainability
+- NFR-19: DecisionLog creation overhead shall not exceed 500 ms per AI output (p95).
+- NFR-20: Explainability Report generation shall complete within 60 seconds for standard scope (single entity, single quarter).
+- NFR-21: Confidence drift detection (FR-EX-18) shall evaluate daily and alert within 24 hours of threshold breach.
 
 ### Availability and Resilience
 - NFR-7: 99.5% availability excluding planned maintenance.
@@ -237,6 +289,9 @@ ROUTING: 2L Compliance Manager
 - Org charts (CSV or HR/identity API).
 - Annual reports and strategy documents (upload or API).
 - Existing policy and standards documents (upload for AI review).
+- **Threat intelligence feeds** (STIX/TAXII, commercial feeds, open-source IOC feeds) for Agentic Cyber Defence.
+- **SIEM / alert sources** (e.g. Splunk, Sentinel, Elastic) for cyber alert ingestion.
+- **Agent identity store** (internal) — agent accounts, credentials, delegation records, session state.
 
 ### Integrations
 - API access for risk, control, issue, and evidence (CRUD + query).
@@ -247,22 +302,34 @@ ROUTING: 2L Compliance Manager
 - Coverage and gap dashboards by framework and entity.
 - Evidence completeness and audit readiness status.
 - ROI and governance maturity benchmarks.
+- **Explainability Report** — On-demand, per-scope (entity/quarter/process/incident): board summary (plain language, 1–2 pages) and auditor detail (full citations, audit trail excerpt).
+- **Audit Trail Pack** — Exportable (JSON, CSV, PDF) for regulatory submission; maps to EU AI Act Art. 13/14, NIST AI RMF, ISO 42001, MAS TRM, HKMA GenAI requirements.
+- **Cyber Defence dashboard** — Active alerts, incident timeline, response actions (pending / executed / rejected), Cyber → GRC linkage, agent operational state, threat intel feed status.
+- **Agent operations dashboard** — Per-agent identity, operational state (Normal/Degraded/Paused/Stopped), API spend vs cap, delegation scope, recent actions, authorization decisions.
 
 ## 10. Rollout and Phasing (Proposed)
-### Phase 1
-Risk, controls, issues, evidence, 3LOD views, regulatory ingestion (HKMA/MAS), AI narratives.
+### Phase 1 — Core GRC + Explainability Foundation
+Risk, controls, issues, evidence, 3LOD views, regulatory ingestion (HKMA/MAS), AI narratives. **6-Layer Explainability Framework** (DecisionLog, AuditTrailEntry, confidence scoring, HITL routing, Explainability Report, Audit Trail Pack). **AI Security foundation** (agent identities, delegation, fail-closed operational states).
 
-### Phase 2
-Org chart mapping, document-driven governance issues, KCI/KRI/KPI module.
+### Phase 2 — Intelligence + Cyber Defence
+Org chart mapping, document-driven governance issues, KCI/KRI/KPI module. **Agentic Cyber Defence** (Detection, Response, Orchestration, Threat Intel agents; CyberAlert/Incident/ResponseAction; Cyber → GRC linkage). **Challenge mechanism** (structured dispute/review of AI outputs).
 
-### Phase 3
-Advanced features: adversarial control testing, predictive governance intelligence, optional blockchain ledger.
+### Phase 3 — Advanced + Regulatory Risk
+Advanced features: adversarial control testing, predictive governance intelligence, optional blockchain ledger. **Full Regulatory Risk Strategy** (regulation-to-artifact mapping, impact assessment on regulatory change). **Real-time context-aware IAM for agents** (per-action authorization, skill security pipeline). **Agent operations dashboard**.
+
+### Phase 4 — Ecosystem
+Cross-enterprise audit consortium. Extended regulator coverage. SIEM integrations. Marketplace for agent skills.
 
 ## 11. Risks and Dependencies
 - Availability of machine-readable regulatory sources.
 - Accuracy and acceptance of AI suggestions.
 - Access to org charts and strategy documents (data ownership and privacy).
 - Benchmark data availability for indicator prioritization.
+- **Agent credential management** — Secure storage and rotation for multiple agent identities; dependency on secrets management infrastructure.
+- **SIEM integration complexity** — Different alert formats and APIs across Splunk, Sentinel, Elastic; normalization effort.
+- **Threat intelligence feed quality** — IOC freshness and false-positive rates affect cyber agent effectiveness.
+- **Regulatory pace** — EU AI Act implementation timelines may shift; ISO 42001 adoption varies by jurisdiction.
+- **Explainability performance overhead** — Per-output DecisionLog creation adds latency; must stay within NFR-19 budget.
 
 ## 12. Open Questions
 - Which regulators beyond HKMA/MAS are required in v1?
@@ -270,4 +337,19 @@ Advanced features: adversarial control testing, predictive governance intelligen
 - Required framework versions and update cadence?
 - Benchmark data sources for KCI/KRI/KPI?
 - Is blockchain audit ledger a hard requirement for early adopters?
+- **What SIEM platforms should be supported for cyber alert ingestion in Phase 2?**
+- **Should agent delegation scopes be configurable per deployment or centrally managed?**
+- **What threat intel feed formats (STIX 2.1, proprietary) are required for v1 cyber defence?**
+- **Is ISO 42001 certification a target for Evonix itself (not just supporting customer compliance)?**
+- **Should the Challenge mechanism support anonymous challenges (e.g. whistleblower-style)?**
+
+## 13. Related Documents
+- [Explainability Framework](../docs/EXPLAINABILITY.md)
+- [AI Security & IAM](../docs/AI-SECURITY.md)
+- [Agentic Cyber Defence](../docs/AGENTIC-CYBER-DEFENCE.md)
+- [Regulatory Risk Strategy](../docs/REGULATORY-RISK-STRATEGY.md)
+- [Competitive Research: AI Explainability in GRC (Feb 2026)](competitive-research-explainability-2026.md)
+- [Product Brief](agentic-ai-grc-product-brief.md)
+- [Prisma Schema (data model)](../prisma/schema.prisma)
+- [Prototype (UI visualization)](../netlify-demo/prototype.html)
 

@@ -103,6 +103,22 @@ When tradeoffs arise, the higher-priority constraint wins. An improvement that e
 
 ---
 
+## IAM for agents (Identity and Access Management)
+
+Traditional OAuth moves authorization **ahead of time**: predefined scopes, known clients, user consent baked in before the API call; the resource server only checks “was approval granted.” That model is **incompatible with AI agents**: agents come alive dynamically, intent and behavior are not known upfront, and tool/API calls are composable — behavior emerges at runtime. Authorizing ahead of time for agents (and MCP-style tool use) is unsafe.
+
+**Authorization for AI agents** must instead answer: *“Is this action acceptable, at this specific moment, given what’s already happened, deriving from some authority?”*
+
+- **Real-time assessment** — Decide at the moment of the action, not once at consent.
+- **Context-aware** — Use “what’s already happened” (audit trail, prior actions, session state) as input to the decision.
+- **Derives from authority** — Policy or human-delegated authority is the source; not static scopes alone.
+
+**Evonix alignment:** Identity separation (above) gives agents their own accounts; [Explainability](EXPLAINABILITY.md) and `AuditTrailEntry` / `DecisionLog` provide “what’s already happened.” HITL gates and confidence thresholds provide moment-of-action checks. Design for real-time, context-aware authorization when implementing agent-to-API and agent-to-tool access.
+
+*See also: Christian Posta (Solo.io), “OAuth vs IAM for AI Agents” — ahead-of-time vs real-time authorization.*
+
+---
+
 ## Memory, auditability, and explainability
 
 - **Externalized memory:** Durable memory is not inside the model. It lives in human-readable, version-controlled artifacts (e.g. Markdown vault in Git). Rationale, decisions, and rejected options are captured; credentials and secrets never appear.

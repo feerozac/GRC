@@ -2,7 +2,7 @@
 
 > Transparent AI: decision rationale, audit trail, confidence, and regulator-ready reporting.
 
-**Related:** [Agentic Cyber Defence](AGENTIC-CYBER-DEFENCE.md) (explainability for cyber actions) · [AI Security](AI-SECURITY.md) (coworker model, auditability, failure behavior)
+**Related:** [Regulatory Risk Strategy](REGULATORY-RISK-STRATEGY.md) (managing regulatory risk with explainability) · [Agentic Cyber Defence](AGENTIC-CYBER-DEFENCE.md) (explainability for cyber actions) · [AI Security](AI-SECURITY.md) (coworker model, auditability, failure behavior)
 
 ---
 
@@ -60,6 +60,12 @@ See `prisma/schema.prisma` for full definitions.
 - **Explainability Panel** (Workflow, Policy Agent) — Rationale, View Sources, Challenge, Approve.
 - **Reports & Narratives** — Explainability Report, Audit Trail Pack (export).
 - **Confidence scoring** — Per decision type; threshold indicator and HITL routing.
+
+---
+
+## Regulatory risk
+
+Explainability is the foundation for **regulatory risk management**: regulators (EU AI Act, NIST AI RMF, MAS, HKMA) expect transparency and human oversight. Evonix addresses this through the 6-layer framework and regulator-ready reports. For a full **strategy for managing regulatory risk** in the context of Evonix—mapping regulations to controls, evidence-by-default, ownership, and next steps—see [Regulatory Risk Strategy](REGULATORY-RISK-STRATEGY.md).
 
 ---
 

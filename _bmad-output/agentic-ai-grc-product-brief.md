@@ -1,9 +1,9 @@
 # Agentic AI GRC Platform — Product Brief
 
-**Project:** agent-grc  
+**Project:** Evonix (agent-grc)  
 **Author:** Mark  
-**Date:** 2026-01-29  
-**Status:** Vision / Product Brief
+**Date:** 2026-02-07 (updated from 2026-01-29)  
+**Status:** Vision / Product Brief — expanded with Explainability, AI Security & IAM, Agentic Cyber Defence, Regulatory Risk Strategy
 
 ---
 
@@ -43,7 +43,12 @@ A unified platform that provides:
 - **Predictive governance intelligence** — AI agents forecast emerging compliance risks using regulatory trends and external data; integration with regulatory feeds (e.g. SEC, HKMA, EU Digital Act) for horizon scanning so the board can proactively adjust governance strategies.
 - **Cross-enterprise audit consortium (future)** — Multi-organization anonymized audit trail sharing on a consortium blockchain with privacy-preserving protocols so industry regulators can detect systemic risks across industries.
 
-AI agents orchestrate narrative generation, gap analysis, evidence suggestions, and KCI/KRI/KPI discussion and priority recommendations (using strategy, regulatory, and industry benchmarks) so the platform feels “agentic” rather than just report-building.
+- **6-Layer Explainability Framework** — Every AI output produces a DecisionLog (sources, confidence, reasoning chain, framework references); immutable AuditTrailEntry; role-appropriate HITL routing by confidence thresholds; structured Challenge mechanism; regulator-ready Explainability Report and Audit Trail Pack; continuous monitoring for confidence drift and bias.
+- **AI Security & IAM for Agents** — Coworker model: each agent has its own identity, credentials, and sessions. Real-time, context-aware authorization per-action. Threat model covers silent escalation, runaway automation, credential compromise, tool/skill poisoning. Four-phase skill security pipeline. Fail-closed operational states. Hard API spend caps.
+- **Agentic Cyber Defence** — Dedicated cyber agents: Detection, Response, Orchestration, Threat Intel. Every cyber action has rationale, confidence, and audit trail. Cyber events link to GRC risk register and control library.
+- **Regulatory Risk Strategy** — Regulation-to-artifact mapping (EU AI Act, NIST AI RMF, ISO 42001, MAS TRM, HKMA GenAI); evidence produced by default operation; on-demand Explainability Report and Audit Trail Pack.
+
+AI agents orchestrate narrative generation, gap analysis, evidence suggestions, cyber defence, and KCI/KRI/KPI discussion and priority recommendations (using strategy, regulatory, and industry benchmarks) so the platform feels “agentic” rather than just report-building.
 
 ### Value Proposition
 
@@ -56,6 +61,9 @@ AI agents orchestrate narrative generation, gap analysis, evidence suggestions, 
 | Chief Compliance Officer / Board Governance Officer | Immutable (including optional blockchain) audit trail of AI-driven governance decisions and control actions; explainability and tamper-proof audit for regulatory trust; governance fit assessment (COBIT/NIST/PCI DSS/ISO 27k) with maturity levels and gap identification. |
 | Regulated firms (HKMA/MAS) | Framework-specific views; real-time/near real-time HKMA/MAS and other regulatory updates; AI gap analysis; 3LOD evidence for regulators; predictive horizon scanning (SEC, HKMA, EU Digital Act). |
 | Executives / Board  | Clear, consistent risk and compliance narratives without chasing slides; assurance that 1L/2L/3L are aligned; governance issues suggested from annual reports and strategy, referenced to COBIT/COSO; KCI/KRI/KPI priorities informed by strategy, regulatory, and industry benchmarks; predictive governance intelligence for proactive strategy adjustment. |
+| SOC / Cyber Operations | Cyber alerts triaged and enriched by Detection Agent; response actions recommended with rationale and confidence; HITL approval for critical actions; incidents correlated and linked to GRC risks/controls; cyber audit trail for investigation and compliance. |
+| Security Architect / Platform Admin | Configure agent identities, delegation scopes, skill approval pipelines, operational state thresholds, and API spend caps; agent operations dashboard shows per-agent status and authorization decisions; fail-closed design ensures safe operation. |
+| Regulator (external) | 6-Layer Explainability Framework provides per-decision rationale, confidence, sources, and framework references; regulator-ready Explainability Report and Audit Trail Pack exportable on demand; regulation-to-artifact mapping shows compliance coverage; Challenge mechanism demonstrates human oversight. |
 
 ### Differentiators
 
@@ -73,6 +81,25 @@ AI agents orchestrate narrative generation, gap analysis, evidence suggestions, 
 - **Adversarial control testing** — Adversarial AI agents automate control testing lifecycle (design, execution, monitoring, remediation) for early vulnerability identification.
 - **Predictive governance** — AI forecasts emerging compliance risks; horizon scanning via regulatory feeds (SEC, HKMA, EU Digital Act).
 - **Cross-enterprise audit consortium (future)** — Anonymized audit trail sharing on consortium blockchain with privacy-preserving protocols for systemic risk detection.
+- **6-Layer Explainability Framework** — Per-decision rationale, confidence scoring, sources, and framework refs (DecisionLog); immutable audit trail (AuditTrailEntry); role-appropriate HITL routing by confidence; structured Challenge mechanism; regulator-ready Explainability Report and Audit Trail Pack; continuous drift/bias monitoring. No competitor has all six layers at per-output granularity.
+- **AI Security & IAM for Agents** — Coworker model (not plugin): agents have their own identity, credentials, and sessions; authority is explicitly delegated and revocable; execution is constrained by infrastructure and review. Real-time, context-aware authorization (not ahead-of-time OAuth scopes): "Is this action acceptable, at this specific moment, given what's already happened?" Threat model addresses silent escalation, runaway automation, credential compromise, tool/skill poisoning, and orphaned automation. Four-phase skill security pipeline. Fail-closed alerting (Normal → Degraded → Paused → Stopped). North Star: Security > Stability > Performance > Intelligence.
+- **Agentic Cyber Defence** — Dedicated cyber agents (Detection, Response, Orchestration, Threat Intel) that detect and triage alerts, recommend/execute response actions with HITL, correlate to incidents, and link to GRC risks and controls. Every cyber action has rationale, confidence, and audit trail. Same explainability and IAM model as GRC agents.
+- **Regulatory Risk Strategy (built-in)** — Regulatory risk managed by mapping each regulatory expectation (EU AI Act, NIST AI RMF, ISO 42001, MAS, HKMA) to concrete Evonix artifacts (DecisionLog, AuditTrailEntry, Challenge, reports); evidence produced by default operation, not as a separate compliance run.
+
+### Competitive positioning (Feb 2026)
+
+Based on competitive research (see `_bmad-output/competitive-research-explainability-2026.md`):
+
+| Evonix advantage | Competitor gap |
+|------------------|---------------|
+| Per-decision rationale (DecisionLog with sources, confidence, frameworkRefs) | Most competitors (ServiceNow, Archer, Credo AI) operate at model/system/policy level, not per-output. |
+| Confidence scoring per GRC output with threshold-based HITL routing | No competitor publishes confidence scoring for GRC outputs. |
+| Structured Challenge mechanism (user raises, rationale, resolution, all audited) | No competitor has a structured, auditable challenge mechanism for AI outputs. |
+| 6-layer explainability framework | Competitors have checklists or principles; no published layered framework at this depth. |
+| IAM for Agents (real-time, context-aware; coworker model) | Competitors use standard OAuth/RBAC; no published agent-specific IAM model. |
+| Agentic Cyber Defence integrated with GRC | No competitor integrates cyber detection/response agents with GRC explainability and audit trail. |
+
+Key competitor to watch: **Hyperproof** (Jan 2026 early access) — closest positioning with HITL + explainability; differentiate on depth and cyber defence integration.
 
 ---
 
@@ -109,6 +136,8 @@ Visibility and workflows are scoped by line (and optionally by entity) so each l
 | **Chief Compliance Officer / Board Governance Officer** | 2L / — | Compliance / board governance | Ensure explainability, tamper-proof audit trails, regulatory trust; governance fit vs COBIT/NIST/PCI DSS/ISO 27k with maturity levels. | Immutable audit & explainability; governance fit assessment. |
 | **Security Architect** | 2L | Security / control design | Automate control testing lifecycle; identify vulnerabilities early; reduce manual assurance. | Automated adversarial control testing. |
 | **Industry Regulator** | — | Regulator | Detect systemic risks across organizations; review anonymized audit patterns. | Cross-enterprise audit consortium (future). |
+| **SOC Analyst** | 1L/2L | Cyber Operations | Triage alerts; approve/reject agent-recommended response actions; review incidents; ensure cyber events link to GRC. | Agentic Cyber Defence: alerts, incidents, response actions, Cyber → GRC linkage. |
+| **Platform Admin** | — | Security / platform | Configure agent identities, delegation scopes, skill approval, operational thresholds, API spend caps. | AI Security & IAM for Agents: agent operations dashboard, skill security pipeline. |
 
 ---
 
@@ -165,6 +194,23 @@ Visibility and workflows are scoped by line (and optionally by entity) so each l
 
 20. **Cross-enterprise audit consortium (future)** — Industry Regulator participates in or queries consortium where multiple organizations share anonymized audit trails on consortium blockchain with privacy-preserving protocols for systemic risk detection. *Value:* Systemic risk detection; industry-wide visibility for regulators.
 
+
+21. **Cyber alert triage and response (Agentic Cyber Defence)**
+   SIEM fires alert → Detection Agent triages (enriches with threat intel, assigns severity) → CyberAlert stored → Orchestration Agent correlates to incident and links to GRC risks/controls → Response Agent recommends action (isolate host, block IP, etc.) with rationale and confidence → SOC analyst approves (HITL) → ResponseAction executed and logged → incident updated. *Value:* Faster response; every action explainable and auditable; cyber events feed risk posture.
+
+22. **Explainability challenge and resolution**
+   AI recommends control change → user disagrees → user raises Challenge (rationale, evidence) → 2L reviewer assesses → resolution logged with outcome and reasoning → DecisionLog updated → regulator-ready audit trail includes both original recommendation and challenge. *Value:* Structured dissent; AI outputs are not “take it or leave it”; regulators see human oversight in action.
+
+23. **Regulatory impact assessment against 6-layer framework**
+   New regulation published → platform ingests → impact assessment maps new requirements to existing DecisionLog, AuditTrailEntry, Challenge artifacts → identifies gaps (e.g. quarterly submission not configured) → generates gap report with prioritised actions → 2L reviews. *Value:* Regulatory readiness assessed against Evonix’s own explainability framework; gaps actionable.
+
+24. **Agent skill onboarding (AI Security)**
+   New tool proposed for an agent (e.g. “firewall-rule-update” for Response Agent) → four-phase skill security pipeline: (1) pre-ingestion text analysis, (2) multi-perspective risk review, (3) capability mismatch detection, (4) human approval → approved skill registered with scoped delegation → agent can now use skill. *Value:* No unchecked expansion of agent capabilities; every skill auditable.
+
+25. **On-demand Explainability Report and Audit Trail Pack**
+   User (Compliance, Auditor, Regulator) requests Explainability Report for a scope (entity, quarter, process, incident) → platform generates board summary (plain language, 1–2 pages) and auditor detail (full citations, audit trail excerpt) → exportable as JSON, CSV, PDF → maps to EU AI Act Art. 13/14, NIST AI RMF, ISO 42001, MAS TRM, HKMA GenAI. *Value:* Regulator-ready evidence on demand; no separate compliance run.
+
+
 ---
 
 ## 4. Non-Functional Requirements
@@ -197,6 +243,26 @@ Visibility and workflows are scoped by line (and optionally by entity) so each l
 - **NFR-29** Platform shall support continuous governance alignment: AI agents shall continually update and map decisions in real time to governance objectives and policies so compliance remains proactive and traceable.
 - **NFR-30** Platform shall support predictive governance intelligence: AI agents shall forecast emerging compliance risks using regulatory trends and external data; integration with regulatory feeds (e.g. SEC, HKMA, EU Digital Act) for horizon scanning shall be supported.
 - **NFR-31** (Future) Platform may support cross-enterprise audit consortium: multi-organization anonymized audit trail sharing on consortium blockchain with privacy-preserving protocols for systemic risk detection by industry regulators.
+
+### AI Security & Agent Operations
+
+- **NFR-32** Each agent identity shall have separate credentials, session isolation, and least-privilege access; no shared secrets between agents or between agents and humans.
+- **NFR-33** Authorization decisions shall be evaluated per-action (not per-session); latency of authorization check shall not exceed 200 ms p99.
+- **NFR-34** Agent operational state transitions (Normal → Degraded → Paused → Stopped) shall complete within 5 seconds; fail-closed: agents shall default to inaction when authorization or state is uncertain.
+- **NFR-35** API spend caps shall be configurable per agent; cap exhaustion shall trigger automatic pause and alert within 30 seconds.
+- **NFR-36** Skill security pipeline shall enforce silence = rejection: any skill not explicitly approved within configured SLA shall be auto-rejected.
+
+### Cyber Defence
+
+- **NFR-37** Cyber alerts shall be ingested and triaged within 60 seconds of receipt (p95).
+- **NFR-38** Critical/high severity alerts shall surface HITL approval prompt within 30 seconds of response recommendation.
+- **NFR-39** Cyber → GRC linkage (alert/incident to risk/control) shall be available in dashboards within 5 minutes of incident creation.
+
+### Explainability Performance
+
+- **NFR-40** DecisionLog creation overhead shall not exceed 500 ms per AI output (p95).
+- **NFR-41** Explainability Report generation shall complete within 60 seconds for standard scope (single entity, single quarter).
+- **NFR-42** Confidence drift detection shall evaluate daily and alert within 24 hours of threshold breach.
 
 ### Availability & Resilience
 
