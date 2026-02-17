@@ -8,3 +8,10 @@
 - **[REGULATORY-RISK-STRATEGY.md](REGULATORY-RISK-STRATEGY.md)** — Strategy for managing regulatory risk in Evonix: explainability as evidence, regulator-ready reports, ownership, mapping to EU AI Act, NIST, ISO 42001, MAS, HKMA.
 
 Data models for explainability and cyber defence are in `prisma/schema.prisma`. UI: `netlify-demo/prototype.html` (Workflow, Policy Agent, **Cyber Defence** page).
+
+## Methodology & Templates
+
+- **Advanced elicitation** — Deep discovery, question banks, capture templates (to be added).
+- **Analyst guide** — End-to-end workflow and where each phase fits (to be added).
+
+See [methodology/](../methodology/) for phase-by-phase methodology and [templates/](../templates/) for prompts and checklists.

@@ -1,31 +1,24 @@
 # Dependencies
 node_modules/
-package-lock.json
+__pycache__/
+*.pyc
+.venv/
+venv/
+env/
 
-# Environment
-.env
-.env.*
-*.local
-
-# AWS
-AWSCLIV2.pkg
-
-# Build outputs
-dist/
-build/
-
-# IDE
+# IDE / OS
+.DS_Store
 .idea/
 *.swp
 *.swo
-.DS_Store
 
-# Logs
+# Build / output
+dist/
+build/
 *.log
-npm-debug.log*
+.env
+.env.local
 
-# Generated images (can regenerate)
-_bmad-output/images/
-
-# Cursor/IDE project files
-.cursor/projects/
+# Optional
+*.bak
+.cache/
