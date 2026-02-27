@@ -276,13 +276,13 @@
     <nav>
       <a class="logo">Evonix</a>
       <div class="nav-links">
-        <a class="active" data-page="workflow">Workflow</a>
-        <a data-page="policy-agent">Policy Agent</a>
-        <a data-page="cyber-defence">Cyber Defence</a>
+        <a class="active" data-page="workflow">Governance Orchestration</a>
+        <a data-page="policy-agent">Policy & Standards Agent</a>
+        <a data-page="cyber-defence">Agentic Cyber Defence</a>
         <a data-page="ai-security">AI Security & IAM</a>
-        <a data-page="dashboard">Dashboard</a>
-        <a data-page="about">About</a>
-        <a data-page="help">Help</a>
+        <a data-page="dashboard">Executive Dashboard</a>
+        <a data-page="about">Offering & Roadmap</a>
+        <a data-page="help">Guidance</a>
       </div>
     </nav>
 
@@ -290,15 +290,15 @@
       <!-- WORKFLOW PAGE -->
       <div class="page-section active" id="page-workflow">
       <div class="section-header">
-        <h2>Boardroom → Control Objectives</h2>
+        <h2>Governance Orchestration</h2>
         <div style="display: flex; gap: 8px;">
           <span class="status green">System Online</span>
-          <button class="btn primary">Export Report</button>
+          <button class="btn primary">Export Executive Pack</button>
         </div>
       </div>
 
       <div class="alert info">
-        <strong>Workflow Active:</strong> Ingest boardroom inputs, map to governance objectives and controls, review with explainability.
+        <strong>Orchestration Active:</strong> Ingest boardroom inputs, map to governance objectives and controls, and validate with explainability.
       </div>
 
       <div class="card">
@@ -320,8 +320,8 @@
           <div class="pill">Executive Notes</div>
           <div class="textarea" id="input-area">Paste or upload: strategic priorities, risk statements, regulatory commitments…</div>
           <div style="margin-top: 10px;">
-            <button class="btn" id="upload-btn">Upload Document</button>
-            <button class="btn" id="extract-btn">Run AI Extraction</button>
+            <button class="btn" id="upload-btn">Ingest Source Document</button>
+            <button class="btn" id="extract-btn">Generate Insights</button>
           </div>
         </div>
 
@@ -351,17 +351,17 @@
             <div class="agent-card">
               <h3>1L Ops Agent</h3>
               <div class="agent-role">Controls + evidence feasibility</div>
-              <span class="agent-status">Processing inputs</span>
+              <span class="agent-status">Assessing submitted inputs</span>
             </div>
             <div class="agent-card">
               <h3>2L Risk Agent</h3>
               <div class="agent-role">Risk posture + governance mapping</div>
-              <span class="agent-status">Drafting recommendations</span>
+              <span class="agent-status">Preparing recommendations</span>
             </div>
             <div class="agent-card">
               <h3>3L Audit Agent</h3>
               <div class="agent-role">Assurance + audit readiness</div>
-              <span class="agent-status">Reviewing control gaps</span>
+              <span class="agent-status">Assessing control gaps</span>
             </div>
           </div>
         </div>
@@ -384,7 +384,7 @@
               <span class="tag">3L Owner</span>
             </li>
           </ul>
-          <button class="btn">Accept Recommendations</button>
+          <button class="btn">Approve Recommendations</button>
         </div>
       </div>
 
@@ -408,7 +408,7 @@
                 <td>Low tolerance for evidence gaps</td>
                 <td>Evidence completeness &gt; 95%</td>
                 <td>Amber</td>
-                <td>Needs remediation</td>
+                <td>Remediation required</td>
               </tr>
               <tr>
                 <td>Zero tolerance for unlogged AI decisions</td>
@@ -420,23 +420,23 @@
                 <td>Moderate reg change risk</td>
                 <td>Reg change SLA &lt; 24h</td>
                 <td>Red</td>
-                <td>Material gap</td>
+                <td>Priority gap</td>
               </tr>
             </tbody>
           </table>
           <div style="margin-top: 10px;">
-            <button class="btn">View RCSA Detail</button>
-            <button class="btn">Trigger Remediation</button>
+            <button class="btn">Review RCSA Detail</button>
+            <button class="btn">Launch Remediation</button>
           </div>
         </div>
         <div class="card">
           <h2>Control Tower Signals</h2>
           <ul class="list">
             <li>RCSA control failures linked to evidence gaps <span class="tag">2L Review</span></li>
-            <li>KCIs below appetite threshold in Payments <span class="tag">Escalate</span></li>
-            <li>AI explainability checkpoint compliance 98% <span class="tag">On Track</span></li>
+            <li>KCIs below appetite threshold in Payments <span class="tag">Escalation required</span></li>
+            <li>AI explainability checkpoint compliance 98% <span class="tag">Within target</span></li>
           </ul>
-          <button class="btn">Open Control Tower</button>
+          <button class="btn">Open Control Tower View</button>
         </div>
       </div>
 
@@ -473,7 +473,7 @@
                 <td>Quarterly access recertification</td>
                 <td>System Owners</td>
                 <td>Recert report</td>
-                <td>Needs remediation</td>
+                <td>Remediation required</td>
               </tr>
               <tr>
                 <td>PAM session recording for admins</td>
@@ -484,8 +484,8 @@
             </tbody>
           </table>
           <div style="margin-top: 10px;">
-            <button class="btn">Approve 1L Controls</button>
-            <button class="btn">Request Evidence</button>
+            <button class="btn">Approve 1L Control Set</button>
+            <button class="btn">Request Supporting Evidence</button>
           </div>
         </div>
       </div>
@@ -498,11 +498,11 @@
             <li>Ensure AI governance with explainability controls <span class="tag">COBIT APO13</span></li>
             <li>Shorten audit cycle through continuous assurance <span class="tag">COSO Principle 11</span></li>
           </ul>
-          <button class="btn" id="approve-objectives">Approve Objectives</button>
+          <button class="btn" id="approve-objectives">Confirm Objectives</button>
         </div>
 
         <div class="card" id="controls-card">
-          <h2>Control Objectives (Draft)</h2>
+          <h2>Control Objectives (Proposed)</h2>
           <table class="table">
             <thead>
               <tr>
@@ -515,23 +515,23 @@
               <tr>
                 <td>Evidence completeness maintained for critical controls</td>
                 <td>ISO 27001 / NIST CSF</td>
-                <td>Needs Review</td>
+                <td>Review required</td>
               </tr>
               <tr>
                 <td>AI decisions are logged with rationale & approvals</td>
                 <td>COBIT / COSO</td>
-                <td>Draft</td>
+                <td>Proposed</td>
               </tr>
               <tr>
                 <td>Regulatory updates assessed within 24 hours</td>
                 <td>HKMA / MAS</td>
-                <td>Approved</td>
+                <td>Confirmed</td>
               </tr>
             </tbody>
           </table>
           <div style="margin-top: 10px;">
-            <button class="btn" id="edit-controls">Edit Controls</button>
-            <button class="btn" id="approve-mapping">Approve Mapping</button>
+            <button class="btn" id="edit-controls">Refine Controls</button>
+            <button class="btn" id="approve-mapping">Confirm Mapping</button>
           </div>
         </div>
       </div>
@@ -544,7 +544,7 @@
             <li>Audit cycle target: low tolerance for evidence gaps <span class="tag">Policy</span></li>
             <li>AI explainability: zero tolerance for unlogged decisions <span class="tag">Ethics</span></li>
           </ul>
-          <button class="btn" id="approve-risk">Approve Appetite</button>
+          <button class="btn" id="approve-risk">Confirm Risk Appetite</button>
         </div>
         <div class="card" id="explain-card">
           <h2>Explainability Panel</h2>
@@ -554,9 +554,9 @@
             Sources: Board minutes (pp. 3–4), Strategy deck (slide 8).
           </div>
           <div style="margin-top: 10px;">
-            <button class="btn" id="view-sources">View Sources</button>
-            <button class="btn" id="challenge">Challenge</button>
-            <button class="btn" id="approve-explain">Approve</button>
+            <button class="btn" id="view-sources">Review Sources</button>
+            <button class="btn" id="challenge">Raise Challenge</button>
+            <button class="btn" id="approve-explain">Confirm Decision</button>
           </div>
         </div>
       </div>
@@ -616,7 +616,7 @@
             <li>MAS AI Risk Guidelines <span class="tag" style="border-color: var(--green);">Aligned</span></li>
             <li>HKMA GenAI Principles <span class="tag" style="border-color: var(--green);">Aligned</span></li>
           </ul>
-          <button class="btn">Generate Compliance Report</button>
+          <button class="btn">Generate Regulatory Compliance Report</button>
         </div>
       </div>
 
@@ -669,7 +669,38 @@
             <li>KCI: Evidence completeness &gt; 95% <span class="tag">Owner: 1L</span></li>
             <li>KPI: Audit prep cycle &lt; 2 weeks <span class="tag">Owner: 2L</span></li>
           </ul>
-          <button class="btn" id="create-monitoring">Create Monitoring</button>
+          <button class="btn" id="create-monitoring">Create Monitoring Plan</button>
+        </div>
+      </div>
+
+      <div class="grid two" style="margin-top: 12px;">
+        <div class="card">
+          <h2>Adoption Readiness Gate (Regulated Rollout)</h2>
+          <ul class="list">
+            <li><strong>Governance Gate</strong> — Explainability and challenge traceability pass regulator-style checks <span class="tag">Required</span></li>
+            <li><strong>Security Gate</strong> — Agent IAM isolation and delegated authority enforcement validated <span class="tag">Required</span></li>
+            <li><strong>Operational Gate</strong> — SOC/2L latency and approval-volume thresholds pass <span class="tag">Required</span></li>
+            <li><strong>Assurance Gate</strong> — Sample decisions are replayable end-to-end for audit <span class="tag">Required</span></li>
+          </ul>
+          <button class="btn">Run Readiness Gate Assessment</button>
+        </div>
+        <div class="card">
+          <h2>Regulatory Risk Strategy (Evidence by Design)</h2>
+          <table class="table">
+            <thead>
+              <tr><th>Regulation</th><th>Mapped Artifact</th><th>Status</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>EU AI Act Art. 13/14</td><td>DecisionLog + Explainability Report</td><td><span class="tag" style="border-color: var(--green);">Active</span></td></tr>
+              <tr><td>NIST AI RMF</td><td>AuditTrailEntry + Confidence Routing</td><td><span class="tag" style="border-color: var(--green);">Active</span></td></tr>
+              <tr><td>ISO 42001</td><td>Challenge Workflow + Audit Pack</td><td><span class="tag" style="border-color: var(--blue);">In Progress</span></td></tr>
+              <tr><td>HKMA / MAS</td><td>Regulatory Gap Analysis + Exports</td><td><span class="tag" style="border-color: var(--green);">Active</span></td></tr>
+            </tbody>
+          </table>
+          <div style="margin-top: 10px;">
+            <button class="btn">Generate Audit Trail Pack</button>
+            <button class="btn">Run Regulatory Impact Assessment</button>
+          </div>
         </div>
       </div>
       </div><!-- END WORKFLOW PAGE -->
@@ -677,10 +708,10 @@
       <!-- DASHBOARD PAGE -->
       <div class="page-section" id="page-dashboard">
         <div class="section-header">
-          <h2>Governance Dashboard</h2>
+          <h2>Executive Governance Dashboard</h2>
           <div style="display: flex; gap: 8px;">
-            <button class="btn">Refresh</button>
-            <button class="btn primary">Export Report</button>
+            <button class="btn">Refresh View</button>
+            <button class="btn primary">Export Executive Pack</button>
           </div>
         </div>
 
@@ -697,7 +728,7 @@
           </div>
           <div class="card stat-card">
             <div class="stat-value" style="color: var(--orange);">8</div>
-            <div class="stat-label">Open Issues</div>
+            <div class="stat-label">Issues Requiring Action</div>
             <div class="stat-change negative">↑ 2 from last week</div>
           </div>
           <div class="card stat-card">
@@ -799,7 +830,7 @@
       <!-- ABOUT PAGE -->
       <div class="page-section" id="page-about">
         <div class="section-header">
-          <h2>About the Platform</h2>
+          <h2>Offering & Roadmap</h2>
         </div>
 
         <div class="grid two" style="margin-bottom: 12px;">
@@ -822,6 +853,8 @@
               <li><strong>Framework Mapping</strong><div class="muted" style="font-size: 11px; margin-top: 4px;">Automatic alignment to COBIT, COSO, ISO 27001, NIST CSF, and regulatory frameworks</div></li>
               <li><strong>Control Tower</strong><div class="muted" style="font-size: 11px; margin-top: 4px;">Real-time monitoring of KCIs, KRIs, and risk appetite alignment</div></li>
               <li><strong>Explainable AI</strong><div class="muted" style="font-size: 11px; margin-top: 4px;">Full transparency into AI decision rationale with source citations</div></li>
+              <li><strong>Regulatory Risk Strategy</strong><div class="muted" style="font-size: 11px; margin-top: 4px;">Regulation-to-artifact mapping with evidence produced by default operation</div></li>
+              <li><strong>Org + Document Intelligence</strong><div class="muted" style="font-size: 11px; margin-top: 4px;">Org chart mapping and annual report/strategy analysis into governance issues</div></li>
             </ul>
           </div>
         </div>
@@ -891,6 +924,28 @@
               <li><div style="display: flex; justify-content: space-between;"><strong>Reduced Audit Prep Time</strong><span class="tag" style="border-color: var(--green); color: var(--green);">-60%</span></div><div class="muted" style="font-size: 11px; margin-top: 4px;">Continuous evidence collection eliminates last-minute scrambles</div></li>
               <li><div style="display: flex; justify-content: space-between;"><strong>Improved Control Coverage</strong><span class="tag" style="border-color: var(--green); color: var(--green);">+35%</span></div><div class="muted" style="font-size: 11px; margin-top: 4px;">AI-driven gap analysis identifies missing controls</div></li>
               <li><div style="display: flex; justify-content: space-between;"><strong>Faster Reg Response</strong><span class="tag" style="border-color: var(--green); color: var(--green);">&lt;24h</span></div><div class="muted" style="font-size: 11px; margin-top: 4px;">Automated regulatory change impact assessment</div></li>
+              <li><div style="display: flex; justify-content: space-between;"><strong>Governance ROI Visibility</strong><span class="tag" style="border-color: var(--blue); color: var(--blue);">Value</span></div><div class="muted" style="font-size: 11px; margin-top: 4px;">Dashboards quantify automation ROI and maturity benchmarking</div></li>
+              <li><div style="display: flex; justify-content: space-between;"><strong>Ethics by Design</strong><span class="tag" style="border-color: var(--purple); color: var(--purple);">Auditable</span></div><div class="muted" style="font-size: 11px; margin-top: 4px;">Ethics guidelines and scoring integrated into governance decisions</div></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="grid two" style="margin-bottom: 12px;">
+          <div class="card">
+            <h2>Advanced Governance Capabilities</h2>
+            <ul class="list">
+              <li><strong>Governance Fit Assessment</strong> — COBIT/NIST/PCI DSS/ISO 27k maturity and gap analysis</li>
+              <li><strong>Adversarial Control Testing</strong> — Agent-assisted design/execution/monitoring/remediation</li>
+              <li><strong>Continuous Governance Alignment</strong> — Ongoing mapping of decisions to objectives and policy</li>
+              <li><strong>Predictive Governance Intelligence</strong> — Emerging risk forecasting from regulatory trends</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h2>Future Ecosystem</h2>
+            <ul class="list">
+              <li><strong>Cross-enterprise audit consortium</strong> for anonymized systemic risk detection <span class="tag">Future</span></li>
+              <li><strong>Extended regulator coverage</strong> beyond initial HKMA/MAS focus <span class="tag">Planned</span></li>
+              <li><strong>Expanded integrations</strong> for SIEM, HR, and enterprise systems <span class="tag">Roadmap</span></li>
             </ul>
           </div>
         </div>
@@ -902,7 +957,7 @@
               <tr><td>Platform Version</td><td>1.0.0 (Prototype)</td></tr>
               <tr><td>AI Engine</td><td>v2.3.1</td></tr>
               <tr><td>Framework Library</td><td>2026.Q1</td></tr>
-              <tr><td>Last Updated</td><td>January 2026</td></tr>
+              <tr><td>Last Updated</td><td>February 2026</td></tr>
             </tbody>
           </table>
         </div>
@@ -911,10 +966,10 @@
       <!-- HELP PAGE -->
       <div class="page-section" id="page-help">
         <div class="section-header">
-          <h2>Help & Documentation</h2>
+          <h2>Guidance & Documentation</h2>
           <div style="display: flex; gap: 8px;">
             <input type="text" placeholder="Search documentation..." style="padding: 8px 12px; background: var(--panel-2); border: 1px solid var(--line); border-radius: 8px; color: var(--text); font-size: 13px; width: 250px;" />
-            <button class="btn">Search</button>
+            <button class="btn">Search Guidance</button>
           </div>
         </div>
 
@@ -1011,10 +1066,10 @@
       <!-- POLICY AGENT PAGE -->
       <div class="page-section" id="page-policy-agent">
         <div class="section-header">
-          <h2>Autonomous Policy & Standards Agent</h2>
+          <h2>Policy & Standards Agent</h2>
           <div style="display: flex; gap: 8px;">
-            <button class="btn" id="upload-docs">Upload Documents</button>
-            <button class="btn primary" id="run-policy-agent">Run Policy Agent</button>
+            <button class="btn" id="upload-docs">Ingest Documents</button>
+            <button class="btn primary" id="run-policy-agent">Run Policy & Standards Agent</button>
           </div>
         </div>
 
@@ -1255,8 +1310,8 @@
               </ul>
             </div>
             <div style="margin-top: 12px;">
-              <button class="btn">View Sources</button>
-              <button class="btn">Challenge</button>
+                <button class="btn">Review Sources</button>
+                <button class="btn">Raise Challenge</button>
             </div>
           </div>
         </div>
@@ -1307,8 +1362,8 @@
           <h2>Agentic Cyber Defence</h2>
           <div style="display: flex; gap: 8px;">
             <span class="status green">Agents Online</span>
-            <button class="btn">Sync Threat Intel</button>
-            <button class="btn primary">New Incident</button>
+            <button class="btn">Sync Threat Intelligence</button>
+            <button class="btn primary">Create Incident</button>
           </div>
         </div>
 
@@ -1362,25 +1417,25 @@
                   <td><span style="color: var(--red);">Critical</span></td>
                   <td>Unusual admin login from new region</td>
                   <td>Detection</td>
-                  <td><span class="tag" style="border-color: var(--blue);">Triaging</span></td>
+                  <td><span class="tag" style="border-color: var(--blue);">Under triage</span></td>
                 </tr>
                 <tr>
                   <td>10:32</td>
                   <td><span style="color: var(--orange);">High</span></td>
                   <td>EDR: suspicious PowerShell execution</td>
                   <td>Detection</td>
-                  <td><span class="tag" style="border-color: var(--green);">Resolved</span></td>
+                  <td><span class="tag" style="border-color: var(--green);">Closed</span></td>
                 </tr>
                 <tr>
                   <td>09:18</td>
                   <td><span style="color: var(--orange);">Medium</span></td>
                   <td>Phishing email reported by user</td>
                   <td>Detection</td>
-                  <td><span class="tag" style="border-color: var(--blue);">Investigating</span></td>
+                  <td><span class="tag" style="border-color: var(--blue);">In investigation</span></td>
                 </tr>
               </tbody>
             </table>
-            <button class="btn">View All Alerts</button>
+            <button class="btn">Review All Alerts</button>
           </div>
           <div class="card">
             <h2>Active Incidents</h2>
@@ -1388,40 +1443,40 @@
               <li>
                 INC-001: Possible credential compromise — Admin account
                 <span class="tag" style="border-color: var(--red);">Critical</span>
-                <span class="tag">Open</span>
+                <span class="tag">Active</span>
               </li>
               <li>
                 INC-002: Phishing campaign — 3 users reported
                 <span class="tag" style="border-color: var(--orange);">High</span>
-                <span class="tag">Contained</span>
+                <span class="tag">Stabilized</span>
               </li>
             </ul>
             <div style="margin-top: 10px;">
-              <button class="btn">Open Incident INC-001</button>
+              <button class="btn">Open Incident Record INC-001</button>
             </div>
           </div>
         </div>
 
         <div class="grid two" style="margin-bottom: 12px;">
           <div class="card">
-            <h2>Response Actions (Pending Approval)</h2>
+          <h2>Response Actions (Awaiting Approval)</h2>
             <ul class="rec-list">
               <li>
                 <strong>Isolate host</strong> — WORKSTATION-07 (Detection Agent)
                 <div class="muted" style="font-size: 11px; margin-top: 4px;">Rationale: EDR flagged suspicious process; host in scope of INC-001.</div>
                 <div style="margin-top: 8px;">
-                  <button class="btn" style="padding: 4px 8px; font-size: 10px;">View rationale</button>
-                  <button class="btn primary" style="padding: 4px 8px; font-size: 10px;">Approve</button>
-                  <button class="btn" style="padding: 4px 8px; font-size: 10px;">Reject</button>
+                  <button class="btn" style="padding: 4px 8px; font-size: 10px;">Review rationale</button>
+                  <button class="btn primary" style="padding: 4px 8px; font-size: 10px;">Approve action</button>
+                  <button class="btn" style="padding: 4px 8px; font-size: 10px;">Reject action</button>
                 </div>
               </li>
               <li>
                 <strong>Block IP</strong> — 203.0.113.42 (Response Agent)
                 <div class="muted" style="font-size: 11px; margin-top: 4px;">Rationale: Threat intel match; C2 indicator for INC-001.</div>
                 <div style="margin-top: 8px;">
-                  <button class="btn" style="padding: 4px 8px; font-size: 10px;">View rationale</button>
-                  <button class="btn primary" style="padding: 4px 8px; font-size: 10px;">Approve</button>
-                  <button class="btn" style="padding: 4px 8px; font-size: 10px;">Reject</button>
+                  <button class="btn" style="padding: 4px 8px; font-size: 10px;">Review rationale</button>
+                  <button class="btn primary" style="padding: 4px 8px; font-size: 10px;">Approve action</button>
+                  <button class="btn" style="padding: 4px 8px; font-size: 10px;">Reject action</button>
                 </div>
               </li>
             </ul>
@@ -1472,25 +1527,25 @@
                 <td>Response Agent</td>
                 <td>EDR flagged; host in INC-001 scope; contain first, investigate after</td>
                 <td>88%</td>
-                <td><span class="tag" style="border-color: var(--blue);">Pending approval</span></td>
+                <td><span class="tag" style="border-color: var(--blue);">Awaiting approval</span></td>
               </tr>
               <tr>
                 <td>Block IP 203.0.113.42</td>
                 <td>Response Agent</td>
                 <td>Threat intel C2 indicator; matched to INC-001</td>
                 <td>92%</td>
-                <td><span class="tag" style="border-color: var(--blue);">Pending approval</span></td>
+                <td><span class="tag" style="border-color: var(--blue);">Awaiting approval</span></td>
               </tr>
               <tr>
                 <td>Escalate INC-001 to 2L Risk</td>
                 <td>Orchestration Agent</td>
                 <td>Critical severity; link to risk R-012 for governance review</td>
                 <td>95%</td>
-                <td><span class="tag" style="border-color: var(--green);">Approved</span></td>
+                <td><span class="tag" style="border-color: var(--green);">Confirmed</span></td>
               </tr>
             </tbody>
           </table>
-          <button class="btn">Export Cyber Audit Trail</button>
+          <button class="btn">Export Cyber Audit Trail Pack</button>
         </div>
       </div><!-- END CYBER DEFENCE PAGE -->
 
@@ -1573,8 +1628,8 @@
               <li><strong>Cyber agents</strong> — Detection, Response, Orchestration, Threat Intel; same IAM and explainability model</li>
             </ul>
             <div style="margin-top: 10px;">
-              <button class="btn">Open Explainability Panel</button>
-              <button class="btn">Open Cyber Defence</button>
+              <button class="btn">Open Explainability Workspace</button>
+              <button class="btn">Open Cyber Defence Workspace</button>
             </div>
           </div>
         </div>
