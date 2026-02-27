@@ -320,6 +320,14 @@ Advanced features: adversarial control testing, predictive governance intelligen
 ### Phase 4 — Ecosystem
 Cross-enterprise audit consortium. Extended regulator coverage. SIEM integrations. Marketplace for agent skills.
 
+### Adoption Readiness Gate (required before regulated-client rollout)
+All four gates must pass in UAT and pilot readiness review:
+
+- **Governance gate** — Explainability/reporting quality and challenge traceability validated using regulator-style packet checks.
+- **Security gate** — Agent IAM isolation, delegation enforcement, and fail-closed behavior validated with negative and adversarial tests.
+- **Operational gate** — SOC and 2L workflows meet latency and approval-volume thresholds without bottlenecks.
+- **Assurance gate** — Independent audit replay of sampled decisions is reproducible end-to-end from source to outcome.
+
 ## 11. Risks and Dependencies
 - Availability of machine-readable regulatory sources.
 - Accuracy and acceptance of AI suggestions.
@@ -330,6 +338,8 @@ Cross-enterprise audit consortium. Extended regulator coverage. SIEM integration
 - **Threat intelligence feed quality** — IOC freshness and false-positive rates affect cyber agent effectiveness.
 - **Regulatory pace** — EU AI Act implementation timelines may shift; ISO 42001 adoption varies by jurisdiction.
 - **Explainability performance overhead** — Per-output DecisionLog creation adds latency; must stay within NFR-19 budget.
+- **Scope dilution risk** — Delivering too many differentiators in v1 may reduce depth and buyer trust; enforce strict v1 scope gate.
+- **3LOD workflow ambiguity** — Weak line handoffs can reduce auditability and adoption; require explicit role-specific handoff states.
 
 ## 12. Open Questions
 - Which regulators beyond HKMA/MAS are required in v1?
@@ -342,6 +352,8 @@ Cross-enterprise audit consortium. Extended regulator coverage. SIEM integration
 - **What threat intel feed formats (STIX 2.1, proprietary) are required for v1 cyber defence?**
 - **Is ISO 42001 certification a target for Evonix itself (not just supporting customer compliance)?**
 - **Should the Challenge mechanism support anonymous challenges (e.g. whistleblower-style)?**
+- **What regulator packet format(s) should be considered acceptance criteria (e.g., HKMA-first, MAS-first, or dual-pack)?**
+- **What are the exact operational thresholds for SOC/2L approval volume and response latency in pilot accounts?**
 
 ## 13. Related Documents
 - [Explainability Framework](../docs/EXPLAINABILITY.md)

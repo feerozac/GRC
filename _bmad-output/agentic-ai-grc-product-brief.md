@@ -292,4 +292,51 @@ Visibility and workflows are scoped by line (and optionally by entity) so each l
 
 ---
 
+## 5. Advanced Elicitation Findings (2026-02)
+
+### Pre-mortem (12-month failure scenario)
+
+Assumed failure: Evonix pilots stall after security/compliance review and are used only for reporting, not operational governance.
+
+Primary causes and prevention controls:
+
+- **Explainability execution gap** — Regulator packet quality gate required before feature release (DecisionLog completeness, challenge traceability, export quality).
+- **Agent IAM implementation complexity** — Ship a narrow production authorization kernel first (per-action policy engine + immutable authorization log).
+- **Cyber workflow trust erosion** — Start with precision-first response actions and tune confidence/HITL thresholds with SOC users.
+- **Regulatory mapping inconsistency** — Add human QA checkpoints and minimum mapping confidence thresholds before 2L consumption.
+- **3LOD workflow ambiguity** — Enforce role-specific default views plus explicit 1L/2L/3L handoff states.
+- **Scope dilution** — Keep v1 centered on explainability + regulatory impact + evidence traceability for HKMA/MAS use cases.
+- **Integration delay risk** — Provide import templates and sample data packs for time-to-value before full integration completion.
+- **Performance regression from explainability overhead** — Track per-layer p95 latency budgets and block releases that exceed thresholds.
+
+Top "must-not-fail" controls:
+
+- **C1** Regulator packet quality gate before release.
+- **C2** Minimal, verifiable agent IAM kernel in production first.
+- **C3** Precision-first cyber action scope with HITL tuning.
+- **C4** Human-verified regulatory mapping confidence thresholds.
+- **C5** Strict v1 scope gate aligned to one buyer outcome.
+
+### Stakeholder round table synthesis
+
+Participants simulated: CISO (2L), Compliance Manager (2L), Internal Audit (3L), SOC Lead, Board Risk Committee representative, Platform Admin.
+
+Cross-stakeholder non-negotiables:
+
+- **Trust fabric first** — Decision transparency, immutable evidence, and challenge history must be first-class.
+- **Controlled autonomy** — Scoped agent powers, fail-closed behavior, and human escalation are mandatory.
+- **Operational usability** — SOC and 2L workflows must avoid approval bottlenecks and reduce friction.
+- **Role-appropriate outputs** — Board summaries, auditor depth, and operator speed must coexist by design.
+
+### Adoption Readiness Gate (for regulated-client rollout)
+
+Before client rollout, all of the following gates must pass:
+
+- **Governance gate** — Explainability/reporting quality and challenge traceability.
+- **Security gate** — Agent IAM isolation and delegation enforcement.
+- **Operational gate** — SOC workflow latency and approval volume thresholds.
+- **Assurance gate** — Reproducible audit replay for sampled decisions.
+
+---
+
 *This brief is the product vision for the Agentic AI GRC platform and should be used to align roadmap, epics, and NFRs with stakeholders.*
