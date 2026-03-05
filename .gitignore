@@ -15,6 +15,7 @@ env/
 # Build / output
 dist/
 build/
+generated/
 *.log
 .env
 .env.local

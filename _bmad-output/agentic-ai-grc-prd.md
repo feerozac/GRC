@@ -365,3 +365,6 @@ All four gates must pass in UAT and pilot readiness review:
 - [Prisma Schema (data model)](../prisma/schema.prisma)
 - [Prototype (UI visualization)](../netlify-demo/prototype.html)
 
+### Validation Documents
+- [FR-16 & FR-20 Document Extraction Validation](planning-artifacts/fr16-fr20-document-extraction-validation.md) — Technical feasibility validation for governance objective extraction from board papers and annual reports (validated 2026-02-20)
+

@@ -1,23 +1,30 @@
 {
   "name": "agent-grc",
   "version": "1.0.0",
-  "description": "",
+  "description": "Evonix Agentic GRC Platform",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "extract": "npx tsx src/document-extraction/cli.ts",
+    "extract:watch": "npx tsx watch src/document-extraction/cli.ts"
   },
-  "keywords": [],
+  "keywords": ["grc", "governance", "risk", "compliance", "cobit", "coso"],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "dependencies": {
     "@aws-sdk/client-bedrock-runtime": "^3.980.0",
     "@modelcontextprotocol/sdk": "^1.25.3",
-    "@prisma/client": "^7.3.0",
+    "@prisma/client": "^6.0.0",
     "pptxgenjs": "^4.0.1",
-    "prisma": "^7.3.0",
+    "prisma": "^6.0.0",
     "ts-node-dev": "^2.0.0",
+    "tsx": "^4.7.0",
     "typescript": "^5.9.3",
     "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0"
   }
 }
