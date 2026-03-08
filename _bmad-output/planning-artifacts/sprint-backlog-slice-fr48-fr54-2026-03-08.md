@@ -168,6 +168,9 @@ Deliver a production-ready slice that proves:
   - **Sprint B (P0/P1 completion):** EVX-204, 206, 207, 208 (29 SP)
 - If parallel squads exist, run integration/perf track (EVX-207/208) in parallel once replay and auth log contracts stabilize.
 
+Detailed day-by-day execution plan:  
+`two-week-sprint-execution-plan-fr48-fr54-2026-03-08.md`
+
 ---
 
 *This backlog slice is derived from FR-48 to FR-54 and aligned to the competition-informed refinement update (Mar 2026).*

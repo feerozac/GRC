@@ -392,6 +392,7 @@ All four gates must pass in UAT and pilot readiness review:
 - [Competitive Research: AI Explainability in GRC (Feb 2026)](competitive-research-explainability-2026.md)
 - [Competitive Analysis + Feature Refinement (Mar 2026)](planning-artifacts/competitive-analysis-and-feature-refinement-2026-03-08.md)
 - [Sprint Backlog Slice FR-48 to FR-54 (Mar 2026)](planning-artifacts/sprint-backlog-slice-fr48-fr54-2026-03-08.md)
+- [Two-Week Sprint Execution Plan FR-48 to FR-54 (Mar 2026)](planning-artifacts/two-week-sprint-execution-plan-fr48-fr54-2026-03-08.md)
 - [Product Brief](agentic-ai-grc-product-brief.md)
 - [Prisma Schema (data model)](../prisma/schema.prisma)
 - [Prototype (UI visualization)](../netlify-demo/prototype.html)
