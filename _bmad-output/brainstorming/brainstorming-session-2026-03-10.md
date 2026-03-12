@@ -11,8 +11,10 @@ session_topic: "Analyzing ServiceNow IRM architecture to inform and refine Evoni
 session_goals: "Extract SNOW IRM patterns, identify Evonix differentiation opportunities, generate feature ideas, cross-reference against existing PRD/backlog"
 selected_approach: 'user-selected'
 techniques_used: ['SCAMPER']
-ideas_generated: 47
+ideas_generated: 59
 scamper_progress: 'COMPLETE — all 7 lenses (S, C, A, M, P, E, R) executed'
+additional_ideas: 12
+additional_source: 'SNOW Lab Guide workflow analysis (93-page lab document)'
 context_file: '_bmad/bmm/data/project-context-template.md'
 ---
 
@@ -352,7 +354,88 @@ _Novelty_: Traditional GRC: months of setup, then value. Evonix: value immediate
 ## Session Progress (Paused — Break)
 
 **SCAMPER:** COMPLETE — all 7 lenses executed, 47 ideas generated
-**Resume Point:** Return from break. Options: try another technique for fresh ideas, go deeper on specific concepts, or move to idea organisation (prioritise and structure into actionable outcomes).
+**SNOW Lab Workflow Analysis:** COMPLETE — 12 additional ideas from 93-page lab guide
+**Total Ideas:** 59
+
+---
+
+### SNOW Lab Workflow Analysis Ideas (New 1-12)
+
+**Source:** IT Risk and Control Lab Guide_Washington_v4.pdf (93 pages)
+**Key workflow gaps identified:** manual entity wiring, binary Yes/No attestation, blank-sheet RCSA, single-table indicators, flat 1L task inbox
+
+**[New 1] Intelligent Entity Completeness Scoring**
+_Concept_: For every entity, agents compute a completeness score — highlighting missing risks, controls, evidence, ownership, and framework coverage. The 360 view shows what's missing, not just what's there.
+_Novelty_: SNOW's 360 view is a mirror. Evonix's is a spotlight on gaps.
+
+**[New 2] Auto-Wired Entity Relationships**
+_Concept_: Instead of manually clicking "Add" to associate risks, controls, and downstream entities, agents auto-propose relationships from CMDB service maps, incident correlation, and framework mappings. Hours of manual association become minutes of validation.
+_Novelty_: Every relationship in SNOW requires a human click. Evonix agents propose the wiring.
+
+**[New 3] Evidence-Validated Attestation**
+_Concept_: When 1L attests, the agent presents relevant evidence inline — last 90 days of scan results, patch compliance, incident data. Attestation isn't Yes/No in a vacuum — it's Yes/No in the face of evidence. Contradictory attestations auto-flagged to 2L.
+_Novelty_: SNOW asks "is this control implemented?" Evonix asks "given this evidence, is this control effective?"
+
+**[New 4] Graduated Attestation Depth**
+_Concept_: Replace binary Yes/No with risk-calibrated attestation depth. Low-risk: simple confirmation. Medium-risk: design + operating effectiveness. High-risk: full assessment with mandatory 2L review. Assurance effort scales with risk.
+_Novelty_: SNOW treats all attestations the same. Evonix calibrates depth to risk level.
+
+**[New 5] Common Control with Independent Verification Sampling**
+_Concept_: When common controls propagate to reliant entities, agents randomly spot-check 2-3 entities to verify the common control actually applies. "SSO attested as effective but not configured for LegacyBilling despite being listed as reliant."
+_Novelty_: SNOW propagates blindly. Evonix propagates and spot-checks.
+
+**[New 6] Agent-Narrated RCSA with Evidence-Backed Scoring Suggestions**
+_Concept_: Instead of blank dropdowns, assessors see agent-generated narratives with incident data, threat intel, and industry benchmarks informing suggested scores. Assessors validate or override with rationale. Every RCSA answer has a data story.
+_Novelty_: SNOW gives empty dropdowns. Evonix gives evidence-backed briefings.
+
+**[New 7] Cross-Entity RCSA Intelligence**
+_Concept_: When assessing a risk for one entity, agents surface intelligence from other entities — how the same risk was assessed elsewhere, control effectiveness across the portfolio, industry benchmarks.
+_Novelty_: SNOW assesses each entity-risk in isolation. Evonix shows portfolio-wide context.
+
+**[New 8] Dynamic Risk Appetite Alignment Monitoring**
+_Concept_: Instead of static appetite settings, agents continuously monitor whether actual risk posture aligns with stated appetite and alert when they diverge — before the annual review.
+_Novelty_: SNOW sets appetite statically. Evonix monitors alignment continuously.
+
+**[New 9] Self-Tuning Indicators**
+_Concept_: Instead of manual threshold fine-tuning, agents learn from results and recommend adjustments based on operational data and industry benchmarks. "This indicator fails 94% of runs — threshold may be too stringent for current maturity."
+_Novelty_: SNOW requires manual trial-and-error tuning. Evonix agents recommend data-driven adjustments.
+
+**[New 10] Composite Indicators Across Data Sources**
+_Concept_: Build composite indicators that correlate across multiple sources into a single holistic control effectiveness score, with primary drivers identified.
+_Novelty_: SNOW: one indicator, one table, one threshold. Evonix: multi-dimensional composite indicators.
+
+**[New 11] Predictive Indicators**
+_Concept_: Agents build predictive indicators that forecast control failures before they happen — "Based on vulnerability aging trends, this indicator will fail within 14 days. Recommend accelerating patch cycle."
+_Novelty_: SNOW tells you a control failed. Evonix tells you it's about to fail.
+
+**[New 12] Intelligent 1L Task Prioritisation**
+_Concept_: Instead of a flat task inbox, agents prioritise the 1L queue — highest-priority tasks first, with context and estimated completion time. "3 tasks matter most right now, estimated 25 minutes total."
+_Novelty_: SNOW shows a flat inbox. Evonix shows a prioritised, context-enriched action queue.
+
+---
+
+## Idea Organisation: 9 Capability Pillars
+
+Ideas have been clustered into 9 themes for PRD mapping:
+
+1. **Agent-Driven Entity & Risk Discovery** (11 ideas: S1-S7, A1, R2, New 1-2)
+2. **Bottom-Up Governance Traceability Chain** (7 ideas: A2, A5-A8, C7, R4)
+3. **Framework Intelligence & Best Practice Engine** (4 ideas: A9-A11, E3)
+4. **3LOD-Native Agent Architecture** (4 ideas: A4, C1, C2, R1)
+5. **Agent-Augmented Assurance & Attestation** (8 ideas: C3, C5-C6, C8, E5, New 3-5)
+6. **Intelligent Risk Assessment & Monitoring** (9 ideas: E1, C4, M5, New 6-11)
+7. **Dual-Cadence Governance & Reporting** (4 ideas: M2-M4, R3)
+8. **1L Experience & Platform Architecture** (5 ideas: E2, E4, R5-R6, New 12)
+9. **Extensible Governance Domains** (6 ideas: P1-P5, M1)
+
+## Session Progress (Paused)
+
+**Resume Point:** Return tomorrow. User needs to provide prioritisation input:
+1. Top 3 highest-impact themes for competitive position
+2. Quickest wins for earliest PRD inclusion
+3. Biggest category-defining breakthrough concept
+
+Then: map priorities to PRD feature requirements, develop action plans, and generate final session document.
 
 ### Key Breakthroughs So Far
 
