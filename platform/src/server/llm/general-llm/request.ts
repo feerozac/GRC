@@ -40,6 +40,60 @@ export const MessagesSchema = z.array(
 
 export type Messages = z.infer<typeof MessagesSchema>
 
+type LlmProvider = 'deepseek' | 'qwen' | 'openai'
+
+function resolveProvider(modelName: string): { provider: LlmProvider; client: OpenAI } {
+  if (modelName.startsWith('deepseek')) {
+    return {
+      provider: 'deepseek',
+      client: new OpenAI({
+        apiKey: process.env.DEEPSEEK_API_KEY,
+        baseURL: process.env.DEEPSEEK_BASE_URL || 'https://api.deepseek.com',
+        timeout: 180_000,
+      }),
+    }
+  }
+  if (modelName.startsWith('qwen')) {
+    return {
+      provider: 'qwen',
+      client: new OpenAI({
+        apiKey: process.env.QWEN_API_KEY,
+        baseURL: process.env.QWEN_BASE_URL || 'https://dashscope-intl.aliyuncs.com/compatible-mode/v1',
+        timeout: 180_000,
+      }),
+    }
+  }
+  return {
+    provider: 'openai',
+    client: new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY,
+      timeout: 180_000,
+    }),
+  }
+}
+
+function isReasoningModel(modelName: string): boolean {
+  return (
+    modelName.includes('deepseek-reasoner') ||
+    modelName.includes('o3-mini') ||
+    modelName.includes('o4-mini')
+  )
+}
+
+function buildJsonSchemaInstructions(schema: ZodType, name: string): string {
+  const formatted = zodResponseFormat(schema, name)
+  const jsonSchema = formatted.json_schema.schema
+  return `\n\nRespond ONLY with valid JSON matching this schema:\n${JSON.stringify(jsonSchema, null, 2)}`
+}
+
+function extractJsonFromText(text: string): string {
+  const fenced = text.match(/```(?:json)?\s*\n?([\s\S]*?)```/)
+  if (fenced) return fenced[1].trim()
+  const braceMatch = text.match(/\{[\s\S]*\}/)
+  if (braceMatch) return braceMatch[0]
+  return text.trim()
+}
+
 export async function sendGeneralLlmRequest(params: z.infer<typeof ParamsSchema>): Promise<any> {
   const { name, userPrompt, schema, temperature, systemPrompt, generationId } = ParamsSchema.parse(params)
   let { modelName } = ParamsSchema.parse(params)
@@ -58,66 +112,83 @@ export async function sendGeneralLlmRequest(params: z.infer<typeof ParamsSchema>
 
   const trace = langfuse.trace({ id: generationId })
 
-  const client = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
-    timeout: 60 * 1000 * 3,
-  })
+  modelName = modelName ?? process.env.DEFAULT_MODEL ?? 'deepseek-chat'
 
-  modelName = modelName ?? process.env.OPENAI_MODEL ?? 'gpt-4o-mini-2024-07-18'
+  const { provider, client } = resolveProvider(modelName)
+  const reasoning = isReasoningModel(modelName)
+
+  let effectiveSystemPrompt = systemPrompt
+  if (schema && provider !== 'openai') {
+    effectiveSystemPrompt += buildJsonSchemaInstructions(schema, name)
+  }
 
   const messages = [
-    { role: 'system', content: systemPrompt },
+    { role: 'system', content: effectiveSystemPrompt },
     { role: 'user', content: userPrompt },
   ] as Messages
 
-  let responseSchema
-  if (schema) responseSchema = zodResponseFormat(schema, name)
-
   const generation = trace.generation({
     name,
-    input: { messages, schema: responseSchema },
+    input: { messages },
     model: modelName,
+    metadata: { provider },
   })
 
   let retries = 0
   const maxRetries = 3
-  const initialDelay = 1000 // 1 second
-  let delay = initialDelay
+  let delay = 1000
 
   while (true) {
     try {
-      const response = await client.beta.chat.completions.parse({
-        model: modelName,
-        messages: messages,
-        response_format: responseSchema,
-        ...(modelName.includes('o3-mini') || modelName.includes('o4-mini')
-          ? { max_completion_tokens: 50000 }
-          : {
-              max_tokens: 16000,
-              temperature: temperature,
-            }),
-      })
+      let content: any
+      let usage: OpenAI.CompletionUsage | undefined
 
-      let content
-      if (schema) {
+      if (provider === 'openai' && schema) {
+        const responseSchema = zodResponseFormat(schema, name)
+        const response = await client.beta.chat.completions.parse({
+          model: modelName,
+          messages,
+          response_format: responseSchema,
+          ...(reasoning
+            ? { max_completion_tokens: 50000 }
+            : { max_tokens: 16000, temperature }),
+        })
         content = response.choices[0].message.parsed as unknown as object
+        usage = response.usage ?? undefined
       } else {
-        content = response.choices[0].message.content as unknown as string
+        const response = await client.chat.completions.create({
+          model: modelName,
+          messages,
+          ...(schema && !reasoning ? { response_format: { type: 'json_object' as const } } : {}),
+          ...(reasoning
+            ? { max_completion_tokens: 50000 }
+            : { max_tokens: 16000, temperature }),
+        })
+
+        const rawContent = response.choices[0].message.content ?? ''
+        usage = response.usage ?? undefined
+
+        if (schema) {
+          const jsonStr = extractJsonFromText(rawContent)
+          content = schema.parse(JSON.parse(jsonStr))
+        } else {
+          content = rawContent
+        }
       }
 
       generation.end({
         output: content,
-        usage: response.usage
+        usage: usage
           ? {
-              input: response.usage.prompt_tokens,
-              output: response.usage.completion_tokens,
-              total: response.usage.total_tokens,
+              input: usage.prompt_tokens,
+              output: usage.completion_tokens,
+              total: usage.total_tokens,
               unit: 'TOKENS' as const,
             }
           : undefined,
       })
 
-      await cache.set(cache.mappings.generalLlm(cacheKey), content, 60 * 60 * 24 * 7) // 1 week()
+      await cache.set(cache.mappings.generalLlm(cacheKey), content, 60 * 60 * 24 * 7)
 
       return content
     } catch (error) {
@@ -127,14 +198,13 @@ export async function sendGeneralLlmRequest(params: z.infer<typeof ParamsSchema>
         console.warn(`Timeout error encountered. Retrying in ${delay / 1000} seconds... (Attempt ${retries + 1}/${maxRetries})`, { name, generationId })
         await new Promise(resolve => setTimeout(resolve, delay))
         retries++
-        delay *= 2 // Exponential backoff
+        delay *= 2
       } else {
-        // Not a timeout error or max retries reached
         generation.end({
           output: { error: error instanceof Error ? error.message : String(error) },
         })
         console.error(`Request failed for ${name} after ${retries} retries or due to a non-timeout error:`, error)
-        throw error // Re-throw the error
+        throw error
       }
     }
   }

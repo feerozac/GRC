@@ -1,6 +1,12 @@
 export const modelNames = {
-  large: 'gpt-4o-2024-11-20',
-  small: 'gpt-4o-mini-2024-07-18',
-  o3mini: 'o3-mini-2025-01-31',
-  o4mini: 'o4-mini-2025-04-16',
+  fast: 'deepseek-chat',
+  reasoning: 'deepseek-reasoner',
+  vision: 'qwen-vl-max',
+  parsing: 'qwen-plus',
+
+  /** @deprecated aliases kept for backward compatibility */
+  large: 'deepseek-chat',
+  small: 'deepseek-chat',
+  o3mini: 'deepseek-reasoner',
+  o4mini: 'deepseek-reasoner',
 }

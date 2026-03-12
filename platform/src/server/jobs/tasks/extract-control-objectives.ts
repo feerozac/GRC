@@ -1,6 +1,7 @@
 import crypto from 'crypto'
 import { Field, Payload, TaskHandler } from 'payload'
 import { sendGeneralLlmRequest } from '@/server/llm/general-llm/request'
+import { modelNames } from '@/server/llm/general-llm/mappings'
 import { CONTROL_OBJECTIVES_SYSTEM_PROMPT } from '@/server/llm/workflows/grc/prompts'
 import { ControlObjectivesResponseSchema } from '@/server/llm/workflows/grc/schemas'
 
@@ -44,6 +45,7 @@ export const extractControlObjectivesHandler: TaskHandler<'extract-control-objec
       schema: ControlObjectivesResponseSchema,
       temperature: 0.4,
       generationId,
+      modelName: modelNames.reasoning,
     })
 
     let controlsCreated = 0

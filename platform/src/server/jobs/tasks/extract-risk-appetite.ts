@@ -1,6 +1,7 @@
 import crypto from 'crypto'
 import { Field, Payload, TaskHandler } from 'payload'
 import { sendGeneralLlmRequest } from '@/server/llm/general-llm/request'
+import { modelNames } from '@/server/llm/general-llm/mappings'
 import { RISK_APPETITE_SYSTEM_PROMPT } from '@/server/llm/workflows/grc/prompts'
 import { RiskAppetiteResponseSchema } from '@/server/llm/workflows/grc/schemas'
 
@@ -45,6 +46,7 @@ export const extractRiskAppetiteHandler: TaskHandler<'extract-risk-appetite'> = 
       schema: RiskAppetiteResponseSchema,
       temperature: 0.3,
       generationId,
+      modelName: modelNames.fast,
     })
 
     let statementsCreated = 0

@@ -1,6 +1,7 @@
 import crypto from 'crypto'
 import { Field, Payload, TaskHandler } from 'payload'
 import { sendGeneralLlmRequest } from '@/server/llm/general-llm/request'
+import { modelNames } from '@/server/llm/general-llm/mappings'
 import { GOVERNANCE_OBJECTIVES_SYSTEM_PROMPT } from '@/server/llm/workflows/grc/prompts'
 import { GovernanceObjectivesResponseSchema } from '@/server/llm/workflows/grc/schemas'
 
@@ -53,6 +54,7 @@ export const extractGovernanceObjectivesHandler: TaskHandler<'extract-governance
       schema: GovernanceObjectivesResponseSchema,
       temperature: 0.3,
       generationId,
+      modelName: modelNames.fast,
     })
 
     let objectivesCreated = 0
