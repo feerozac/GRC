@@ -1,0 +1,1647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Evonix — The GRC Problem Space</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg-dark: #0a0a0f;
+    --bg-card: #12121a;
+    --bg-card-hover: #1a1a28;
+    --text-primary: #f0f0f5;
+    --text-secondary: #8888a0;
+    --text-muted: #55556a;
+    --accent-blue: #4d7cff;
+    --accent-cyan: #00d4aa;
+    --accent-amber: #ffb347;
+    --accent-red: #ff5566;
+    --accent-purple: #9b72ff;
+    --accent-pink: #ff6eb4;
+    --border: #222235;
+    --gradient-hero: linear-gradient(135deg, #0a0a1a 0%, #1a1035 50%, #0a0a1a 100%);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg-dark);
+    color: var(--text-primary);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(10, 10, 15, 0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0.75rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  nav .logo {
+    font-weight: 800;
+    font-size: 1.1rem;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  nav .nav-dots {
+    display: flex;
+    gap: 0.5rem;
+  }
+  nav .nav-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  nav .nav-dot:hover, nav .nav-dot.active {
+    background: var(--accent-blue);
+    transform: scale(1.3);
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 6rem 2rem 4rem;
+    position: relative;
+  }
+
+  .section-inner {
+    max-width: 1100px;
+    width: 100%;
+  }
+
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent-blue);
+    margin-bottom: 1.5rem;
+    opacity: 0.8;
+  }
+
+  h1 {
+    font-size: clamp(2.5rem, 5vw, 4.2rem);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+
+  h2 {
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 1rem;
+  }
+
+  h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    font-size: clamp(1.05rem, 2vw, 1.3rem);
+    color: var(--text-secondary);
+    max-width: 720px;
+    font-weight: 400;
+    line-height: 1.7;
+  }
+
+  .gradient-text {
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .gradient-text-warm {
+    background: linear-gradient(135deg, var(--accent-amber), var(--accent-red));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .gradient-text-purple {
+    background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* ── HERO ── */
+  #hero {
+    background: var(--gradient-hero);
+    text-align: center;
+    align-items: center;
+  }
+  #hero .section-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  #hero .subtitle {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  .hero-badge {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    background: rgba(77, 124, 255, 0.08);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent-blue);
+    margin-bottom: 2rem;
+    letter-spacing: 0.05em;
+  }
+  .scroll-cue {
+    margin-top: 2rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  .scroll-cue span {
+    display: block;
+    font-size: 1.2rem;
+    margin-top: 0.3rem;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 0.4; transform: translateY(0); }
+    50% { opacity: 1; transform: translateY(4px); }
+  }
+
+  /* ── FRAGMENTATION VISUAL ── */
+  .frag-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1rem;
+    margin: 2.5rem 0;
+  }
+  .frag-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .frag-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--accent-red);
+    opacity: 0.6;
+  }
+  .frag-card:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--accent-red);
+    transform: translateY(-2px);
+  }
+  .frag-icon {
+    font-size: 1.8rem;
+    margin-bottom: 0.6rem;
+    display: block;
+  }
+  .frag-title {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+  }
+  .frag-desc {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  .disconnection-lines {
+    text-align: center;
+    padding: 1.5rem 0;
+    color: var(--accent-red);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    opacity: 0.6;
+    letter-spacing: 0.3em;
+  }
+
+  /* ── WORLDVIEW CARDS ── */
+  .worldview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.25rem;
+    margin: 2.5rem 0;
+  }
+  .worldview-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+  .worldview-card:hover {
+    background: var(--bg-card-hover);
+    transform: translateY(-2px);
+  }
+  .wv-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+  .wv-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+  .wv-name {
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+  .wv-role {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+  .wv-quote {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    font-style: italic;
+    line-height: 1.6;
+    border-left: 2px solid;
+    padding-left: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+  .wv-pain {
+    font-size: 0.78rem;
+    color: var(--accent-red);
+    font-weight: 500;
+    opacity: 0.9;
+  }
+
+  /* ── TENSION DIAGRAM ── */
+  .tension-container {
+    margin: 2.5rem 0;
+    position: relative;
+  }
+  .tension-pair {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: 1.5rem 0;
+    position: relative;
+  }
+  .tension-pole {
+    flex: 0 0 280px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+  .tension-pole:hover {
+    transform: scale(1.02);
+  }
+  .tension-pole h3 {
+    font-size: 0.95rem;
+    margin-bottom: 0.3rem;
+  }
+  .tension-pole p {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+  .tension-vs {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--accent-amber);
+    letter-spacing: 0.1em;
+    flex-shrink: 0;
+    width: 60px;
+    text-align: center;
+    position: relative;
+  }
+  .tension-vs::before,
+  .tension-vs::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 20px;
+    height: 1px;
+    background: var(--accent-amber);
+    opacity: 0.4;
+  }
+  .tension-vs::before { left: -5px; }
+  .tension-vs::after { right: -5px; }
+
+  @media (max-width: 768px) {
+    .tension-pair {
+      flex-direction: column;
+    }
+    .tension-pole {
+      flex: none;
+      width: 100%;
+      max-width: 320px;
+    }
+    .tension-vs::before,
+    .tension-vs::after {
+      display: none;
+    }
+  }
+
+  /* ── COST METRICS ── */
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.25rem;
+    margin: 2.5rem 0;
+  }
+  .metric-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.75rem;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+  .metric-card:hover {
+    background: var(--bg-card-hover);
+    transform: translateY(-3px);
+    border-color: var(--accent-amber);
+  }
+  .metric-number {
+    font-size: 2.8rem;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .metric-label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+  }
+  .metric-context {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  /* ── CONVERGENCE / WHY NOW ── */
+  .convergence-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 3rem 0;
+    position: relative;
+  }
+  .conv-center {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(77,124,255,0.15) 0%, rgba(77,124,255,0) 70%);
+    border: 2px solid var(--accent-blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 1rem;
+    text-align: center;
+    line-height: 1.3;
+    z-index: 2;
+    position: relative;
+  }
+  .conv-forces {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+  }
+  .conv-force {
+    position: absolute;
+    width: 180px;
+    text-align: center;
+  }
+  .conv-force-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.4rem;
+    display: block;
+  }
+  .conv-force-title {
+    font-size: 0.82rem;
+    font-weight: 700;
+    margin-bottom: 0.15rem;
+  }
+  .conv-force-desc {
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  .forces-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.25rem;
+    margin: 2.5rem 0;
+  }
+  .force-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem;
+    transition: all 0.3s ease;
+  }
+  .force-item:hover {
+    background: var(--bg-card-hover);
+    transform: translateY(-2px);
+  }
+  .force-item .force-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+  .force-item h3 {
+    font-size: 0.9rem;
+  }
+  .force-item p {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  /* ── THESIS / RESOLUTION ── */
+  .thesis-visual {
+    margin: 2.5rem 0;
+  }
+  .thesis-pillar-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 1.25rem;
+    margin: 2rem 0;
+  }
+  .thesis-pillar {
+    background: var(--bg-card);
+    border-radius: 14px;
+    padding: 1.5rem;
+    border: 1px solid var(--border);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .thesis-pillar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+  }
+  .thesis-pillar:nth-child(1)::before { background: var(--accent-blue); }
+  .thesis-pillar:nth-child(2)::before { background: var(--accent-cyan); }
+  .thesis-pillar:nth-child(3)::before { background: var(--accent-purple); }
+  .thesis-pillar:nth-child(4)::before { background: var(--accent-pink); }
+  .thesis-pillar:hover {
+    background: var(--bg-card-hover);
+    transform: translateY(-3px);
+  }
+  .tp-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.75rem;
+  }
+  .tp-title {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .tp-desc {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+  .tp-metric {
+    margin-top: 0.75rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--accent-cyan);
+    font-weight: 500;
+  }
+
+  /* ── CLOSING ── */
+  .closing-statement {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 0;
+  }
+  .closing-statement p {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+  }
+  .closing-tagline {
+    font-size: 1.4rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+  }
+
+  /* ── RICH PICTURE SVG ── */
+  .rich-picture {
+    margin: 2.5rem auto;
+    max-width: 900px;
+    width: 100%;
+  }
+  .rich-picture svg {
+    width: 100%;
+    height: auto;
+  }
+
+  /* ── SECTION DIVIDER ── */
+  .section-divider {
+    width: 60px;
+    height: 1px;
+    background: var(--border);
+    margin: 0 auto 2rem;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 3rem 2rem;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 0.75rem;
+  }
+  footer a {
+    color: var(--accent-blue);
+    text-decoration: none;
+  }
+
+  /* ── ANIMATIONS ── */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── WIREFRAME COMPONENTS ── */
+  .wf-tab {
+    font-size: 10px;
+    color: var(--text-muted);
+    padding: 10px 10px;
+    cursor: default;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .wf-tab.active-tab {
+    color: var(--accent-blue);
+    border-bottom-color: var(--accent-blue);
+  }
+  .wf-btn {
+    font-size: 10px;
+    padding: 5px 10px;
+    border: 1px solid var(--accent-blue);
+    border-radius: 6px;
+    color: var(--accent-blue);
+    background: rgba(77,124,255,0.1);
+    cursor: default;
+  }
+  .wf-btn-sm {
+    font-size: 9px;
+    padding: 4px 8px;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    color: var(--text-muted);
+    background: var(--bg-card);
+    display: inline-block;
+    cursor: default;
+  }
+  .wf-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px;
+  }
+  .wf-card-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+  .wf-step {
+    flex: 1;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 4px;
+    text-align: center;
+    background: var(--bg-card);
+  }
+  .wf-step-icon { font-size: 14px; }
+  .wf-step-label { font-size: 9px; color: var(--text-muted); margin-top: 2px; }
+  .wf-arrow {
+    color: var(--text-muted);
+    font-size: 12px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+  }
+  .wf-pill {
+    display: inline-block;
+    font-size: 9px;
+    padding: 2px 6px;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    color: var(--text-muted);
+  }
+  .wf-textarea {
+    background: #0f1525;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px;
+    font-size: 10px;
+    color: var(--text-muted);
+    min-height: 40px;
+    margin-top: 6px;
+  }
+  .wf-list-item {
+    font-size: 10px;
+    color: var(--text-secondary);
+    padding: 6px 8px;
+    margin-top: 4px;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent-blue);
+    border-radius: 6px;
+    background: #0f1525;
+    line-height: 1.4;
+  }
+  .wf-tag {
+    display: inline-block;
+    font-size: 8px;
+    padding: 1px 4px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--text-muted);
+    margin-left: 4px;
+    vertical-align: middle;
+  }
+  .wf-agent {
+    background: #0f1525;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent-blue);
+    border-radius: 8px;
+    padding: 8px;
+  }
+  .wf-agent-status {
+    font-size: 8px;
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1px 5px;
+    display: inline-block;
+    margin-top: 4px;
+  }
+  .wf-layer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 0;
+    font-size: 10px;
+    color: var(--text-secondary);
+    border-bottom: 1px solid rgba(34,34,53,0.5);
+  }
+  .wf-layer:last-child { border-bottom: none; }
+  .wf-layer-num {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--bg-dark);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    font-weight: 700;
+    color: var(--text-muted);
+    flex-shrink: 0;
+  }
+  .wf-check {
+    margin-left: auto;
+    font-size: 9px;
+    font-weight: 600;
+  }
+  .wf-check.green { color: var(--accent-cyan); }
+  .wf-check.blue { color: var(--accent-blue); }
+
+  /* Wireframe annotations */
+  .wf-annotation {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+  }
+  .wf-annotation-marker {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 800;
+    color: var(--bg-dark);
+    flex-shrink: 0;
+  }
+  .wf-annotation-text {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+  .wf-annotation-text strong {
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+  }
+
+  /* Mini page previews */
+  .wf-mini-page {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+  .wf-mini-page:hover {
+    border-color: var(--accent-blue);
+    transform: translateY(-2px);
+  }
+  .wf-mini-header {
+    font-size: 9px;
+    font-weight: 600;
+    padding: 6px 8px;
+    border-bottom: 1px solid var(--border);
+    background: #0a0c12;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .wf-mini-body {
+    padding: 8px;
+  }
+  .wf-mini-row {
+    background: rgba(34,34,53,0.4);
+    border-radius: 3px;
+    height: 8px;
+    width: 100%;
+  }
+  .wf-mini-block {
+    flex: 1;
+    font-size: 7px;
+    text-align: center;
+    padding: 3px 2px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--text-muted);
+  }
+  .wf-mini-agent {
+    flex: 1;
+    font-size: 7px;
+    text-align: center;
+    padding: 4px 2px;
+    border: 1px solid var(--border);
+    border-left-width: 2px;
+    border-radius: 4px;
+    color: var(--text-muted);
+  }
+  .wf-mini-bar {
+    font-size: 7px;
+    padding: 3px 6px;
+    border-radius: 3px;
+    color: var(--text-muted);
+  }
+  .wf-mini-stat {
+    text-align: center;
+    padding: 3px;
+    background: rgba(34,34,53,0.3);
+    border-radius: 4px;
+    color: var(--text-muted);
+    line-height: 1.2;
+  }
+
+  /* ── PRINT ── */
+  @media print {
+    nav { display: none; }
+    section { min-height: auto; page-break-inside: avoid; padding: 2rem 1rem; }
+    .frag-card, .worldview-card, .metric-card, .thesis-pillar, .force-item { break-inside: avoid; }
+    body { background: #fff; color: #111; }
+    .frag-card, .worldview-card, .metric-card, .thesis-pillar, .force-item, .tension-pole {
+      background: #fafafa; border-color: #ddd;
+    }
+    .metric-number { color: #111; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">EVONIX</div>
+  <div class="nav-dots">
+    <div class="nav-dot active" onclick="scrollTo('#hero')" title="Opening"></div>
+    <div class="nav-dot" onclick="scrollTo('#fragmentation')" title="Fragmentation"></div>
+    <div class="nav-dot" onclick="scrollTo('#worldviews')" title="Worldviews"></div>
+    <div class="nav-dot" onclick="scrollTo('#tensions')" title="Tensions"></div>
+    <div class="nav-dot" onclick="scrollTo('#cost')" title="Cost"></div>
+    <div class="nav-dot" onclick="scrollTo('#why-now')" title="Why Now"></div>
+    <div class="nav-dot" onclick="scrollTo('#thesis')" title="Thesis"></div>
+    <div class="nav-dot" onclick="scrollTo('#wireframe')" title="Wireframe"></div>
+  </div>
+</nav>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- SECTION 1: HERO                                      -->
+<!-- ════════════════════════════════════════════════════ -->
+<section id="hero">
+  <div class="section-inner" style="text-align:center; display:flex; flex-direction:column; align-items:center;">
+    <div class="hero-badge">PROBLEM SPACE ANALYSIS</div>
+    <h1>Governance is <span class="gradient-text-warm">broken</span><br>by design.</h1>
+    <p class="subtitle">
+      Organisations have built GRC around documents, silos, and periodic reviews.
+      Then they added AI. Now they have faster outputs — with less trust, less traceability,
+      and more questions than answers. This is the problem Evonix exists to solve.
+    </p>
+    <div class="scroll-cue">
+      Scroll to explore the problem space
+      <span>&darr;</span>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- SECTION 2: THE FRAGMENTED LANDSCAPE                  -->
+<!-- ════════════════════════════════════════════════════ -->
+<section id="fragmentation">
+  <div class="section-inner fade-in">
+    <div class="section-label">01 &mdash; The Landscape</div>
+    <h2>Nine silos. <span class="gradient-text-warm">Zero shared truth.</span></h2>
+    <p class="subtitle">
+      Every function owns a piece of governance. None of them see the whole picture.
+      Data flows between them through emails, spreadsheets, and quarterly meetings.
+    </p>
+
+    <div class="frag-grid">
+      <div class="frag-card">
+        <span class="frag-icon">📋</span>
+        <div class="frag-title">Risk Register</div>
+        <div class="frag-desc">Spreadsheets or point tools. Updated quarterly. Often stale.</div>
+      </div>
+      <div class="frag-card">
+        <span class="frag-icon">🔒</span>
+        <div class="frag-title">Control Library</div>
+        <div class="frag-desc">Mapped to one framework. Re-mapped manually for each audit.</div>
+      </div>
+      <div class="frag-card">
+        <span class="frag-icon">📁</span>
+        <div class="frag-title">Evidence Store</div>
+        <div class="frag-desc">SharePoint folders, email threads, "ask Sarah."</div>
+      </div>
+      <div class="frag-card">
+        <span class="frag-icon">🚨</span>
+        <div class="frag-title">Issue Tracker</div>
+        <div class="frag-desc">Findings logged. Ownership unclear. Status: overdue.</div>
+      </div>
+      <div class="frag-card">
+        <span class="frag-icon">📊</span>
+        <div class="frag-title">KRI/KPI Dashboards</div>
+        <div class="frag-desc">Disconnected from controls. Thresholds set by convention.</div>
+      </div>
+      <div class="frag-card">
+        <span class="frag-icon">📜</span>
+        <div class="frag-title">Policy Repository</div>
+        <div class="frag-desc">Word docs. Last reviewed 18 months ago. Maybe.</div>
+      </div>
+      <div class="frag-card">
+        <span class="frag-icon">🛡️</span>
+        <div class="frag-title">SIEM / SOC</div>
+        <div class="frag-desc">Alerts fire. GRC team learns about incidents days later.</div>
+      </div>
+      <div class="frag-card">
+        <span class="frag-icon">📰</span>
+        <div class="frag-title">Regulatory Updates</div>
+        <div class="frag-desc">Manual monitoring. HKMA circular? Seen it. Impact assessed? Not yet.</div>
+      </div>
+      <div class="frag-card">
+        <span class="frag-icon">🤖</span>
+        <div class="frag-title">AI Outputs</div>
+        <div class="frag-desc">Generated by models. No rationale. No challenge path. No audit trail.</div>
+      </div>
+    </div>
+
+    <div class="disconnection-lines">
+      &mdash; &mdash; &times; &mdash; &mdash; &times; &mdash; &mdash; &times; &mdash; &mdash;
+      NO SINGLE SOURCE OF TRUTH
+      &mdash; &mdash; &times; &mdash; &mdash; &times; &mdash; &mdash; &times; &mdash; &mdash;
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- SECTION 3: STAKEHOLDER WORLDVIEWS                    -->
+<!-- ════════════════════════════════════════════════════ -->
+<section id="worldviews">
+  <div class="section-inner fade-in">
+    <div class="section-label">02 &mdash; Soft Systems View</div>
+    <h2>Six people. <span class="gradient-text-purple">Six realities.</span></h2>
+    <p class="subtitle">
+      In soft systems terms, the GRC problem is not one problem — it is six competing
+      worldviews, each with its own definition of success, its own frustrations,
+      and its own blind spots. No tool can work until it speaks all six languages.
+    </p>
+
+    <div class="worldview-grid">
+      <div class="worldview-card" style="border-left: 3px solid var(--accent-blue);">
+        <div class="wv-header">
+          <div class="wv-avatar" style="background: rgba(77,124,255,0.15);">🎯</div>
+          <div>
+            <div class="wv-name">The CISO</div>
+            <div class="wv-role">2nd Line &mdash; Risk Posture Owner</div>
+          </div>
+        </div>
+        <div class="wv-quote" style="border-color: var(--accent-blue);">
+          "I need to tell the board we're secure. But I can't see across 1L, 2L, and 3L in one place. My board pack takes two weeks to assemble."
+        </div>
+        <div class="wv-pain">Pain: fragmented reporting, no unified risk posture view</div>
+      </div>
+
+      <div class="worldview-card" style="border-left: 3px solid var(--accent-cyan);">
+        <div class="wv-header">
+          <div class="wv-avatar" style="background: rgba(0,212,170,0.15);">📋</div>
+          <div>
+            <div class="wv-name">The Compliance Manager</div>
+            <div class="wv-role">2nd Line &mdash; Framework & Regulatory</div>
+          </div>
+        </div>
+        <div class="wv-quote" style="border-color: var(--accent-cyan);">
+          "We map to ISO, NIST, COBIT, HKMA, and MAS. Separately. In different spreadsheets. Every framework update is a fire drill."
+        </div>
+        <div class="wv-pain">Pain: manual multi-framework mapping, regulatory lag</div>
+      </div>
+
+      <div class="worldview-card" style="border-left: 3px solid var(--accent-purple);">
+        <div class="wv-header">
+          <div class="wv-avatar" style="background: rgba(155,114,255,0.15);">🔍</div>
+          <div>
+            <div class="wv-name">The Internal Auditor</div>
+            <div class="wv-role">3rd Line &mdash; Independent Assurance</div>
+          </div>
+        </div>
+        <div class="wv-quote" style="border-color: var(--accent-purple);">
+          "I ask for evidence and wait days. When it arrives, I can't trace it back to the control, let alone the risk. And now they want me to audit AI outputs I can't explain."
+        </div>
+        <div class="wv-pain">Pain: evidence chasing, no AI explainability for assurance</div>
+      </div>
+
+      <div class="worldview-card" style="border-left: 3px solid var(--accent-amber);">
+        <div class="wv-header">
+          <div class="wv-avatar" style="background: rgba(255,179,71,0.15);">🛡️</div>
+          <div>
+            <div class="wv-name">The SOC Lead</div>
+            <div class="wv-role">1st/2nd Line &mdash; Cyber Operations</div>
+          </div>
+        </div>
+        <div class="wv-quote" style="border-color: var(--accent-amber);">
+          "My alerts are in Splunk. Their risks are in a spreadsheet. An incident happens and governance doesn't know for a week. We close incidents but nobody updates the risk register."
+        </div>
+        <div class="wv-pain">Pain: cyber-GRC disconnect, no closed loop</div>
+      </div>
+
+      <div class="worldview-card" style="border-left: 3px solid var(--accent-red);">
+        <div class="wv-header">
+          <div class="wv-avatar" style="background: rgba(255,85,102,0.15);">👔</div>
+          <div>
+            <div class="wv-name">The Board Member</div>
+            <div class="wv-role">Governance &mdash; Oversight & Fiduciary Duty</div>
+          </div>
+        </div>
+        <div class="wv-quote" style="border-color: var(--accent-red);">
+          "I get a 60-page deck once a quarter. I don't know which AI made which recommendation or whether anyone challenged it. I'm told to trust the process. I can't see the process."
+        </div>
+        <div class="wv-pain">Pain: opacity, no line-of-sight from strategy to control</div>
+      </div>
+
+      <div class="worldview-card" style="border-left: 3px solid var(--accent-pink);">
+        <div class="wv-header">
+          <div class="wv-avatar" style="background: rgba(255,110,180,0.15);">⚖️</div>
+          <div>
+            <div class="wv-name">The Regulator</div>
+            <div class="wv-role">External &mdash; Supervisory Authority</div>
+          </div>
+        </div>
+        <div class="wv-quote" style="border-color: var(--accent-pink);">
+          "Show me how this AI decision was made. Show me who reviewed it. Show me the challenge history. Show me the audit trail. You have two minutes."
+        </div>
+        <div class="wv-pain">Pain: no regulator-ready evidence, no decision traceability</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- SECTION 4: SYSTEMIC TENSIONS                         -->
+<!-- ════════════════════════════════════════════════════ -->
+<section id="tensions">
+  <div class="section-inner fade-in">
+    <div class="section-label">03 &mdash; Systemic Tensions</div>
+    <h2>The <span class="gradient-text-warm">five pulls</span> that break GRC.</h2>
+    <p class="subtitle">
+      These are not problems to solve — they are tensions to hold.
+      Every GRC system fails when it collapses one pole into the other.
+      The art is in the architecture that holds both.
+    </p>
+
+    <div class="tension-container">
+      <div class="tension-pair">
+        <div class="tension-pole" style="border-color: var(--accent-blue);">
+          <h3 style="color: var(--accent-blue);">Speed</h3>
+          <p>Faster decisions, automated workflows, real-time response. The board wants answers now.</p>
+        </div>
+        <div class="tension-vs">vs</div>
+        <div class="tension-pole" style="border-color: var(--accent-purple);">
+          <h3 style="color: var(--accent-purple);">Assurance</h3>
+          <p>Every decision auditable, every output explainable, every action traceable. The regulator wants proof.</p>
+        </div>
+      </div>
+
+      <div class="tension-pair">
+        <div class="tension-pole" style="border-color: var(--accent-cyan);">
+          <h3 style="color: var(--accent-cyan);">Agent Autonomy</h3>
+          <p>AI agents that act continuously, triage alerts, draft policies, recommend controls at machine speed.</p>
+        </div>
+        <div class="tension-vs">vs</div>
+        <div class="tension-pole" style="border-color: var(--accent-amber);">
+          <h3 style="color: var(--accent-amber);">Human Accountability</h3>
+          <p>Someone must own the decision. A human must be able to challenge, override, and explain.</p>
+        </div>
+      </div>
+
+      <div class="tension-pair">
+        <div class="tension-pole" style="border-color: var(--accent-pink);">
+          <h3 style="color: var(--accent-pink);">Framework Breadth</h3>
+          <p>ISO, NIST, COBIT, HKMA, MAS, PCI DSS, Basel — every buyer has a different combination.</p>
+        </div>
+        <div class="tension-vs">vs</div>
+        <div class="tension-pole" style="border-color: var(--accent-blue);">
+          <h3 style="color: var(--accent-blue);">Control Depth</h3>
+          <p>Mapping to a framework is easy. Proving that mappings are accurate, current, and evidence-backed is hard.</p>
+        </div>
+      </div>
+
+      <div class="tension-pair">
+        <div class="tension-pole" style="border-color: var(--accent-amber);">
+          <h3 style="color: var(--accent-amber);">Cyber Operations</h3>
+          <p>SOC teams live in real-time. Alerts, incidents, response actions — measured in seconds.</p>
+        </div>
+        <div class="tension-vs">vs</div>
+        <div class="tension-pole" style="border-color: var(--accent-cyan);">
+          <h3 style="color: var(--accent-cyan);">Governance Cadence</h3>
+          <p>GRC teams live in quarters. Reviews, reports, attestations — measured in weeks.</p>
+        </div>
+      </div>
+
+      <div class="tension-pair">
+        <div class="tension-pole" style="border-color: var(--accent-red);">
+          <h3 style="color: var(--accent-red);">Innovation Pressure</h3>
+          <p>Deploy AI everywhere. Move fast. Automate everything. Competitive advantage demands it.</p>
+        </div>
+        <div class="tension-vs">vs</div>
+        <div class="tension-pole" style="border-color: var(--accent-purple);">
+          <h3 style="color: var(--accent-purple);">Regulatory Gravity</h3>
+          <p>EU AI Act. HKMA GenAI. MAS TRM. ISO 42001. The compliance surface area is expanding, not shrinking.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- SECTION 5: THE COST OF FRAGMENTATION                 -->
+<!-- ════════════════════════════════════════════════════ -->
+<section id="cost">
+  <div class="section-inner fade-in">
+    <div class="section-label">04 &mdash; The Cost</div>
+    <h2>What fragmentation <span class="gradient-text-warm">actually costs.</span></h2>
+    <p class="subtitle">
+      These are not abstract pains. They are measurable, recurring costs that compound every quarter
+      and become existential when a regulator asks a question the organisation cannot answer.
+    </p>
+
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-number gradient-text-warm">2-3 wks</div>
+        <div class="metric-label">Board pack preparation</div>
+        <div class="metric-context">Manual assembly from multiple silos. Stale by the time it's presented.</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-number gradient-text-warm">40%</div>
+        <div class="metric-label">Time on evidence collection</div>
+        <div class="metric-context">Audit teams chasing artifacts instead of assessing controls.</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-number gradient-text-warm">Days</div>
+        <div class="metric-label">Regulatory change impact lag</div>
+        <div class="metric-context">New HKMA circular published. Impact assessment starts next sprint. Maybe.</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-number gradient-text-warm">0%</div>
+        <div class="metric-label">AI decision traceability</div>
+        <div class="metric-context">AI recommends. Nobody records why. Nobody can challenge. Nobody can replay.</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-number gradient-text-warm">Weeks</div>
+        <div class="metric-label">Cyber-to-GRC linkage delay</div>
+        <div class="metric-context">Critical incident closed. Risk register updated? Control reassessed? Eventually.</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-number gradient-text-warm">~40%</div>
+        <div class="metric-label">More time on AI risk YoY</div>
+        <div class="metric-context">OneTrust 2025: organisations spending 40% more time on AI risk management year over year.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- SECTION 6: WHY NOW — THE CONVERGENCE                 -->
+<!-- ════════════════════════════════════════════════════ -->
+<section id="why-now">
+  <div class="section-inner fade-in">
+    <div class="section-label">05 &mdash; Why Now</div>
+    <h2>Four forces <span class="gradient-text">converging.</span></h2>
+    <p class="subtitle">
+      The GRC problem is not new. What's new is that four forces are converging simultaneously,
+      creating both existential risk for organisations that don't adapt —
+      and a once-in-a-decade opening for a platform that gets it right.
+    </p>
+
+    <div class="forces-list">
+      <div class="force-item" style="border-left: 3px solid var(--accent-blue);">
+        <span class="force-icon">🤖</span>
+        <h3>The Agentic AI Moment</h3>
+        <p>AI agents are moving from chat assistants to autonomous actors — triaging alerts, drafting policies, recommending controls. But who governs the governors? Agent identity, delegation, and per-action authorization are unsolved in GRC.</p>
+      </div>
+      <div class="force-item" style="border-left: 3px solid var(--accent-cyan);">
+        <span class="force-icon">📜</span>
+        <h3>The Regulatory Acceleration</h3>
+        <p>EU AI Act mandates explainability. HKMA GenAI circular requires documentation. ISO 42001 formalises AI management systems. MAS TRM tightens technology risk. The compliance surface area is growing faster than teams can map it.</p>
+      </div>
+      <div class="force-item" style="border-left: 3px solid var(--accent-purple);">
+        <span class="force-icon">🔗</span>
+        <h3>The Cyber-GRC Convergence</h3>
+        <p>Boards now hold CISOs accountable for both cyber defence and governance reporting. SOC teams and risk teams can no longer operate on different timescales. Incidents must feed risk posture and control evidence — in real time, not next quarter.</p>
+      </div>
+      <div class="force-item" style="border-left: 3px solid var(--accent-amber);">
+        <span class="force-icon">🏛️</span>
+        <h3>The Trust Deficit</h3>
+        <p>AI is generating more outputs faster. But trust is declining. Boards want to see how decisions were made. Regulators want to see who challenged them. Auditors want to replay them. No incumbent GRC platform provides per-decision evidence with structured challenge and audit trail.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- SECTION 7: THE EVONIX THESIS                         -->
+<!-- ════════════════════════════════════════════════════ -->
+<section id="thesis">
+  <div class="section-inner fade-in">
+    <div class="section-label">06 &mdash; The Thesis</div>
+    <h2>The trust layer for <span class="gradient-text">agentic GRC.</span></h2>
+    <p class="subtitle">
+      Evonix is not another GRC dashboard. It is the trust architecture that makes
+      agentic governance possible — where every recommendation is explainable,
+      every decision is challengeable, and every action is auditable.
+    </p>
+
+    <div class="thesis-pillar-grid">
+      <div class="thesis-pillar">
+        <div class="tp-number">PILLAR 01</div>
+        <div class="tp-title" style="color: var(--accent-blue);">Explainability Evidence Fabric</div>
+        <div class="tp-desc">Every AI output produces a DecisionLog — sources cited, confidence scored, reasoning chained, framework mapped. Structured challenge mechanism. Regulator-ready report in one click.</div>
+        <div class="tp-metric">KPI: Regulator packet in &lt; 2 minutes</div>
+      </div>
+      <div class="thesis-pillar">
+        <div class="tp-number">PILLAR 02</div>
+        <div class="tp-title" style="color: var(--accent-cyan);">Controlled Agent Autonomy</div>
+        <div class="tp-desc">Agents as coworkers, not plugins. Own identity, scoped delegation, per-action authorization. Fail-closed operational states. No agent can escalate its own permissions.</div>
+        <div class="tp-metric">KPI: Per-action authorization &lt; 200ms p99</div>
+      </div>
+      <div class="thesis-pillar">
+        <div class="tp-number">PILLAR 03</div>
+        <div class="tp-title" style="color: var(--accent-purple);">Regulatory Change-to-Action</div>
+        <div class="tp-desc">HKMA and MAS updates ingested within 24 hours. Normalised, mapped to controls, impact-assessed with AI confidence scoring. Gap becomes backlog in one workflow.</div>
+        <div class="tp-metric">KPI: 95% of updates within 24h SLA</div>
+      </div>
+      <div class="thesis-pillar">
+        <div class="tp-number">PILLAR 04</div>
+        <div class="tp-title" style="color: var(--accent-pink);">Cyber-to-GRC Closed Loop</div>
+        <div class="tp-desc">SIEM alerts flow through Detection, Response, and Orchestration agents. Every incident links to risks and controls before closure. Cyber events feed governance posture by default.</div>
+        <div class="tp-metric">KPI: 90% critical incidents linked before closure</div>
+      </div>
+    </div>
+
+    <div class="closing-statement">
+      <div class="section-divider" style="margin-top: 3rem;"></div>
+      <p>
+        The problem is not that organisations lack GRC tools.
+        It is that their tools were built for a world where governance was periodic,
+        manual, and siloed. That world is gone.
+      </p>
+      <p>
+        In the agentic era, governance must be continuous, explainable, and trustworthy.
+        The platform that delivers this becomes the trust layer for every AI-powered organisation.
+      </p>
+      <div class="closing-tagline">
+        <span class="gradient-text">That platform is Evonix.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- SECTION 8: PLATFORM WIREFRAME                        -->
+<!-- ════════════════════════════════════════════════════ -->
+<section id="wireframe" style="min-height: auto; padding-top: 5rem; padding-bottom: 3rem;">
+  <div class="section-inner fade-in">
+    <div class="section-label">07 &mdash; The Platform</div>
+    <h2>What it <span class="gradient-text">looks like.</span></h2>
+    <p class="subtitle" style="margin-bottom: 2.5rem;">
+      Not a mockup. A functional wireframe of the Evonix platform — showing how the seven core workspaces
+      connect to solve the problem described above. Every workspace maps to a stakeholder pain
+      and a must-win pillar.
+    </p>
+  </div>
+</section>
+
+<section id="wireframe-platform" style="min-height: auto; padding: 0 1rem 5rem;">
+  <div style="max-width: 1200px; width: 100%; margin: 0 auto;">
+
+    <!-- Platform chrome -->
+    <div style="background: #0c0f14; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; box-shadow: 0 20px 80px rgba(0,0,0,0.5);">
+
+      <!-- Nav bar -->
+      <div style="display: flex; align-items: center; gap: 16px; padding: 0 16px; border-bottom: 1px solid var(--border); background: #0a0c12;">
+        <div style="font-size: 14px; font-weight: 700; padding: 12px 0; background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Evonix</div>
+        <div style="display: flex; gap: 2px; flex: 1;">
+          <div class="wf-tab active-tab">Governance Orchestration</div>
+          <div class="wf-tab">Policy & Standards Agent</div>
+          <div class="wf-tab">Agentic Cyber Defence</div>
+          <div class="wf-tab">AI Security & IAM</div>
+          <div class="wf-tab">Executive Dashboard</div>
+        </div>
+        <div style="display: flex; gap: 8px; align-items: center;">
+          <div style="width: 7px; height: 7px; border-radius: 50%; background: var(--accent-cyan);"></div>
+          <span style="font-size: 10px; color: var(--text-muted);">System Online</span>
+        </div>
+      </div>
+
+      <!-- Page header -->
+      <div style="padding: 14px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+        <div>
+          <div style="font-size: 16px; font-weight: 700;">Governance Orchestration</div>
+          <div style="font-size: 10px; color: var(--text-muted); margin-top: 2px;">Ingest boardroom inputs → map to governance objectives → validate with explainability</div>
+        </div>
+        <div style="display: flex; gap: 6px;">
+          <div class="wf-btn">Export Executive Pack</div>
+        </div>
+      </div>
+
+      <!-- Main content area -->
+      <div style="padding: 16px 20px; display: flex; flex-direction: column; gap: 14px;">
+
+        <!-- Row 1: Flow pipeline -->
+        <div class="wf-card">
+          <div class="wf-card-title">Orchestration Flow</div>
+          <div style="display: flex; gap: 6px; margin-top: 8px;">
+            <div class="wf-step" style="border-color: var(--accent-blue); box-shadow: 0 0 0 1px rgba(77,124,255,0.3);">
+              <div class="wf-step-icon">📋</div>
+              <div class="wf-step-label">Boardroom Inputs</div>
+            </div>
+            <div class="wf-arrow">&rarr;</div>
+            <div class="wf-step" style="border-color: var(--accent-cyan);">
+              <div class="wf-step-icon">🎯</div>
+              <div class="wf-step-label">Governance Objectives</div>
+            </div>
+            <div class="wf-arrow">&rarr;</div>
+            <div class="wf-step" style="border-color: var(--accent-purple);">
+              <div class="wf-step-icon">🔒</div>
+              <div class="wf-step-label">Control Objectives</div>
+            </div>
+            <div class="wf-arrow">&rarr;</div>
+            <div class="wf-step" style="border-color: var(--accent-blue);">
+              <div class="wf-step-icon">⚖️</div>
+              <div class="wf-step-label">Risk Appetite</div>
+            </div>
+            <div class="wf-arrow">&rarr;</div>
+            <div class="wf-step" style="border-color: var(--accent-cyan);">
+              <div class="wf-step-icon">📊</div>
+              <div class="wf-step-label">Metrics & Evidence</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 2: Two-column - inputs + themes -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+          <div class="wf-card">
+            <div class="wf-card-title">Boardroom Inputs</div>
+            <div style="display: flex; gap: 4px; margin: 6px 0;">
+              <span class="wf-pill">Board Minutes</span>
+              <span class="wf-pill">Strategy Deck</span>
+              <span class="wf-pill">Risk Appetite</span>
+            </div>
+            <div class="wf-textarea">Paste or upload strategic priorities, risk statements, regulatory commitments...</div>
+            <div style="display: flex; gap: 6px; margin-top: 8px;">
+              <div class="wf-btn-sm">Ingest Document</div>
+              <div class="wf-btn-sm">Generate Insights</div>
+            </div>
+          </div>
+          <div class="wf-card">
+            <div class="wf-card-title">Extracted Board Themes</div>
+            <div class="wf-list-item" style="border-left-color: var(--accent-blue);">Expand APAC payments footprint with strong regulator trust <span class="wf-tag">Risk Appetite</span></div>
+            <div class="wf-list-item" style="border-left-color: var(--accent-cyan);">Reduce audit prep cycle to under 2 weeks <span class="wf-tag">Ops Efficiency</span></div>
+            <div class="wf-list-item" style="border-left-color: var(--accent-purple);">Demonstrate explainability for AI-driven decisions <span class="wf-tag">Ethics</span></div>
+          </div>
+        </div>
+
+        <!-- Row 3: 3LOD Agents + Recommendations -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+          <div class="wf-card">
+            <div class="wf-card-title">Virtual 3LOD Agent Processing</div>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 8px;">
+              <div class="wf-agent" style="border-left-color: var(--accent-blue);">
+                <div style="font-size: 11px; font-weight: 700;">1L Ops Agent</div>
+                <div style="font-size: 9px; color: var(--text-muted); margin-top: 2px;">Controls + evidence</div>
+                <div class="wf-agent-status">Assessing</div>
+              </div>
+              <div class="wf-agent" style="border-left-color: var(--accent-purple);">
+                <div style="font-size: 11px; font-weight: 700;">2L Risk Agent</div>
+                <div style="font-size: 9px; color: var(--text-muted); margin-top: 2px;">Risk posture + mapping</div>
+                <div class="wf-agent-status">Recommending</div>
+              </div>
+              <div class="wf-agent" style="border-left-color: var(--accent-cyan);">
+                <div style="font-size: 11px; font-weight: 700;">3L Audit Agent</div>
+                <div style="font-size: 9px; color: var(--text-muted); margin-top: 2px;">Assurance + gaps</div>
+                <div class="wf-agent-status">Assessing</div>
+              </div>
+            </div>
+          </div>
+          <div class="wf-card">
+            <div class="wf-card-title">Agent Recommendations</div>
+            <div class="wf-list-item" style="border-left-color: var(--accent-purple);">Prioritize evidence automation for payment controls <span class="wf-tag">1L</span></div>
+            <div class="wf-list-item" style="border-left-color: var(--accent-purple);">Add explainability checkpoint for AI approvals <span class="wf-tag">2L</span></div>
+            <div class="wf-list-item" style="border-left-color: var(--accent-purple);">Schedule quarterly control testing for HKMA updates <span class="wf-tag">3L</span></div>
+          </div>
+        </div>
+
+        <!-- Row 4: Explainability + Confidence -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+          <div class="wf-card">
+            <div class="wf-card-title">6-Layer Explainability Framework</div>
+            <div style="margin-top: 6px;">
+              <div class="wf-layer"><span class="wf-layer-num">1</span> Decision Transparency <span class="wf-check green">&#10003;</span></div>
+              <div class="wf-layer"><span class="wf-layer-num">2</span> Audit Trail Integrity <span class="wf-check green">&#10003;</span></div>
+              <div class="wf-layer"><span class="wf-layer-num">3</span> Role-Appropriate Review <span class="wf-check green">&#10003;</span></div>
+              <div class="wf-layer"><span class="wf-layer-num">4</span> Confidence Thresholds <span class="wf-check blue">87%</span></div>
+              <div class="wf-layer"><span class="wf-layer-num">5</span> Regulator-Ready Reports <span class="wf-check green">&#10003;</span></div>
+              <div class="wf-layer"><span class="wf-layer-num">6</span> Continuous Monitoring <span class="wf-check blue">Sched</span></div>
+            </div>
+          </div>
+          <div class="wf-card">
+            <div class="wf-card-title">Explainability Panel</div>
+            <div class="wf-textarea" style="font-size: 10px; min-height: 60px;">
+              AI rationale with citations: Board theme "regulator trust" maps to control objectives across evidence completeness and rapid reg updates. Sources: Board minutes (pp. 3-4), Strategy deck (slide 8).
+            </div>
+            <div style="display: flex; gap: 6px; margin-top: 8px;">
+              <div class="wf-btn-sm">Review Sources</div>
+              <div class="wf-btn-sm" style="border-color: var(--accent-amber); color: var(--accent-amber);">Raise Challenge</div>
+              <div class="wf-btn-sm" style="border-color: var(--accent-cyan); color: var(--accent-cyan);">Confirm</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Annotations -->
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 20px;">
+      <div class="wf-annotation">
+        <div class="wf-annotation-marker" style="background: var(--accent-blue);">1</div>
+        <div class="wf-annotation-text">
+          <strong>Pillar 1: Explainability</strong><br>
+          Every output has a DecisionLog. Sources, confidence, reasoning — all visible. Challenge button is always one click away.
+        </div>
+      </div>
+      <div class="wf-annotation">
+        <div class="wf-annotation-marker" style="background: var(--accent-cyan);">2</div>
+        <div class="wf-annotation-text">
+          <strong>Pillar 2: Controlled Autonomy</strong><br>
+          Three agents, three identities, three scopes. Each operates with delegated authority. Fail-closed. No shared credentials.
+        </div>
+      </div>
+      <div class="wf-annotation">
+        <div class="wf-annotation-marker" style="background: var(--accent-purple);">3</div>
+        <div class="wf-annotation-text">
+          <strong>Pillar 3: Regulatory Loop</strong><br>
+          Board themes flow to framework mappings in one pipeline. Regulatory updates trigger gap analysis within hours, not weeks.
+        </div>
+      </div>
+      <div class="wf-annotation">
+        <div class="wf-annotation-marker" style="background: var(--accent-pink);">4</div>
+        <div class="wf-annotation-text">
+          <strong>Pillar 4: Cyber-GRC</strong><br>
+          Cyber Defence tab (not shown) links alerts to risk register and control library. Incidents can't close without governance links.
+        </div>
+      </div>
+    </div>
+
+    <!-- Additional pages preview strip -->
+    <div style="margin-top: 2rem;">
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.75rem;">Additional Platform Workspaces</div>
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+
+        <!-- Policy Agent mini -->
+        <div class="wf-mini-page">
+          <div class="wf-mini-header">
+            <span style="color: var(--accent-purple);">&#9679;</span> Policy & Standards Agent
+          </div>
+          <div class="wf-mini-body">
+            <div class="wf-mini-row" style="height: 6px; background: var(--accent-cyan); opacity: 0.3; border-radius: 2px; width: 80%;"></div>
+            <div style="display: flex; gap: 3px; margin-top: 4px;">
+              <div class="wf-mini-block" style="border-color: rgba(0,212,170,0.3);">Extract</div>
+              <div class="wf-mini-block" style="border-color: rgba(0,212,170,0.3);">Research</div>
+              <div class="wf-mini-block" style="border-color: rgba(77,124,255,0.3);">Gap</div>
+              <div class="wf-mini-block" style="border-color: rgba(85,85,106,0.3);">Draft</div>
+            </div>
+            <div class="wf-mini-row" style="height: 20px; margin-top: 4px;"></div>
+            <div class="wf-mini-row" style="height: 20px; margin-top: 3px;"></div>
+          </div>
+          <div style="font-size: 8px; color: var(--text-muted); padding: 4px 8px;">20+ frameworks indexed &bull; AI policy drafting with citations</div>
+        </div>
+
+        <!-- Cyber Defence mini -->
+        <div class="wf-mini-page">
+          <div class="wf-mini-header">
+            <span style="color: var(--accent-red);">&#9679;</span> Agentic Cyber Defence
+          </div>
+          <div class="wf-mini-body">
+            <div style="display: flex; gap: 3px;">
+              <div class="wf-mini-agent" style="border-color: rgba(77,124,255,0.4);">Detection</div>
+              <div class="wf-mini-agent" style="border-color: rgba(155,114,255,0.4);">Response</div>
+              <div class="wf-mini-agent" style="border-color: rgba(0,212,170,0.4);">Orchestr.</div>
+              <div class="wf-mini-agent" style="border-color: rgba(255,179,71,0.4);">Threat Intel</div>
+            </div>
+            <div class="wf-mini-row" style="height: 16px; margin-top: 4px;"></div>
+            <div class="wf-mini-row" style="height: 16px; margin-top: 3px;"></div>
+            <div class="wf-mini-row" style="height: 10px; margin-top: 3px; width: 60%;"></div>
+          </div>
+          <div style="font-size: 8px; color: var(--text-muted); padding: 4px 8px;">HITL for critical actions &bull; Cyber &rarr; GRC linkage</div>
+        </div>
+
+        <!-- AI Security mini -->
+        <div class="wf-mini-page">
+          <div class="wf-mini-header">
+            <span style="color: var(--accent-cyan);">&#9679;</span> AI Security & IAM
+          </div>
+          <div class="wf-mini-body">
+            <div style="display: flex; flex-direction: column; gap: 3px;">
+              <div class="wf-mini-bar" style="background: rgba(0,212,170,0.3);">Security</div>
+              <div class="wf-mini-bar" style="background: rgba(0,212,170,0.2);">Stability</div>
+              <div class="wf-mini-bar" style="background: rgba(77,124,255,0.2);">Performance</div>
+              <div class="wf-mini-bar" style="background: rgba(155,114,255,0.15);">Intelligence</div>
+            </div>
+            <div class="wf-mini-row" style="height: 14px; margin-top: 4px;"></div>
+          </div>
+          <div style="font-size: 8px; color: var(--text-muted); padding: 4px 8px;">Coworker model &bull; Per-action auth &bull; Fail-closed</div>
+        </div>
+
+        <!-- Executive Dashboard mini -->
+        <div class="wf-mini-page">
+          <div class="wf-mini-header">
+            <span style="color: var(--accent-amber);">&#9679;</span> Executive Dashboard
+          </div>
+          <div class="wf-mini-body">
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px;">
+              <div class="wf-mini-stat"><span style="font-size: 10px; font-weight: 700; color: var(--accent-cyan);">94%</span><br><span style="font-size: 6px;">Controls</span></div>
+              <div class="wf-mini-stat"><span style="font-size: 10px; font-weight: 700; color: var(--accent-blue);">47</span><br><span style="font-size: 6px;">Active</span></div>
+              <div class="wf-mini-stat"><span style="font-size: 10px; font-weight: 700; color: var(--accent-amber);">8</span><br><span style="font-size: 6px;">Issues</span></div>
+              <div class="wf-mini-stat"><span style="font-size: 10px; font-weight: 700; color: var(--accent-cyan);">12h</span><br><span style="font-size: 6px;">Avg Resp</span></div>
+            </div>
+            <div class="wf-mini-row" style="height: 20px; margin-top: 4px;"></div>
+            <div class="wf-mini-row" style="height: 20px; margin-top: 3px;"></div>
+          </div>
+          <div style="font-size: 8px; color: var(--text-muted); padding: 4px 8px;">Framework coverage &bull; Risk heat map &bull; Agent perf</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live prototype link -->
+    <div style="text-align: center; margin-top: 2rem; padding: 1.25rem; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-card);">
+      <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">
+        Interactive prototype available &mdash; all 7 workspaces with navigation, agent processing, and explainability flows
+      </div>
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--text-muted);">
+        netlify-demo/prototype.html
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  Evonix &mdash; Agentic AI GRC &mdash; Problem Space Analysis &mdash; March 2026<br>
+  <span style="margin-top: 0.25rem; display: inline-block;">
+    Source: Product Brief, PRD, Competitive Analysis (Mar 2026), Soft Systems Analysis
+  </span>
+</footer>
+
+<script>
+  // Scroll-based fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Nav dot tracking
+  const sections = ['hero', 'fragmentation', 'worldviews', 'tensions', 'cost', 'why-now', 'thesis', 'wireframe'];
+  const dots = document.querySelectorAll('.nav-dot');
+
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const idx = sections.indexOf(entry.target.id);
+        dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+      }
+    });
+  }, { threshold: 0.4 });
+
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) sectionObserver.observe(el);
+  });
+
+  // Smooth scroll helper
+  function scrollTo(selector) {
+    document.querySelector(selector)?.scrollIntoView({ behavior: 'smooth' });
+  }
+</script>
+
+</body>
+</html>
