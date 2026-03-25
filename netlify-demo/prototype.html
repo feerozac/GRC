@@ -1131,6 +1131,18 @@
           </div>
         </div>
 
+        <!-- Extracted Objectives (hidden until pipeline step 1 completes) -->
+        <div id="pa-objectives-section" class="card" style="margin-bottom: 12px; display: none; opacity: 0; transition: opacity 0.6s;">
+          <h2>Extracted Governance Objectives</h2>
+          <div style="font-size: 11px; color: var(--muted); margin-bottom: 12px;" id="pa-objectives-summary"></div>
+          <table class="table" id="pa-objectives-table">
+            <thead>
+              <tr><th>Theme</th><th>Category</th><th>Description</th><th>Source</th><th>Confidence</th></tr>
+            </thead>
+            <tbody id="pa-objectives-body"></tbody>
+          </table>
+        </div>
+
         <!-- Framework Knowledge Base -->
         <div class="grid two" style="margin-bottom: 12px;">
           <div class="card">
@@ -1862,12 +1874,48 @@
           }
         };
 
+        const simulatedObjectives = {
+          documentSummary: 'Analysis of 3 board documents covering Q4 2025 strategy review, IT governance committee minutes, and regulatory compliance assessment. Documents collectively address digital transformation priorities, risk appetite for emerging technology, and regulatory alignment requirements.',
+          objectives: [
+            { id: 'POL-OBJ-001', theme: 'Zero Trust Architecture Adoption', category: 'Strategic', description: 'The Board directs management to implement a Zero Trust security architecture across all digital systems by end of FY2026, replacing legacy perimeter-based controls.', sourceRef: 'Board Strategy Review, Section 4.2, p.12', confidence: 92, keywords: ['zero trust', 'architecture', 'digital transformation', 'security'] },
+            { id: 'POL-OBJ-002', theme: 'Cryptographic Standards Modernization', category: 'Compliance', description: 'All cryptographic implementations must comply with FIPS 140-3 validated modules. Legacy encryption algorithms (DES, 3DES, RC4) must be retired within 6 months.', sourceRef: 'IT Governance Committee Minutes, Item 3.1, p.5', confidence: 95, keywords: ['encryption', 'FIPS 140-3', 'cryptography', 'compliance'] },
+            { id: 'POL-OBJ-003', theme: 'AI Explainability Mandate', category: 'Ethics', description: 'All AI/ML systems deployed in customer-facing or decision-making contexts must provide human-interpretable explanations for their outputs, in alignment with the HKMA GenAI Circular and EU AI Act requirements.', sourceRef: 'Regulatory Compliance Assessment, Section 6, p.18', confidence: 88, keywords: ['AI', 'explainability', 'ethics', 'HKMA', 'EU AI Act'] },
+            { id: 'POL-OBJ-004', theme: 'Continuous Audit Cycle Reduction', category: 'Operational', description: 'Reduce the internal audit cycle from quarterly to continuous monitoring for critical IT controls, leveraging automated evidence collection and real-time compliance dashboards.', sourceRef: 'Board Strategy Review, Section 5.1, p.15', confidence: 85, keywords: ['audit', 'continuous monitoring', 'automation', 'controls'] },
+            { id: 'POL-OBJ-005', theme: 'Third-Party Risk Oversight', category: 'Risk', description: 'Establish enhanced due diligence and ongoing monitoring for all critical third-party technology providers, with particular focus on cloud service providers and AI/ML vendors.', sourceRef: 'IT Governance Committee Minutes, Item 5.2, p.9', confidence: 79, keywords: ['third-party risk', 'vendor management', 'cloud', 'due diligence'] },
+            { id: 'POL-OBJ-006', theme: 'Key Management Lifecycle', category: 'Compliance', description: 'Implement formal key lifecycle management procedures covering generation, distribution, storage, rotation, and destruction in compliance with NIST SP 800-57 and PCI DSS requirements.', sourceRef: 'Regulatory Compliance Assessment, Section 3.4, p.10', confidence: 91, keywords: ['key management', 'NIST 800-57', 'PCI DSS', 'lifecycle'] },
+          ]
+        };
+
+        function renderObjectives(data) {
+          const section = document.getElementById('pa-objectives-section');
+          const summary = document.getElementById('pa-objectives-summary');
+          const tbody = document.getElementById('pa-objectives-body');
+          summary.textContent = data.documentSummary;
+          tbody.innerHTML = '';
+          const categoryColors = { Risk: 'red', Compliance: 'blue', Operational: 'teal', Ethics: 'purple', Strategic: 'orange', Governance: 'green' };
+          data.objectives.forEach(obj => {
+            const color = categoryColors[obj.category] || 'muted';
+            const confColor = obj.confidence >= 85 ? 'green' : obj.confidence >= 70 ? 'orange' : 'red';
+            const row = document.createElement('tr');
+            row.style.transition = 'background 0.2s';
+            row.innerHTML = `
+              <td><strong>${obj.theme}</strong></td>
+              <td><span class="tag" style="border-color: var(--${color});">${obj.category}</span></td>
+              <td style="font-size: 11px; max-width: 320px;">${obj.description}</td>
+              <td style="font-size: 10px; color: var(--muted);">${obj.sourceRef}</td>
+              <td><span style="color: var(--${confColor}); font-weight: 600;">${obj.confidence}%</span></td>`;
+            tbody.appendChild(row);
+          });
+          showSection(section);
+        }
+
         let paState = { running: false, currentGap: null, approvedPolicies: new Set() };
         const trail = document.getElementById('pa-audit-trail');
         const trailEmpty = document.getElementById('pa-audit-empty');
         const pipeline = document.querySelectorAll('.pa-pipe-step');
         const gapSection = document.getElementById('pa-gap-section');
         const draftSection = document.getElementById('pa-draft-section');
+        const objectivesSection = document.getElementById('pa-objectives-section');
         const runBtn = document.getElementById('run-policy-agent');
         const statusEl = document.getElementById('pa-status');
 
@@ -1980,6 +2028,8 @@
           gapSection.style.opacity = '0';
           draftSection.style.display = 'none';
           draftSection.style.opacity = '0';
+          objectivesSection.style.display = 'none';
+          objectivesSection.style.opacity = '0';
           trail.innerHTML = '';
           trailEmpty.style.display = 'none';
           pipeline.forEach((_, i) => setPipeStep(i, 'pending'));
@@ -1991,7 +2041,8 @@
             }},
             { delay: 1800, fn: () => {
               setPipeStep(0, 'done');
-              addAuditEntry('Objectives Extracted', 'Policy Research Agent', 'Found 3 governance objectives: Zero Trust adoption, audit cycle reduction, AI explainability mandate', 'green');
+              addAuditEntry('Objectives Extracted', 'Policy Research Agent', `Found ${simulatedObjectives.objectives.length} governance objectives: ${simulatedObjectives.objectives.slice(0, 3).map(o => o.theme).join(', ')}`, 'green');
+              renderObjectives(simulatedObjectives);
               const pending = document.querySelector('#pa-board-docs .tag[style*="border-color: var(--blue)"]');
               if (pending) { pending.style.borderColor = 'var(--green)'; pending.textContent = 'Processed'; }
             }},

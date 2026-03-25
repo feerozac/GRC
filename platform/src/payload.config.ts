@@ -69,6 +69,11 @@ import {
   ingestPolicyDocumentOutputSchema,
 } from '@/server/jobs/tasks/ingest-policy-document'
 import {
+  extractPolicyObjectivesHandler,
+  extractPolicyObjectivesInputSchema,
+  extractPolicyObjectivesOutputSchema,
+} from '@/server/jobs/tasks/extract-policy-objectives'
+import {
   processGrcExtractionWorkflow,
   processGrcExtractionInputSchema,
 } from '@/server/jobs/workflows/process-grc-extraction'
@@ -220,6 +225,14 @@ export default buildConfig({
         label: 'Ingest Policy Document',
         inputSchema: ingestPolicyDocumentInputSchema,
         outputSchema: ingestPolicyDocumentOutputSchema,
+        retries: 2,
+      },
+      {
+        slug: 'extract-policy-objectives',
+        handler: extractPolicyObjectivesHandler,
+        label: 'Extract Policy Objectives',
+        inputSchema: extractPolicyObjectivesInputSchema,
+        outputSchema: extractPolicyObjectivesOutputSchema,
         retries: 2,
       },
     ],

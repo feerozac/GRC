@@ -1,4 +1,6 @@
 import { CollectionConfig } from 'payload'
+import runHandler from './api/run/handler'
+import statusHandler from './api/status/handler'
 
 export const PolicyAgentRunsCollection: CollectionConfig = {
   slug: 'policy-agent-runs',
@@ -6,6 +8,18 @@ export const PolicyAgentRunsCollection: CollectionConfig = {
     useAsTitle: 'title',
     group: 'Policy Agent',
   },
+  endpoints: [
+    {
+      path: '/:id/run',
+      method: 'post',
+      handler: runHandler,
+    },
+    {
+      path: '/:id/status',
+      method: 'get',
+      handler: statusHandler,
+    },
+  ],
   fields: [
     {
       name: 'title',
