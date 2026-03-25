@@ -23,6 +23,8 @@ import { ControlObjectivesCollection } from '@/collections/ControlObjectives/col
 import { RiskAppetiteStatementsCollection } from '@/collections/RiskAppetiteStatements/collection'
 import { DecisionLogsCollection } from '@/collections/DecisionLogs/collection'
 import { AuditTrailEntriesCollection } from '@/collections/AuditTrailEntries/collection'
+import { PolicyAgentRunsCollection } from '@/collections/PolicyAgentRuns/collection'
+import { PolicyDocumentsCollection } from '@/collections/PolicyDocuments/collection'
 import {
   ingestAuthoritativeDocumentHandler,
   ingestAuthoritativeDocumentInputSchema,
@@ -62,6 +64,11 @@ import {
   mapToFrameworkOutputSchema,
 } from '@/server/jobs/tasks/map-to-framework'
 import {
+  ingestPolicyDocumentHandler,
+  ingestPolicyDocumentInputSchema,
+  ingestPolicyDocumentOutputSchema,
+} from '@/server/jobs/tasks/ingest-policy-document'
+import {
   processGrcExtractionWorkflow,
   processGrcExtractionInputSchema,
 } from '@/server/jobs/workflows/process-grc-extraction'
@@ -92,6 +99,8 @@ export default buildConfig({
     RiskAppetiteStatementsCollection,
     DecisionLogsCollection,
     AuditTrailEntriesCollection,
+    PolicyAgentRunsCollection,
+    PolicyDocumentsCollection,
   ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
@@ -203,6 +212,14 @@ export default buildConfig({
         label: 'Map to Framework Controls',
         inputSchema: mapToFrameworkInputSchema,
         outputSchema: mapToFrameworkOutputSchema,
+        retries: 2,
+      },
+      {
+        slug: 'ingest-policy-document',
+        handler: ingestPolicyDocumentHandler,
+        label: 'Ingest Policy Document',
+        inputSchema: ingestPolicyDocumentInputSchema,
+        outputSchema: ingestPolicyDocumentOutputSchema,
         retries: 2,
       },
     ],

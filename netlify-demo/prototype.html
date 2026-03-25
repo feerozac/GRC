@@ -1260,6 +1260,35 @@
           </div>
         </div>
 
+        <!-- Upload/Ingest Modal -->
+        <div id="pa-upload-modal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 200; justify-content: center; align-items: center;">
+          <div style="background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 32px; max-width: 560px; width: 90%;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+              <h3 style="margin: 0; font-size: 16px;">Ingest Documents</h3>
+              <button class="btn" id="pa-upload-close" style="padding: 4px 10px; font-size: 14px;">✕</button>
+            </div>
+            <div id="pa-dropzone" style="border: 2px dashed var(--line); border-radius: 12px; padding: 40px 20px; text-align: center; cursor: pointer; transition: border-color 0.2s, background 0.2s; margin-bottom: 16px;">
+              <div style="font-size: 32px; margin-bottom: 8px;">📄</div>
+              <div style="font-size: 13px; color: var(--text); margin-bottom: 4px;">Drag & drop files here, or click to browse</div>
+              <div style="font-size: 11px; color: var(--muted);">Supports PDF, DOCX, TXT</div>
+              <input type="file" id="pa-file-input" multiple accept=".pdf,.docx,.doc,.txt" style="display: none;">
+            </div>
+            <div style="margin-bottom: 16px;">
+              <label style="font-size: 12px; color: var(--muted); display: block; margin-bottom: 6px;">Document Category</label>
+              <select id="pa-upload-category" style="width: 100%; padding: 8px; background: var(--panel-2); border: 1px solid var(--line); border-radius: 8px; color: var(--text); font-size: 13px;">
+                <option value="board_document">📋 Board Document</option>
+                <option value="existing_policy">📜 Existing Policy</option>
+                <option value="regulatory_trigger">🔔 Regulatory Trigger</option>
+              </select>
+            </div>
+            <div id="pa-upload-queue" style="max-height: 200px; overflow-y: auto; margin-bottom: 16px;"></div>
+            <div style="display: flex; gap: 8px; justify-content: flex-end;">
+              <button class="btn" id="pa-upload-cancel">Cancel</button>
+              <button class="btn primary" id="pa-upload-submit" disabled style="opacity: 0.4;">Upload & Process</button>
+            </div>
+          </div>
+        </div>
+
         <!-- Audit Trail -->
         <div class="card" style="margin-top: 12px;">
           <h2>Policy Agent Audit Trail</h2>
@@ -2033,6 +2062,87 @@
 
         document.getElementById('pa-modal-cancel').addEventListener('click', () => { modal.style.display = 'none'; });
         modal.addEventListener('click', function(e) { if (e.target === modal) modal.style.display = 'none'; });
+
+        // Upload/Ingest Modal
+        const uploadModal = document.getElementById('pa-upload-modal');
+        const dropzone = document.getElementById('pa-dropzone');
+        const fileInput = document.getElementById('pa-file-input');
+        const uploadQueue = document.getElementById('pa-upload-queue');
+        const uploadSubmit = document.getElementById('pa-upload-submit');
+        let uploadFiles = [];
+
+        document.getElementById('upload-docs').addEventListener('click', () => {
+          uploadModal.style.display = 'flex';
+          uploadFiles = [];
+          uploadQueue.innerHTML = '';
+          uploadSubmit.disabled = true;
+          uploadSubmit.style.opacity = '0.4';
+        });
+
+        document.getElementById('pa-upload-close').addEventListener('click', () => { uploadModal.style.display = 'none'; });
+        document.getElementById('pa-upload-cancel').addEventListener('click', () => { uploadModal.style.display = 'none'; });
+        uploadModal.addEventListener('click', function(e) { if (e.target === uploadModal) uploadModal.style.display = 'none'; });
+
+        dropzone.addEventListener('click', () => fileInput.click());
+        dropzone.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.style.borderColor = 'var(--blue)'; dropzone.style.background = 'rgba(56,189,248,0.05)'; });
+        dropzone.addEventListener('dragleave', () => { dropzone.style.borderColor = ''; dropzone.style.background = ''; });
+        dropzone.addEventListener('drop', (e) => {
+          e.preventDefault();
+          dropzone.style.borderColor = ''; dropzone.style.background = '';
+          addFiles(e.dataTransfer.files);
+        });
+        fileInput.addEventListener('change', () => { addFiles(fileInput.files); fileInput.value = ''; });
+
+        function addFiles(fileList) {
+          for (const f of fileList) {
+            if (uploadFiles.some(u => u.name === f.name)) continue;
+            uploadFiles.push(f);
+            const row = document.createElement('div');
+            row.style.cssText = 'display:flex;align-items:center;gap:8px;padding:8px;background:var(--panel-2);border-radius:8px;margin-bottom:6px;font-size:12px;';
+            const icon = f.type.includes('pdf') ? '📕' : f.name.endsWith('.docx') || f.name.endsWith('.doc') ? '📘' : '📄';
+            const size = (f.size / 1024).toFixed(0) + ' KB';
+            row.innerHTML = `<span>${icon}</span><span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${f.name}</span><span style="color:var(--muted);font-size:10px;">${size}</span><span class="upload-file-status" data-name="${f.name}" style="font-size:10px;color:var(--muted);">Ready</span>`;
+            uploadQueue.appendChild(row);
+          }
+          uploadSubmit.disabled = uploadFiles.length === 0;
+          uploadSubmit.style.opacity = uploadFiles.length > 0 ? '1' : '0.4';
+        }
+
+        uploadSubmit.addEventListener('click', function() {
+          if (uploadFiles.length === 0) return;
+          const category = document.getElementById('pa-upload-category').value;
+          const categoryIcons = { board_document: '📋', existing_policy: '📜', regulatory_trigger: '🔔' };
+          const categoryLabels = { board_document: 'Board Documents', existing_policy: 'Existing Policies', regulatory_trigger: 'Regulatory Triggers' };
+          const targetPanel = category === 'existing_policy' ? 'pa-existing-policies' : 'pa-board-docs';
+
+          uploadSubmit.disabled = true;
+          uploadSubmit.textContent = 'Processing...';
+
+          uploadFiles.forEach((f, i) => {
+            const statusEl = document.querySelector(`.upload-file-status[data-name="${f.name}"]`);
+            if (statusEl) { statusEl.textContent = 'Processing...'; statusEl.style.color = 'var(--blue)'; }
+
+            setTimeout(() => {
+              if (statusEl) { statusEl.textContent = 'Done ✓'; statusEl.style.color = 'var(--green)'; }
+
+              const panel = document.getElementById(targetPanel);
+              const entry = document.createElement('div');
+              entry.innerHTML = `• ${f.name} <span class="tag" style="border-color: var(--green);">Processed</span>`;
+              panel.appendChild(entry);
+
+              addAuditEntry('Document Ingested: ' + f.name, 'Policy Research Agent', `${categoryLabels[category]} — ${(f.size/1024).toFixed(0)} KB parsed`, 'green');
+
+              if (i === uploadFiles.length - 1) {
+                setTimeout(() => {
+                  uploadModal.style.display = 'none';
+                  uploadSubmit.disabled = false;
+                  uploadSubmit.textContent = 'Upload & Process';
+                  uploadSubmit.style.opacity = '1';
+                }, 600);
+              }
+            }, 1200 * (i + 1));
+          });
+        });
 
         document.getElementById('pa-modal-confirm').addEventListener('click', function() {
           modal.style.display = 'none';
