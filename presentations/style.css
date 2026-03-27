@@ -1,0 +1,284 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --slidev-theme-primary: #38bdf8;
+  --ev-bg: #0b0f1a;
+  --ev-bg-alt: #0f172a;
+  --ev-panel: #111b33;
+  --ev-text: #e2e8f0;
+  --ev-muted: #94a3b8;
+  --ev-line: #22304a;
+  --ev-blue: #38bdf8;
+  --ev-teal: #22d3ee;
+  --ev-purple: #a855f7;
+  --ev-green: #34d399;
+  --ev-red: #f87171;
+  --ev-orange: #fb923c;
+  --ev-amber: #f59e0b;
+}
+
+.slidev-layout {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+  background: var(--ev-bg) !important;
+  color: var(--ev-text) !important;
+}
+
+/* Override default heading styles */
+.slidev-layout h1 {
+  color: var(--ev-text) !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.02em;
+}
+
+.slidev-layout h2 {
+  color: var(--ev-text) !important;
+  font-weight: 600 !important;
+}
+
+.slidev-layout h3 {
+  color: var(--ev-text) !important;
+  font-weight: 600 !important;
+}
+
+.slidev-layout p,
+.slidev-layout li {
+  color: var(--ev-muted) !important;
+}
+
+.slidev-layout a {
+  color: var(--ev-blue) !important;
+}
+
+/* Gradient text utility */
+.gradient-text {
+  background: linear-gradient(135deg, #38bdf8, #a855f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-teal {
+  background: linear-gradient(135deg, #38bdf8, #22d3ee);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-green {
+  background: linear-gradient(135deg, #22d3ee, #34d399);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Card component */
+.ev-card {
+  background: var(--ev-panel);
+  border: 1px solid var(--ev-line);
+  border-radius: 16px;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.ev-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--ev-blue), var(--ev-purple));
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.ev-card:hover::before {
+  opacity: 1;
+}
+
+.ev-card.blue { border-left: 3px solid var(--ev-blue); }
+.ev-card.purple { border-left: 3px solid var(--ev-purple); }
+.ev-card.green { border-left: 3px solid var(--ev-green); }
+.ev-card.teal { border-left: 3px solid var(--ev-teal); }
+.ev-card.red { border-left: 3px solid var(--ev-red); }
+
+/* Stat block */
+.ev-stat {
+  text-align: center;
+}
+
+.ev-stat-value {
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.ev-stat-label {
+  font-size: 0.85rem;
+  color: var(--ev-muted);
+}
+
+/* Pill/badge */
+.ev-pill {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border: 1px solid var(--ev-line);
+  color: var(--ev-muted);
+}
+
+.ev-pill.blue { border-color: var(--ev-blue); color: var(--ev-blue); background: rgba(56, 189, 248, 0.1); }
+.ev-pill.purple { border-color: var(--ev-purple); color: var(--ev-purple); background: rgba(168, 85, 247, 0.1); }
+.ev-pill.green { border-color: var(--ev-green); color: var(--ev-green); background: rgba(52, 211, 153, 0.1); }
+.ev-pill.teal { border-color: var(--ev-teal); color: var(--ev-teal); background: rgba(34, 211, 238, 0.1); }
+.ev-pill.red { border-color: var(--ev-red); color: var(--ev-red); background: rgba(248, 113, 113, 0.1); }
+
+/* Glow backgrounds */
+.glow-blue {
+  position: relative;
+}
+.glow-blue::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.08) 0%, transparent 70%);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.glow-purple::after {
+  content: '';
+  position: absolute;
+  top: 40%;
+  right: -10%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.06) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Step indicator */
+.ev-step {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 18px;
+  background: rgba(34, 211, 238, 0.05);
+  border-radius: 10px;
+  margin-bottom: 8px;
+}
+
+.ev-step-num {
+  width: 36px;
+  height: 36px;
+  background: var(--ev-teal);
+  color: var(--ev-bg);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.ev-step-text {
+  flex: 1;
+  font-size: 0.95rem;
+  color: var(--ev-text);
+}
+
+.ev-step-time {
+  font-size: 0.85rem;
+  color: var(--ev-muted);
+  font-weight: 500;
+}
+
+/* Animated shimmer */
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Icon circle */
+.ev-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+
+.ev-icon.blue { background: rgba(56, 189, 248, 0.15); }
+.ev-icon.purple { background: rgba(168, 85, 247, 0.15); }
+.ev-icon.green { background: rgba(52, 211, 153, 0.15); }
+.ev-icon.teal { background: rgba(34, 211, 238, 0.15); }
+.ev-icon.red { background: rgba(248, 113, 113, 0.15); }
+
+/* Override code blocks */
+.slidev-layout pre {
+  background: var(--ev-panel) !important;
+  border: 1px solid var(--ev-line) !important;
+  border-radius: 12px !important;
+}
+
+/* Progress bar */
+.ev-progress {
+  height: 6px;
+  background: var(--ev-panel);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.ev-progress-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.5s ease;
+}
+
+/* Grid divider */
+.ev-divider {
+  width: 1px;
+  background: var(--ev-line);
+  align-self: stretch;
+}
+
+/* Slide page number override */
+.slidev-page-number {
+  color: var(--ev-muted) !important;
+}
+
+/* Navigation dots */
+.slidev-nav {
+  color: var(--ev-muted) !important;
+}
