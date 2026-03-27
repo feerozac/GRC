@@ -1,5 +1,7 @@
 [build]
-  publish = "."
+  base = "presentations"
+  command = "npm install && npx slidev build --base /"
+  publish = "dist"
 
 [[headers]]
   for = "/*"
