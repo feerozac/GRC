@@ -6,6 +6,7 @@
   "keywords": ["grc", "governance", "risk", "compliance", "cobit", "coso"],
   "license": "ISC",
   "type": "module",
+  "packageManager": "pnpm@9.15.9",
   "engines": {
     "node": ">=20.0.0 <=22.x",
     "pnpm": "<=9.x"
