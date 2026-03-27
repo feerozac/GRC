@@ -45,6 +45,38 @@ fonts:
 transition: fade
 ---
 
+<div class="h-full flex items-center justify-center relative overflow-hidden">
+<div class="absolute inset-0" style="background: radial-gradient(ellipse at 30% 50%, rgba(56,189,248,0.06) 0%, transparent 50%);"></div>
+<div class="relative z-10 flex gap-12 items-center max-w-3xl">
+<div class="flex-shrink-0 flex flex-col items-center">
+<div class="w-40 h-40 rounded-full overflow-hidden mb-4" style="border: 3px solid #38bdf8; box-shadow: 0 0 30px rgba(56,189,248,0.2);">
+<img src="/mark-profile.jpg" class="w-full h-full object-cover" alt="Mark Syed" />
+</div>
+<div class="flex gap-2 mt-2">
+<span class="ev-pill blue" style="font-size: 0.65rem;">CRISC</span>
+<span class="ev-pill purple" style="font-size: 0.65rem;">AIGP</span>
+<span class="ev-pill green" style="font-size: 0.65rem;">ISACA</span>
+</div>
+</div>
+<div class="text-left">
+<div class="mb-3"><span class="ev-pill teal">Founder</span></div>
+<h1 class="!text-4xl !font-700 !mb-2 !text-left">Mark Syed</h1>
+<p class="!text-base !text-[#94a3b8] !mb-5 !leading-relaxed !text-left">20+ years at the intersection of technology risk, financial crime, and governance across Europe and Asia.</p>
+<div class="space-y-3">
+<div class="flex items-start gap-3"><div class="w-1.5 h-1.5 rounded-full mt-2 flex-shrink-0" style="background: #38bdf8;"></div><p class="!text-sm !text-left !mb-0"><span style="color: #e2e8f0; font-weight: 500;">Standard Chartered Bank</span> <span style="color: #64748b;">— Technical risk leadership across markets in Asia</span></p></div>
+<div class="flex items-start gap-3"><div class="w-1.5 h-1.5 rounded-full mt-2 flex-shrink-0" style="background: #a855f7;"></div><p class="!text-sm !text-left !mb-0"><span style="color: #e2e8f0; font-weight: 500;">Google-Recognised AI Innovation</span> <span style="color: #64748b;">— Led one of the most innovative AI projects in banking</span></p></div>
+<div class="flex items-start gap-3"><div class="w-1.5 h-1.5 rounded-full mt-2 flex-shrink-0" style="background: #34d399;"></div><p class="!text-sm !text-left !mb-0"><span style="color: #e2e8f0; font-weight: 500;">Financial Crime &amp; Digital Banking</span> <span style="color: #64748b;">— HSBC Head of FC for Digital Banking, Hong Kong</span></p></div>
+<div class="flex items-start gap-3"><div class="w-1.5 h-1.5 rounded-full mt-2 flex-shrink-0" style="background: #22d3ee;"></div><p class="!text-sm !text-left !mb-0"><span style="color: #e2e8f0; font-weight: 500;">AI Governance &amp; Risk</span> <span style="color: #64748b;">— IAPP AI Governance Professional, CRISC certified</span></p></div>
+</div>
+<p class="!text-xs !text-[#64748b] !text-left mt-5">Based in Hong Kong · Building Evonix to bring governed, explainable AI to GRC operations</p>
+</div>
+</div>
+</div>
+
+---
+transition: fade
+---
+
 <div class="h-full flex flex-col pt-8">
 <div class="mb-2">
 <span class="ev-pill red">Pain Points</span>

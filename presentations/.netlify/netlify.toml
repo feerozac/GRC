@@ -1,0 +1,36 @@
+headersOrigin = "config"
+plugins = []
+redirects = []
+
+[functions]
+
+[functions."*"]
+
+[build]
+publish = "/Users/user/agentic-grc/feerozac-grc/presentations"
+publishOrigin = "config"
+commandOrigin = "ui"
+base = "/Users/user/agentic-grc/feerozac-grc/presentations"
+command = "npm install && npx slidev build --base /"
+
+[build.environment]
+
+[build.processing]
+
+[build.processing.css]
+
+[build.processing.html]
+
+[build.processing.images]
+
+[build.processing.js]
+
+[build.services]
+
+[[headers]]
+for = "/*"
+
+[headers.values]
+X-Frame-Options = "DENY"
+X-Content-Type-Options = "nosniff"
+Referrer-Policy = "strict-origin-when-cross-origin"
