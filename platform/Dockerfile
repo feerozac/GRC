@@ -13,7 +13,7 @@ COPY package.json pnpm-lock.yaml* ./
 # Update corepack before using it
 RUN npm install -g corepack@latest && \
     corepack enable pnpm && \
-    pnpm i --frozen-lockfile
+    pnpm i
 
 
 # Rebuild the source code only when needed
