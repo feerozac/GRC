@@ -139,7 +139,8 @@ export default buildConfig({
     pool: {
       connectionString: process.env.DATABASE_URI || '',
     },
-    prodMigrations: migrations,
+    push: process.env.PAYLOAD_PUSH_SCHEMA === 'true',
+    prodMigrations: process.env.PAYLOAD_PUSH_SCHEMA === 'true' ? undefined : migrations,
     migrationDir: path.resolve(dirname, 'server/db/migrations'),
     beforeSchemaInit: [
       ({ schema, adapter }) => {
