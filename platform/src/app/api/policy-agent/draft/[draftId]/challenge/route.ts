@@ -36,7 +36,7 @@ export const POST = async (
       collection: 'challenges',
       data: {
         challengeId,
-        policyDraft: draftId,
+        policyDraft: parseInt(draftId, 10) || (draftId as any),
         challengedBy: userName || userId,
         rationale,
         status: 'open',

@@ -97,7 +97,7 @@ export const evaluateTestCaseHandler: TaskHandler<'evaluate-test-case'> = async 
   }
 
   // Log successful completion
-  req.payload.logger.info(`Completed test case evaluation for case: ${testCaseId}`, { traceId, testCaseId })
+  req.payload.logger.info({ traceId, testCaseId }, `Completed test case evaluation for case: ${testCaseId}`)
 
   // Return the result wrapped in an 'output' object
   return { output: result }

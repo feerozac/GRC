@@ -286,14 +286,14 @@ export default buildConfig({
     workflows: [
       {
         slug: 'process-test-run',
-        handler: processTestRunWorkflow.handler,
+        handler: processTestRunWorkflow.handler as any,
         label: 'Process Test Run',
         inputSchema: processTestRunInputSchema,
         retries: 2,
       },
       {
         slug: 'process-grc-extraction',
-        handler: processGrcExtractionWorkflow.handler,
+        handler: processGrcExtractionWorkflow.handler as any,
         label: 'Process GRC Extraction',
         inputSchema: processGrcExtractionInputSchema,
         retries: 2,

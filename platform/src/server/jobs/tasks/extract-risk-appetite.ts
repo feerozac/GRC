@@ -62,7 +62,7 @@ export const extractRiskAppetiteHandler: TaskHandler<'extract-risk-appetite'> = 
           appetiteLevel: stmt.appetiteLevel,
           toleranceThreshold: stmt.toleranceThreshold,
           sourceDocumentType: collectionSlug as any,
-          sourceDocument: { relationTo: collectionSlug, value: docId },
+          sourceDocument: { relationTo: collectionSlug, value: docId } as any,
           sourceSection: stmt.sourceSection,
           extractionConfidence: stmt.confidence,
           reviewStatus: 'pending',

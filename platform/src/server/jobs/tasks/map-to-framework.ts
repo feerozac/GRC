@@ -42,7 +42,7 @@ export const mapToFrameworkHandler: TaskHandler<'map-to-framework'> = async ({
       sourceSectionType: (govObj.sourceSectionType as any) || 'other',
       sourceDocument: String(govObj.sourceDocument),
       extractionConfidence: (govObj.extractionConfidence as any) || 'medium',
-      keywords: Array.isArray(govObj.keywords) ? govObj.keywords : [],
+      keywords: Array.isArray(govObj.keywords) ? govObj.keywords as string[] : [],
     }
 
     const frameworks: FrameworkType[] = ['COBIT2019', 'COSO_ERM']

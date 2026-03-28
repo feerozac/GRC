@@ -123,7 +123,7 @@ export const processTestRunWorkflow = {
 
               return taskResult // Return the retrieved result
             } catch (taskError) {
-              payload.logger.error(`Task 'evaluate-test-case' failed for case ${testCase.id}, taskId ${taskId}:`, taskError)
+              payload.logger.error({ err: taskError }, `Task 'evaluate-test-case' failed for case ${testCase.id}, taskId ${taskId}`)
               throw taskError
             }
           })
@@ -201,7 +201,7 @@ export const processTestRunWorkflow = {
       payload.logger.info(`Workflow for TestRun ${testRun.id} completed successfully.`)
     } catch (error: unknown) {
       const errorMessage = error instanceof Error ? error.message : String(error)
-      payload.logger.error(`Error in process-test-run workflow for TestRun ${testRun.id}:`, errorMessage)
+      payload.logger.error(`Error in process-test-run workflow for TestRun ${testRun.id}: ${errorMessage}`)
 
       try {
         await payload.update({
@@ -210,7 +210,7 @@ export const processTestRunWorkflow = {
           data: { status: 'FAILED' as TestRun['status'] },
         })
       } catch (updateError) {
-        payload.logger.error(`Failed to update TestRun ${testRun.id} status to FAILED:`, updateError)
+        payload.logger.error({ err: updateError }, `Failed to update TestRun ${testRun.id} status to FAILED`)
       }
 
       trace.update({ output: { status: 'FAILED', error: errorMessage } })

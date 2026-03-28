@@ -58,8 +58,8 @@ export const processGrcExtractionWorkflow = {
         input: { docId },
       })
 
-      if (!ingestResult?.output?.success) {
-        throw new Error(`Document ingestion failed: ${ingestResult?.output?.message}`)
+      if (!(ingestResult as any)?.success) {
+        throw new Error(`Document ingestion failed: ${(ingestResult as any)?.message}`)
       }
 
       trace.update({ output: { step: 'ingest', status: 'complete' } })
@@ -69,7 +69,7 @@ export const processGrcExtractionWorkflow = {
         input: { docId, collectionSlug, traceId },
       })
 
-      const objectivesCreated = govResult?.output?.objectivesCreated ?? 0
+      const objectivesCreated = (govResult as any)?.objectivesCreated ?? 0
       trace.update({ output: { step: 'extract-governance', objectivesCreated } })
 
       // Step 3: Extract risk appetite statements
@@ -77,7 +77,7 @@ export const processGrcExtractionWorkflow = {
         input: { docId, collectionSlug, traceId },
       })
 
-      const statementsCreated = riskResult?.output?.statementsCreated ?? 0
+      const statementsCreated = (riskResult as any)?.statementsCreated ?? 0
       trace.update({ output: { step: 'extract-risk', statementsCreated } })
 
       // Step 4: For each governance objective — derive controls and map to frameworks
@@ -96,16 +96,16 @@ export const processGrcExtractionWorkflow = {
         // 4a: Derive control objectives
         const ctrlResult = await tasks['extract-control-objectives'](
           `extract-ctrl-${govObj.id}`,
-          { input: { governanceObjectiveId: govObj.id, traceId } }
+          { input: { governanceObjectiveId: String(govObj.id), traceId } }
         )
-        totalControls += ctrlResult?.output?.controlsCreated ?? 0
+        totalControls += (ctrlResult as any)?.controlsCreated ?? 0
 
         // 4b: Map to frameworks
         const mapResult = await tasks['map-to-framework'](
           `map-fw-${govObj.id}`,
-          { input: { governanceObjectiveId: govObj.id, traceId } }
+          { input: { governanceObjectiveId: String(govObj.id), traceId } }
         )
-        totalMappings += mapResult?.output?.mappingsCreated ?? 0
+        totalMappings += (mapResult as any)?.mappingsCreated ?? 0
       }
 
       trace.update({ output: { step: 'derive-and-map', totalControls, totalMappings } })
@@ -115,7 +115,7 @@ export const processGrcExtractionWorkflow = {
         input: { docId, collectionSlug, traceId },
       })
 
-      const gapsCreated = gapResult?.output?.gapsCreated ?? 0
+      const gapsCreated = (gapResult as any)?.gapsCreated ?? 0
       trace.update({ output: { step: 'gap-analysis', gapsCreated } })
 
       // Step 6: Draft policies for identified gaps
@@ -123,7 +123,7 @@ export const processGrcExtractionWorkflow = {
         input: { docId, collectionSlug, traceId },
       })
 
-      const draftsCreated = draftResult?.output?.draftsCreated ?? 0
+      const draftsCreated = (draftResult as any)?.draftsCreated ?? 0
       trace.update({ output: { step: 'policy-drafting', draftsCreated } })
 
       // Step 7: Mark document as complete

@@ -67,7 +67,7 @@ export const extractGovernanceObjectivesHandler: TaskHandler<'extract-governance
           objectiveId,
           text: obj.text,
           sourceDocumentType: collectionSlug as any,
-          sourceDocument: { relationTo: collectionSlug, value: docId },
+          sourceDocument: { relationTo: collectionSlug, value: docId } as any,
           sourceSection: obj.sourceSection,
           sourceSectionType: obj.sourceSectionType,
           extractionConfidence: obj.extractionConfidence,

@@ -76,12 +76,12 @@ export const ingestPolicyDocumentHandler: TaskHandler<'ingest-policy-document'> 
     await payload.create({
       collection: 'audit-trail-entries',
       data: {
-        actorType: 'agent',
-        actorId: 'policy-research-agent',
-        action: 'document_parsed',
-        entityType: 'policy_document',
+        traceId: `ingest-${docId}`,
+        eventType: 'document_parsed',
+        entityType: 'policy-documents',
         entityId: String(docId),
-        payload: {
+        actor: { type: 'ai_agent', agentName: 'policy-research-agent' },
+        details: {
           parsedTextLength: parsedText.length,
           pageCount,
           fileType,

@@ -116,7 +116,7 @@ export const analyzePolicyGapsHandler: TaskHandler<'analyze-policy-gaps'> = asyn
           gapId,
           policyName: gap.policyName,
           gapDescription: gap.gapDescription,
-          frameworksAffected: gap.frameworksAffected.map((f) => ({
+          frameworksAffected: gap.frameworksAffected.map((f: any) => ({
             frameworkName: f.frameworkName,
             sectionRef: f.sectionRef,
           })),
@@ -126,7 +126,7 @@ export const analyzePolicyGapsHandler: TaskHandler<'analyze-policy-gaps'> = asyn
           reasoning: gap.reasoning,
           sourceRun: traceId,
           sourceDocumentType: collectionSlug as any,
-          sourceDocument: { relationTo: collectionSlug, value: docId },
+          sourceDocument: { relationTo: collectionSlug, value: docId } as any,
           status: 'identified',
         },
       })
@@ -157,7 +157,7 @@ export const analyzePolicyGapsHandler: TaskHandler<'analyze-policy-gaps'> = asyn
         collection: 'audit-trail-entries',
         data: {
           traceId,
-          eventType: 'gap_analysis_completed',
+          eventType: 'gap_identified',
           entityType: 'policy-gap-analyses',
           entityId: gapId,
           actor: { type: 'ai_agent', agentName: 'policy-gap-analyzer' },
@@ -167,7 +167,7 @@ export const analyzePolicyGapsHandler: TaskHandler<'analyze-policy-gaps'> = asyn
             action: gap.action,
             confidence: gap.confidence,
             frameworksAffected: gap.frameworksAffected.map(
-              (f) => `${f.frameworkName} ${f.sectionRef}`,
+              (f: any) => `${f.frameworkName} ${f.sectionRef}`,
             ),
           },
           sourceTrace: {

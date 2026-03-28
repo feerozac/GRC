@@ -58,11 +58,11 @@ export const extractControlObjectivesHandler: TaskHandler<'extract-control-objec
           controlId,
           title: ctrl.title,
           description: ctrl.description,
-          governanceObjective: governanceObjectiveId,
+          governanceObjective: governanceObjectiveId as any,
           category: ctrl.category,
           owner: ctrl.owner,
           frequency: ctrl.frequency,
-          frameworkReferences: ctrl.frameworkReferences.map((ref) => ({
+          frameworkReferences: ctrl.frameworkReferences.map((ref: any) => ({
             controlId: ref.controlId,
             controlName: ref.controlName,
           })),
