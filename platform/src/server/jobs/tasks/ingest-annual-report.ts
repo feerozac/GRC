@@ -4,6 +4,8 @@ import { MinioService } from '@/server/services/storage/minio'
 import { PdfParserService } from '@/server/services/pdf-parser/zerox'
 import { extractTextFromPdfBuffer } from '@/server/services/pdf-parser/local'
 
+const MAX_STORED_TEXT = 500_000
+
 export const ingestAnnualReportInputSchema: Field[] = [
   { name: 'docId', type: 'text', required: true },
 ]
@@ -60,6 +62,13 @@ export const ingestAnnualReportHandler: TaskHandler<'ingest-annual-report'> = as
         `Zerox failed for annual report ${docId}, falling back to local PDF parser: ${zeroxError}`,
       )
       parsedText = await extractTextFromPdfBuffer(buffer)
+    }
+
+    if (parsedText.length > MAX_STORED_TEXT) {
+      payload.logger.info(
+        `Truncating parsedText for annual report ${docId}: ${parsedText.length} → ${MAX_STORED_TEXT} chars`,
+      )
+      parsedText = parsedText.slice(0, MAX_STORED_TEXT)
     }
 
     await payload.update({
