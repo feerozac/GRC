@@ -2270,7 +2270,7 @@
           }).join('');
         }
 
-        // Load and render results
+        // Load and render results via aggregate endpoint (no Payload auth needed)
         async function loadGrcResults(statusData) {
           const results = statusData.results || {};
           const countsEl = document.getElementById('grc-results-counts');
@@ -2283,39 +2283,17 @@
           document.getElementById('grc-count-drafts').textContent = results.draftsCreated ?? 0;
 
           try {
-            const docId = grcDocId;
-            const traceId = grcTraceId || statusData.traceId || grcRunId;
+            const res = await api(`/api/grc-results?runId=${grcRunId}`);
+            const data = await res.json();
 
-            const [objRes, riskRes, ctrlRes, gapRes, draftRes] = await Promise.all([
-              api(`/api/governance-objectives?where[sourceDocument.value][equals]=${docId}&limit=100`).catch(() => null),
-              api(`/api/risk-appetite-statements?where[sourceDocument.value][equals]=${docId}&limit=100`).catch(() => null),
-              api(`/api/control-objectives?limit=100`).catch(() => null),
-              api(`/api/policy-gap-analyses?where[sourceRun][equals]=${traceId}&limit=50`).catch(() => null),
-              api(`/api/policy-drafts?where[sourceRun][equals]=${traceId}&limit=50`).catch(() => null),
-            ]);
-
-            if (objRes) {
-              const objs = (await objRes.json()).docs || [];
-              if (objs.length > 0) renderGrcObjectives(objs);
-            }
-            if (riskRes) {
-              const risks = (await riskRes.json()).docs || [];
-              if (risks.length > 0) renderGrcRiskAppetite(risks);
-            }
-            if (ctrlRes) {
-              const ctrls = (await ctrlRes.json()).docs || [];
-              if (ctrls.length > 0) renderGrcControls(ctrls);
-            }
-            if (gapRes) {
-              const gaps = (await gapRes.json()).docs || [];
-              if (gaps.length > 0) renderGrcGaps(gaps);
-            }
-            if (draftRes) {
-              const drafts = (await draftRes.json()).docs || [];
-              if (drafts.length > 0) renderGrcDrafts(drafts);
-            }
+            if (data.objectives?.length > 0) renderGrcObjectives(data.objectives);
+            if (data.riskStatements?.length > 0) renderGrcRiskAppetite(data.riskStatements);
+            if (data.controls?.length > 0) renderGrcControls(data.controls);
+            if (data.gaps?.length > 0) renderGrcGaps(data.gaps);
+            if (data.drafts?.length > 0) renderGrcDrafts(data.drafts);
           } catch (err) {
             console.error('Error loading GRC results:', err);
+            document.getElementById('grc-results-summary').innerHTML += '<br><span style="color:var(--orange);font-size:11px;">Could not load detailed results. Check the Payload admin panel for full output.</span>';
           }
         }
 
