@@ -49,15 +49,25 @@ Navigate to the **Prototype** page. The HSBC run (`RUN-627d905b`) should show co
 - Example: *"$750bn–$1tn sustainable finance by 2030"* — categorised as strategic, open appetite
 - Emphasise these are directly machine-readable for risk dashboards
 
-**Control Objectives (93 derived)**
+**Control Objectives (105 derived)**
 - Show the rich taxonomy: preventive, detective, corrective, directive categories
 - Each control has an **owner**, **frequency**, and **framework references**
 - Example: *"Customer Complaint and Issue Resolution Tracking"* — corrective control, continuous frequency
-- Point out: "These 93 controls were derived automatically from the 19 objectives and 10 risk statements"
+- Point out: "These 105 controls were derived automatically from the 19 objectives and 10 risk statements"
+
+**Gap Analysis (10 gaps identified)**
+- Show the identified policy gaps
+- Each gap has a priority level, affected frameworks, and recommended action
+- Example: *"Missing: Risk Appetite Statement"* or *"Missing: Generative AI Risk Management Policy"*
+
+**Policy Drafts (7 generated)**
+- Show the AI-generated policy drafts with confidence scores
+- Each draft has structured sections, citations, and a rationale
+- Point out the `humanDraftRequired` flag for governance
 
 **Audit Trail**
 - Scroll to audit trail section
-- Show the timeline: workflow started → objectives extracted → risk appetite extracted
+- Show the timeline: workflow started → objectives extracted → risk appetite extracted → controls derived → gaps identified → policies drafted
 - Every AI action is logged for governance and explainability
 
 ### Key talking point:
@@ -139,7 +149,7 @@ If the live demo fails or is too slow:
 
 ## Pre-Baked Run Details
 
-### Run 1: HSBC Annual Report 2025 (recommended for objectives + risk demo)
+### Run 1: HSBC Annual Report 2025 (RECOMMENDED — full end-to-end with risk appetite)
 
 | Field | Value |
 |-------|-------|
@@ -147,13 +157,13 @@ If the live demo fails or is too slow:
 | Document | HSBC Annual Report 2025 (~400 pages, 9.6MB) |
 | Objectives | 19 |
 | Risk Statements | 10 |
-| Controls | 93 |
-| Gaps | 0 |
-| Policy Drafts | 0 |
+| Controls | 105 |
+| Gaps | 10 |
+| Policy Drafts | 7 |
 | Status URL | `https://evonix-app-production.up.railway.app/api/policy-agent/run/RUN-627d905b/status` |
 | Results URL | `https://evonix-app-production.up.railway.app/api/grc-results?runId=RUN-627d905b` |
 
-**Best for showing:** Rich governance objectives with ESG themes, quantitative risk appetite statements (CET1 ratios, sustainability targets), and extensive control library.
+**Best for showing:** Complete pipeline with rich governance objectives (ESG themes), quantitative risk appetite statements (CET1 ratios, sustainability targets), 105 controls, gap analysis, AND policy drafts. This is the richest dataset with all six pipeline stages producing output.
 
 ### Run 2: NVIDIA 10-K 2025 (recommended for full end-to-end demo)
 
@@ -174,6 +184,6 @@ If the live demo fails or is too slow:
 
 ### Recommended Demo Flow
 
-1. Start with **NVIDIA** to show the full pipeline output (gaps + policy drafts)
-2. Then show **HSBC** for richer objective extraction and risk appetite statements
-3. This demonstrates the platform works across different document types (10-K filing vs Annual Report)
+1. Start with **HSBC** — the richest dataset with all six stages producing output (objectives, risk statements, controls, gaps, AND policy drafts)
+2. Then briefly show **NVIDIA** — demonstrates the platform works across document types (10-K filing vs Annual Report)
+3. Both runs load in ~1.5 seconds, so switching between them is seamless
