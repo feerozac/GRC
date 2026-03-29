@@ -43,7 +43,7 @@ export const ingestPolicyDocumentHandler: TaskHandler<'ingest-policy-document'> 
         output: {
           success: true,
           message: 'Document already ingested',
-          parsedText: (doc as any).parsedText,
+          parsedTextLength: ((doc as any).parsedText as string).length,
           pageCount: (doc as any).pageCount ?? 0,
         },
       }
