@@ -37,6 +37,18 @@ export const ingestPolicyDocumentHandler: TaskHandler<'ingest-policy-document'> 
     const doc = await payload.findByID({ collection: 'policy-documents', id: docId })
 
     if (!doc) throw new Error(`Policy document ${docId} not found`)
+
+    if ((doc as any).parsedText && (doc as any).ingestStatus === 'complete') {
+      return {
+        output: {
+          success: true,
+          message: 'Document already ingested',
+          parsedText: (doc as any).parsedText,
+          pageCount: (doc as any).pageCount ?? 0,
+        },
+      }
+    }
+
     if (!doc.s3Key) throw new Error('Document has no S3 key — upload may have failed')
 
     await payload.update({

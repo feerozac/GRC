@@ -28,6 +28,17 @@ export const ingestAnnualReportHandler: TaskHandler<'ingest-annual-report'> = as
     const doc = await payload.findByID({ collection: 'annual-reports', id: docId })
 
     if (!doc) throw new Error(`Annual report ${docId} not found`)
+
+    if (doc.parsedText && doc.extractionStatus === 'parsed') {
+      return {
+        output: {
+          success: true,
+          message: 'Document already parsed',
+          parsedTextLength: doc.parsedText.length,
+        },
+      }
+    }
+
     if (!doc.s3Key) throw new Error('Document has no S3 key')
 
     await payload.update({

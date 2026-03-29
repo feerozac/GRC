@@ -28,6 +28,17 @@ export const ingestBoardCircularHandler: TaskHandler<'ingest-board-circular'> = 
     const doc = await payload.findByID({ collection: 'board-circulars', id: docId })
 
     if (!doc) throw new Error(`Board circular ${docId} not found`)
+
+    if (doc.parsedText && doc.extractionStatus === 'parsed') {
+      return {
+        output: {
+          success: true,
+          message: 'Document already parsed',
+          parsedTextLength: doc.parsedText.length,
+        },
+      }
+    }
+
     if (!doc.s3Key) throw new Error('Document has no S3 key')
 
     await payload.update({
