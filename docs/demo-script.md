@@ -74,7 +74,13 @@
 
 > "Here's how it works. One AI agent per line of defence. Always on.
 >
-> The platform connects to **real-time regulatory feeds** — HKMA, MAS, EU AI Act — and also ingests your annual reports and strategy documents.
+> The starting point is something every company already produces — **the annual report**. Think about what's actually in that document. It's board-approved. Auditor-reviewed. Legally binding. It contains your governance commitments, your risk disclosures, your strategic objectives. It's the most carefully crafted governance document your organisation produces every year.
+>
+> And here's the paradox — **almost nobody uses it for actual governance**. It's a compliance *output* that sits on the investor relations page. Evonix turns it into a compliance *input*.
+>
+> We ask a simple question: *You told the market this is your governance posture — do you actually have the controls to back it up?*
+>
+> The platform connects to **real-time regulatory feeds** — HKMA, MAS, EU AI Act — and ingests your annual reports, board circulars, and strategy documents.
 >
 > The AI agent then produces four outputs:
 > - **Executive Narrative** in under 60 seconds
@@ -83,9 +89,9 @@
 > - **Priority Recommendations** — Strategy, Regulatory, Benchmarks
 >
 > The process is simple:
-> 1. **Ingest** — connect regulatory feeds, upload annual reports and strategy documents
-> 2. **Analyse** — the AI extracts governance objectives, risk appetite, and derives controls
-> 3. **Act** — gap analysis, policy drafting, framework mapping — all with full audit trail"
+> 1. **Ingest** — upload your annual report or regulatory filing. Every listed company has one. No system integration needed to start.
+> 2. **Analyse** — the AI extracts governance objectives, risk appetite, and derives controls — then cross-references against ISO 27001, NIST, COSO, HKMA, MAS
+> 3. **Act** — gap analysis, policy drafting, framework mapping — all with a full audit trail that a regulator can inspect"
 
 ---
 
@@ -99,7 +105,7 @@
 
 **Switch to the browser tab** with the prototype already loaded.
 
-> "I've already run HSBC's 2025 Annual Report through the pipeline — a 400-page PDF. Let me show you what the AI extracted."
+> "I've already run HSBC's 2025 Annual Report through the pipeline — a 400-page PDF. This is a document that HSBC's board signed off on, that their auditors reviewed, that regulators read. It contains hundreds of governance commitments. Let me show you what happens when we hold them to account."
 
 **Walk through the HSBC results** (`RUN-627d905b`):
 
@@ -118,12 +124,13 @@
 - Show the rich taxonomy: preventive, detective, corrective, directive categories
 - Each control has an **owner**, **frequency**, and **framework references**
 - Example: *"Customer Complaint and Issue Resolution Tracking"* — corrective control, continuous frequency
-- Point out: "These 105 controls were derived automatically from the 19 objectives and 10 risk statements — the AI agent did this, not a human"
+- Point out: "These 105 controls were derived automatically from the 19 objectives and 10 risk statements. The AI is asking: *for each commitment HSBC made in their annual report, what controls should exist?* That's a say-do analysis — automated."
 
 **Gap Analysis (10 gaps identified)**
 - Show the identified policy gaps — each has a priority, affected frameworks, and recommended action
 - Example: *"Missing: Risk Appetite Statement"* — flagged against COSO ERM
 - Example: *"Missing: Generative AI Risk Management Policy"* — extremely current and relevant
+- Emphasise: "HSBC told shareholders they're committed to responsible AI. The AI checked — and found they don't have a policy for it. That's the kind of gap that turns into an audit finding."
 
 **Policy Drafts (7 generated)**
 - Show the AI-generated policy drafts with **confidence scores** (0.82–0.87)
@@ -228,6 +235,7 @@ After ~60 seconds, objectives start appearing:
 
 | Question | Answer |
 |----------|--------|
+| "Why annual reports? Why not internal policies?" | "The annual report is the company's own sworn testimony — board-approved, auditor-reviewed, legally binding. It's where strategy meets risk disclosure. We start there because it lets us ask: *you told the market this is your governance posture — do you actually have the controls?* It's a say-do analysis. And because annual reports are public, there's zero onboarding friction — you can run a competitor's report through the same pipeline and benchmark yourself. Internal policies come next — but the annual report is the most powerful starting point because it holds the board accountable to their own words." |
 | "How accurate is the extraction?" | "Each output includes a confidence score. In our testing with HSBC and NVIDIA, high-confidence extractions (>85%) are correct ~95% of the time. Lower-confidence items are flagged for human review — the platform never makes decisions autonomously." |
 | "What frameworks does it support?" | "ISO 27001, NIST CSF, COBIT, HKMA, MAS, EU AI Act, COSO, Basel III, and the UK Corporate Governance Code. Adding new frameworks is a configuration change, not a code change." |
 | "How does it handle different document types?" | "Currently optimised for PDF annual reports, board circulars, and regulatory filings. We've tested with HSBC's 400-page annual report and NVIDIA's 10-K filing. We use a combination of LLM-based parsing and traditional PDF extraction for robustness." |
@@ -307,6 +315,45 @@ The real cost of manual GRC isn't the analyst salaries — it's what gets missed
 - **Delayed regulatory response** — a new HKMA circular takes weeks to assess instead of hours
 
 Evonix doesn't just save time. It shifts GRC from a **reactive, sample-based exercise** to a **continuous, exhaustive, auditable process** — which is exactly what regulators are moving towards under operational resilience frameworks (DORA, HKMA OR-2, MAS Technology Risk Management).
+
+### Why the Annual Report Is the Perfect Starting Point
+
+**The Annual Report Paradox:** Companies spend months and millions producing annual reports that describe their governance posture. But almost nobody systematically reads those reports to check whether the governance posture is actually reflected in operational controls. The annual report is the most carefully crafted governance document a company produces — and it's almost entirely unused for actual governance.
+
+Evonix turns the annual report from a **compliance output** (something produced at year-end) into a **compliance input** (something that drives the control framework).
+
+**Why it works:**
+
+1. **It's sworn testimony.** Board-approved, auditor-reviewed, legally binding. When HSBC writes "we pursue a cautious appetite for operational risk" — that's a commitment. Evonix checks whether the controls exist to back it up.
+
+2. **It bridges strategy and compliance.** Annual reports contain both strategic objectives AND risk disclosures. The gap between what the board says and what controls exist is exactly where compliance risk lives. Nobody else connects these systematically.
+
+3. **It's universal.** Every listed company publishes one. No system integration, no API access, no onboarding. Upload a PDF from the investor relations page and get a governance map in 37 minutes.
+
+4. **It enables competitive intelligence.** Run three banks' annual reports and compare their governance posture side by side. Who has controls around AI risk? Who's missing a climate transition policy? Who has the most mature 3LOD structure?
+
+**Strategic use cases this unlocks:**
+
+| Use Case | Who Cares | What Evonix Shows |
+|----------|-----------|-------------------|
+| **Self-assessment** | CISO, CRO, Head of Compliance | "Our annual report makes 19 governance commitments. We have controls for 15. Here are the 4 gaps." |
+| **Board preparation** | Company Secretary, General Counsel | "Before we publish this year's report — are we making claims we can't back up?" |
+| **Audit readiness** | Internal Audit, External Auditors | "Here's the control mapping your auditor would expect, auto-generated from your own disclosures." |
+| **Regulatory response** | Compliance team | "HKMA issued new guidance. Run our annual report against the updated framework — where are we exposed?" |
+| **M&A due diligence** | M&A team, Private Equity | "Run the target's 10-K — what governance commitments are they making, and what gaps would we inherit?" |
+| **Investor/ESG analysis** | Fund managers, ESG analysts | "Which company in our portfolio has the weakest governance posture based on their own disclosures?" |
+| **Competitive benchmarking** | Strategy, Board | "How does our control coverage compare to peers in the same jurisdiction?" |
+
+**The land-and-expand path:**
+
+```
+Day 1:    Upload annual report → governance map in 37 minutes (zero integration)
+Month 1:  Connect internal policies → continuous gap monitoring
+Month 3:  Connect regulatory feeds → real-time compliance posture
+Month 6:  Full 3LOD platform with challenge flows, approvals, evidence repository
+```
+
+The annual report is the wedge. The platform is the destination.
 
 ### Validated Across 4 Documents
 
