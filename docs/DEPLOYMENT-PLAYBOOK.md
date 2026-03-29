@@ -211,6 +211,16 @@ const nextConfig = {
 
 ---
 
+### 2.9 parsedText Field Size — No maxLength for Large Documents
+
+**Symptom:** `Extraction Workflow Failed: The following field is invalid: Parsed Text`
+
+**Root cause:** The `parsedText` field in `AnnualReports` and `BoardCirculars` collections had `maxLength: 1000000` (1M chars). Large documents (e.g., HSBC annual report: 372 pages, 1.87M chars) exceed this limit.
+
+**Fix:** Removed `maxLength` from the `parsedText` textarea field. PostgreSQL `text` columns have no practical size limit (up to 1 GB). The downstream `truncateDocumentText()` function handles trimming for LLM context windows.
+
+---
+
 ## 3. Deployment Procedures
 
 ### 3.1 Deploy Backend (Railway)
