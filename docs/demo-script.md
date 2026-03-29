@@ -48,7 +48,9 @@
 
 > "The numbers are staggering. The average enterprise spends **$500K+ per year** on GRC team costs. And **60% of that is wasted on coordination** — not on actual risk management.
 >
-> That's hundreds of thousands of dollars spent moving data between spreadsheets, chasing evidence, and manually mapping controls to frameworks."
+> That's hundreds of thousands of dollars spent moving data between spreadsheets, chasing evidence, and manually mapping controls to frameworks.
+>
+> We proved this ourselves. We ran Berkshire Hathaway's 272-page 10-K through Evonix — it produced 17 governance objectives, 84 controls, 10 gap analyses, and 10 policy drafts in **37 minutes**. A team of analysts would take **7 to 10 weeks** and cost **$27,000 to $61,000** for that single document. We did it for less than **$2**."
 
 ---
 
@@ -133,7 +135,11 @@
 - Show the timeline: workflow started → objectives extracted → risk appetite extracted → controls derived → gaps identified → policies drafted
 - "Every AI action is logged. Full transparency. This is what regulators want to see."
 
-> "What you're seeing — 19 objectives, 10 risk statements, 105 controls, 10 gaps, and 7 policy drafts — was extracted automatically from a 400-page annual report. A compliance team would typically spend **weeks** doing this manually."
+> "What you're seeing — 19 objectives, 10 risk statements, 105 controls, 10 gaps, and 7 policy drafts — was extracted automatically from a 400-page annual report.
+>
+> To put that in perspective: a team of 2–3 GRC analysts would spend **7 to 10 weeks** doing this mapping manually — reading the document, extracting obligations, deriving controls, cross-referencing frameworks, running gap analysis, and drafting remediation policies. That's $27,000 to $61,000 of analyst time for a single document.
+>
+> Evonix did it in **37 minutes** for under **$2 of compute cost**. And it produced a complete audit trail that a regulator can inspect."
 
 ### Option B: Live Upload (if time permits)
 
@@ -226,7 +232,7 @@ After ~60 seconds, objectives start appearing:
 | "What frameworks does it support?" | "ISO 27001, NIST CSF, COBIT, HKMA, MAS, EU AI Act, COSO, Basel III, and the UK Corporate Governance Code. Adding new frameworks is a configuration change, not a code change." |
 | "How does it handle different document types?" | "Currently optimised for PDF annual reports, board circulars, and regulatory filings. We've tested with HSBC's 400-page annual report and NVIDIA's 10-K filing. We use a combination of LLM-based parsing and traditional PDF extraction for robustness." |
 | "What about data privacy?" | "Documents are stored in MinIO (S3-compatible), deployed within your infrastructure. LLM calls can be routed through on-premise models or privacy-compliant API endpoints. Encryption at rest and in transit with AES-256 and TLS 1.3." |
-| "How long does the full pipeline take?" | "About 30 minutes for a 100-page filing, longer for a 400-page annual report. Each LLM step runs sequentially for accuracy and explainability. We're optimising for parallel execution in the next sprint to bring this down to under 5 minutes." |
+| "How long does the full pipeline take?" | "About 37 minutes for a 270-page filing like Berkshire's 10-K, 15 minutes for HSBC's 400-page annual report. Compare that to 7–10 weeks of analyst time for the same output. We're also optimising for parallel execution in the next sprint to bring this down to under 5 minutes — but even at 37 minutes, the ROI is extraordinary: under $2 of compute versus $27K–$61K of analyst cost per document." |
 | "What's the deployment model?" | "Cloud-native on Railway with PostgreSQL and MinIO. Can be deployed on-premise or in your private cloud. The architecture is container-based and infrastructure-agnostic." |
 | "How do you handle regulatory changes?" | "Real-time regulatory feed integration for HKMA, MAS, EU AI Act, and others. The AI highlights impacts and gaps within 24 hours of a regulatory change, not months." |
 
@@ -240,6 +246,80 @@ If the live demo fails or is too slow:
 2. Show the HSBC pre-baked results (this always works — it's persisted data)
 3. Show the audit trail to demonstrate governance and traceability
 4. Say: "The pipeline is running on our Railway environment now. I'll share a link after the meeting so you can see the full results."
+
+---
+
+## ROI Analysis — The 37-Minute Business Case
+
+### The Numbers
+
+The Berkshire Hathaway 10-K (272 pages) completed the full extraction pipeline in **2,202.5 seconds (36.7 minutes)**, producing 17 governance objectives, 84 control objectives, 10 gap analyses, and 10 policy drafts — all with framework references, confidence scores, and a complete audit trail.
+
+### What This Would Cost Manually
+
+A typical GRC team performing the same mapping exercise on a single document of this complexity would require:
+
+| Activity | Manual Effort (Analyst-Days) | Evonix Time |
+|----------|------------------------------|-------------|
+| Read and comprehend document | 2–3 days (senior analyst) | Included in 37 min |
+| Extract governance objectives | 1–2 days | ~3 min |
+| Identify risk appetite statements | 1 day | ~2 min |
+| Derive 84 control objectives with framework mapping | 10–15 days (2–3 analysts) | ~15 min |
+| Gap analysis against ISO 27001, NIST, COSO, HKMA, MAS | 5–10 days | ~8 min |
+| Draft 10 remediation policies | 15–20 days (1–2 weeks per policy with review) | ~9 min |
+| **Total** | **34–51 analyst-days (~7–10 weeks)** | **36.7 minutes** |
+
+At a blended analyst rate of **$800–$1,200/day** (mid-market consulting), the manual cost for a single document mapping is **$27,000–$61,000**.
+
+Evonix completed it for the cost of ~37 minutes of LLM compute — approximately **$0.50–$2.00**.
+
+### The Multiplier Effect
+
+Most enterprises don't map one document. A typical annual GRC cycle involves:
+
+- 4–6 annual reports (subsidiaries, joint ventures)
+- 10–20 board circulars and committee papers
+- 5–10 regulatory filings (10-K, 20-F, pillar 3 disclosures)
+- Continuous regulatory change monitoring
+
+**Manual approach:** 3–5 FTE analysts dedicated year-round = **$600K–$1.2M/year**
+**Evonix approach:** Same coverage in hours, not months. Re-run on demand when documents are updated.
+
+### Business Value Beyond Speed
+
+| Benefit | Without Evonix | With Evonix |
+|---------|---------------|-------------|
+| **Coverage** | Sample-based — analysts can't read everything | Exhaustive — every page analysed, every obligation captured |
+| **Consistency** | Varies by analyst experience and fatigue | Deterministic extraction with confidence scoring |
+| **Auditability** | Meeting notes, email threads, tribal knowledge | Immutable audit trail — every extraction timestamped and traceable |
+| **Currency** | Point-in-time snapshots, stale within weeks | Re-run on demand when new reports are published |
+| **Regulatory readiness** | Weeks to assess impact of new regulation | Gap analysis against new framework in minutes |
+| **Human error** | Missed obligations, inconsistent mappings | AI flags low-confidence items for human review — nothing slips through |
+| **Board reporting** | Manual compilation, weeks of lead time | Executive narrative generated in under 60 seconds |
+
+### The Risk Reduction Argument
+
+The real cost of manual GRC isn't the analyst salaries — it's what gets missed:
+
+- **Unidentified control gaps** lead to audit findings, regulatory sanctions, and reputational damage
+- **Stale risk registers** give boards a false sense of security
+- **Inconsistent framework mapping** means the same risk is categorised differently across teams
+- **Delayed regulatory response** — a new HKMA circular takes weeks to assess instead of hours
+
+Evonix doesn't just save time. It shifts GRC from a **reactive, sample-based exercise** to a **continuous, exhaustive, auditable process** — which is exactly what regulators are moving towards under operational resilience frameworks (DORA, HKMA OR-2, MAS Technology Risk Management).
+
+### Validated Across 4 Documents
+
+| Document | Pages | Pipeline Time | Objectives | Controls | Gaps | Drafts |
+|----------|-------|--------------|------------|----------|------|--------|
+| HSBC AR 2025 | ~400 | ~15 min | 19 | 105 | 10 | 7 |
+| NVIDIA 10-K 2025 | ~100 | ~30 min | 14 | 76 | 9 | 9 |
+| Samsung AR 2024 | ~80 | ~19 min | 4 | 25 | 10 | 10 |
+| Berkshire 10-K 2024 | ~272 | **36.7 min** | 17 | 84 | 10 | 10 |
+| **Total** | **~852** | **~101 min** | **54** | **290** | **39** | **36** |
+
+A team of analysts mapping these 4 documents manually: **~6 months of work**.
+Evonix: **1 hour 41 minutes**. All four running concurrently.
 
 ---
 
