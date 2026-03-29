@@ -101,7 +101,7 @@ const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
-  defaultMaxTextLength: 0,
+  defaultMaxTextLength: 10_000_000,
   admin: {
     user: Users.slug,
     importMap: {
