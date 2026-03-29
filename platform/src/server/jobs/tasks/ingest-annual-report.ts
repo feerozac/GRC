@@ -2,6 +2,7 @@ import { File } from 'formdata-node'
 import { Field, Payload, TaskHandler } from 'payload'
 import { MinioService } from '@/server/services/storage/minio'
 import { PdfParserService } from '@/server/services/pdf-parser/zerox'
+import { extractTextFromPdfBuffer } from '@/server/services/pdf-parser/local'
 
 export const ingestAnnualReportInputSchema: Field[] = [
   { name: 'docId', type: 'text', required: true },
@@ -48,10 +49,18 @@ export const ingestAnnualReportHandler: TaskHandler<'ingest-annual-report'> = as
     })
 
     const buffer = await MinioService.getFile(doc.s3Key)
-    const file = new File([buffer], doc.s3Key, { type: 'application/pdf' })
 
-    const result = await PdfParserService.parse(file)
-    const parsedText = result.pages.map((p: { content: string }) => p.content).join('\n\n')
+    let parsedText: string
+    try {
+      const file = new File([buffer], doc.s3Key, { type: 'application/pdf' })
+      const result = await PdfParserService.parse(file)
+      parsedText = result.pages.map((p: { content: string }) => p.content).join('\n\n')
+    } catch (zeroxError) {
+      payload.logger.warn(
+        `Zerox failed for annual report ${docId}, falling back to local PDF parser: ${zeroxError}`,
+      )
+      parsedText = await extractTextFromPdfBuffer(buffer)
+    }
 
     await payload.update({
       collection: 'annual-reports',
