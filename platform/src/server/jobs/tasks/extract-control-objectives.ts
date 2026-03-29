@@ -58,7 +58,7 @@ export const extractControlObjectivesHandler: TaskHandler<'extract-control-objec
           controlId,
           title: ctrl.title,
           description: ctrl.description,
-          governanceObjective: governanceObjectiveId as any,
+          governanceObjective: Number(governanceObjectiveId),
           category: ctrl.category,
           owner: ctrl.owner,
           frequency: ctrl.frequency,
