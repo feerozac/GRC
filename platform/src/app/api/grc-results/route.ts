@@ -35,17 +35,26 @@ export const GET = async (req: Request) => {
 
     const run = runs.docs[0] as any
     const traceId = run.traceId
-    const sourceDoc = run.sourceDocument
-    const docId = typeof sourceDoc === 'object' ? sourceDoc?.value : sourceDoc
 
-    const [objectives, riskStatements, controls, gaps, drafts] = await Promise.all([
+    // Extract numeric docId from polymorphic relationship (handles both
+    // populated objects and raw IDs)
+    const sourceDoc = run.sourceDocument
+    let docId: number | string | undefined
+    if (sourceDoc && typeof sourceDoc === 'object') {
+      const val = sourceDoc.value
+      docId = val && typeof val === 'object' ? val.id : val
+    } else {
+      docId = sourceDoc
+    }
+
+    const [objectives, riskStatements, gaps, drafts] = await Promise.all([
       docId
         ? payload.find({
             collection: 'governance-objectives',
             where: { 'sourceDocument.value': { equals: docId } },
             limit: 100,
           })
-        : Promise.resolve({ docs: [] }),
+        : Promise.resolve({ docs: [] as any[] }),
 
       docId
         ? payload.find({
@@ -53,12 +62,7 @@ export const GET = async (req: Request) => {
             where: { 'sourceDocument.value': { equals: docId } },
             limit: 100,
           })
-        : Promise.resolve({ docs: [] }),
-
-      payload.find({
-        collection: 'control-objectives',
-        limit: 200,
-      }),
+        : Promise.resolve({ docs: [] as any[] }),
 
       traceId
         ? payload.find({
@@ -66,7 +70,7 @@ export const GET = async (req: Request) => {
             where: { sourceRun: { equals: traceId } },
             limit: 100,
           })
-        : Promise.resolve({ docs: [] }),
+        : Promise.resolve({ docs: [] as any[] }),
 
       traceId
         ? payload.find({
@@ -74,8 +78,18 @@ export const GET = async (req: Request) => {
             where: { sourceRun: { equals: traceId } },
             limit: 100,
           })
-        : Promise.resolve({ docs: [] }),
+        : Promise.resolve({ docs: [] as any[] }),
     ])
+
+    // Fetch controls scoped to objectives from THIS document only
+    const objectiveIds = objectives.docs.map((o: any) => o.id)
+    const controls = objectiveIds.length > 0
+      ? await payload.find({
+          collection: 'control-objectives',
+          where: { governanceObjective: { in: objectiveIds } },
+          limit: 200,
+        })
+      : { docs: [] as any[] }
 
     return Response.json({
       runId,

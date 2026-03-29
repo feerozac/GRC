@@ -225,19 +225,24 @@ async def parse_input(
             return result
             
         except Exception as e:
-            if "recursion" in str(e).lower():
-                logger.error(f"Recursion-related error in zerox: {e}", exc_info=True)
-                # Use fallback extraction
+            error_lower = str(e).lower()
+            use_fallback = (
+                "recursion" in error_lower
+                or "not a vision model" in error_lower
+                or "nonavisionmodel" in error_lower
+                or "notavisionmodel" in error_lower
+            )
+            if use_fallback:
+                logger.warning(f"Zerox model unavailable ({e}), falling back to PyPDF2 text extraction")
                 pages = await extract_pdf_text_with_fallback(file_path, select_pages)
                 
-                # Create a zerox-like response structure
                 result = {
                     "fileName": os.path.basename(file_path),
                     "pages": pages,
                     "inputTokens": sum(page["contentLength"] for page in pages) // 4,
                     "outputTokens": 0,
                     "completionTime": 0,
-                    "extracted": None,  # Add extracted field
+                    "extracted": None,
                     "summary": {
                         "total_pages": len(pages),
                         "ocr": {
@@ -259,8 +264,31 @@ async def parse_input(
             
     except Exception as e:
         logger.error(f"Error parsing file: {e}", exc_info=True)
-        # Check for common PDF errors and provide more helpful messages
         error_str = str(e).lower()
+
+        # Vision model unavailable — fall back to PyPDF2
+        if "not a vision model" in error_str or "notavisionmodel" in error_str:
+            logger.warning(f"Vision model unavailable, using PyPDF2 fallback: {e}")
+            try:
+                pages = await extract_pdf_text_with_fallback(file_path, select_pages)
+                result = {
+                    "fileName": os.path.basename(file_path),
+                    "pages": pages,
+                    "inputTokens": sum(page["contentLength"] for page in pages) // 4,
+                    "outputTokens": 0,
+                    "completionTime": 0,
+                    "extracted": None,
+                    "summary": {
+                        "total_pages": len(pages),
+                        "ocr": {"successful": len(pages), "failed": 0},
+                        "extracted": None,
+                    },
+                }
+                return result
+            except Exception as fallback_err:
+                logger.error(f"PyPDF2 fallback also failed: {fallback_err}")
+                raise web.HTTPInternalServerError(text=f"Vision model unavailable and PyPDF2 fallback failed: {fallback_err}")
+
         if "recursion" in error_str:
             raise web.HTTPBadRequest(
                 text="The PDF structure is too complex. Please try a simpler PDF or reduce the number of pages selected."
