@@ -53,6 +53,7 @@ export const GET = async (req: Request) => {
             collection: 'governance-objectives',
             where: { 'sourceDocument.value': { equals: docId } },
             limit: 100,
+            depth: 0,
           })
         : Promise.resolve({ docs: [] as any[] }),
 
@@ -61,6 +62,7 @@ export const GET = async (req: Request) => {
             collection: 'risk-appetite-statements',
             where: { 'sourceDocument.value': { equals: docId } },
             limit: 100,
+            depth: 0,
           })
         : Promise.resolve({ docs: [] as any[] }),
 
@@ -69,6 +71,7 @@ export const GET = async (req: Request) => {
             collection: 'policy-gap-analyses',
             where: { sourceRun: { equals: traceId } },
             limit: 100,
+            depth: 0,
           })
         : Promise.resolve({ docs: [] as any[] }),
 
@@ -77,17 +80,18 @@ export const GET = async (req: Request) => {
             collection: 'policy-drafts',
             where: { sourceRun: { equals: traceId } },
             limit: 100,
+            depth: 0,
           })
         : Promise.resolve({ docs: [] as any[] }),
     ])
 
-    // Fetch controls scoped to objectives from THIS document only
     const objectiveIds = objectives.docs.map((o: any) => o.id)
     const controls = objectiveIds.length > 0
       ? await payload.find({
           collection: 'control-objectives',
           where: { governanceObjective: { in: objectiveIds } },
           limit: 200,
+          depth: 0,
         })
       : { docs: [] as any[] }
 
