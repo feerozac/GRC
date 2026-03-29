@@ -6,6 +6,7 @@
 - **[EXPLAINABILITY.md](EXPLAINABILITY.md)** — 6-layer explainability framework, decision log, audit trail, challenges, standards (NIST AI RMF, EU AI Act, MAS, HKMA).
 - **[AGENTIC-CYBER-DEFENCE.md](AGENTIC-CYBER-DEFENCE.md)** — Cyber defence agents (Detection, Response, Orchestration, Threat Intel), alerts, incidents, response actions, GRC linkage, HITL.
 - **[REGULATORY-RISK-STRATEGY.md](REGULATORY-RISK-STRATEGY.md)** — Strategy for managing regulatory risk in Evonix: explainability as evidence, regulator-ready reports, ownership, mapping to EU AI Act, NIST, ISO 42001, MAS, HKMA.
+- **[TECH-RISK-FORUM-TOR.md](TECH-RISK-FORUM-TOR.md)** — Terms of Reference for the Tech Risk Forum: purpose, scope, membership, decision rights, cadence, inputs/outputs, escalation, and effectiveness measures.
 
 Data models for explainability and cyber defence are in `prisma/schema.prisma`. UI: `netlify-demo/prototype.html` (Workflow, Policy Agent, **Cyber Defence** page).
 
