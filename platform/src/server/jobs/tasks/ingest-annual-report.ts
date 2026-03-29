@@ -29,7 +29,7 @@ export const ingestAnnualReportHandler: TaskHandler<'ingest-annual-report'> = as
 
     if (!doc) throw new Error(`Annual report ${docId} not found`)
 
-    if (doc.parsedText && doc.extractionStatus === 'parsed') {
+    if (doc.parsedText) {
       return {
         output: {
           success: true,

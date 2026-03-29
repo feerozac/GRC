@@ -29,7 +29,7 @@ export const ingestBoardCircularHandler: TaskHandler<'ingest-board-circular'> = 
 
     if (!doc) throw new Error(`Board circular ${docId} not found`)
 
-    if (doc.parsedText && doc.extractionStatus === 'parsed') {
+    if (doc.parsedText) {
       return {
         output: {
           success: true,
