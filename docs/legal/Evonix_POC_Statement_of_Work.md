@@ -91,6 +91,7 @@ Out-of-scope items may be addressed under a separate SOW or amendment by mutual 
 | D1 | Discovery Report | PDF | End of Week 2 |
 | D2 | Taxonomy Configuration | Technical document | End of Week 2 |
 | D3 | Interim Results & Feedback Session | Presentation + data | End of Week 4 |
+| D3b | Hallucination Audit | PDF + spreadsheet | End of Week 5 |
 | D4 | Full Comparison Report | PDF + supporting data | End of Week 5 |
 | D5 | Executive Summary & Recommendation | Presentation (PPTX) | End of Week 6 |
 
@@ -102,9 +103,11 @@ Out-of-scope items may be addressed under a separate SOW or amendment by mutual 
 
 **D3 — Interim Results:** Preliminary extraction results from the first batch of processed documents, shared with the Client's subject matter experts for feedback and calibration.
 
-**D4 — Full Comparison Report:** Comprehensive side-by-side comparison of AI output versus Client analyst baseline, including metrics on: extraction accuracy, categorisation consistency, coverage (documents/pages processed), processing speed, and auditability (source reference quality).
+**D3b — Hallucination Audit:** A random sample of 100 AI findings verified line-by-line against source documents by the Client's analysts. Each finding is classified as: (a) Correct — finding accurately reflects the source text; (b) Partially correct — finding is directionally right but imprecise; (c) Incorrect — finding is not supported by the source text (hallucination); or (d) Missed — finding exists in the source but was not extracted (false negative). The audit produces a precision score, a recall estimate, a confidence calibration curve, and specific examples of each category for discussion. This deliverable provides full transparency on AI accuracy and forms the evidence base for the go/no-go decision.
 
-**D5 — Executive Summary:** Board-ready presentation summarising POC findings, quantified value delivered, risks and limitations identified, and a clear go/no-go recommendation with supporting evidence.
+**D4 — Full Comparison Report:** Comprehensive side-by-side comparison of AI output versus Client analyst baseline, including metrics on: precision (false positive rate), recall (false negative rate), categorisation accuracy, confidence calibration, coverage (documents/pages processed), processing speed, review efficiency (time for analyst to review AI output vs. manual extraction), and source traceability.
+
+**D5 — Executive Summary:** Board-ready presentation summarising POC findings, quantified value delivered, accuracy metrics from the Hallucination Audit, risks and limitations identified, and a clear go/no-go recommendation with supporting evidence.
 
 ---
 
@@ -280,16 +283,21 @@ Invoices shall be issued by Evonix and are payable by bank transfer to the accou
 
 The Parties agree that the POC shall be evaluated against the following criteria, to be refined during Phase 1 (Discovery):
 
-| Criterion | Metric | Target |
-|-----------|--------|--------|
-| **Extraction Accuracy** | % of risk events correctly identified vs analyst baseline | ≥ ___% |
-| **Categorisation Consistency** | % agreement with Client taxonomy mapping | ≥ ___% |
-| **Coverage** | % of documents/pages processed | 100% of in-scope documents |
-| **Speed** | Processing time per document | ≤ ___ minutes per document |
-| **Auditability** | % of findings with source reference | 100% |
-| **Overall Value** | Client assessment of "would this output be useful to your team?" | Positive |
+| Criterion | Metric | Suggested Target | Notes |
+|-----------|--------|-----------------|-------|
+| **Precision** (false positive rate) | Of AI findings, % confirmed as valid by analyst review | ≥ 80% | "Of the things the AI flagged, how many were real?" |
+| **Recall** (false negative rate) | Of analyst baseline findings, % also found by AI | ≥ 85% | "Of the real findings, how many did the AI catch?" |
+| **Categorisation Accuracy** | % agreement between AI taxonomy mapping and analyst mapping | ≥ 75% | Improves with calibration during Weeks 3-4 |
+| **Confidence Calibration** | When AI reports 90% confidence, is it correct ~90% of the time? | Monotonically improving | Measured via the Hallucination Audit (D3b) |
+| **Coverage** | % of in-scope documents/pages processed | 100% | Non-negotiable — AI reads every page |
+| **Source Traceability** | % of AI findings with verifiable page/paragraph reference | 100% | Non-negotiable — every finding must cite its source |
+| **Speed** | Processing time per document | ≤ 60 minutes | Based on POC tests: 15-40 min for 80-400 page documents |
+| **Review Efficiency** | Time for analyst to review/correct one AI extraction vs doing it from scratch | ≥ 60% faster | Measures the human-in-the-loop productivity gain |
+| **Overall Value** | Client assessment: "Would this output be useful to your team?" | Positive | Qualitative assessment by Client SMEs |
 
-Success criteria targets to be agreed during Week 1 and documented in Deliverable D1.
+Suggested targets are based on Evonix's testing across 5 real-world documents (852+ pages). Final targets to be agreed during Week 1 and documented in Deliverable D1.
+
+**A note on coverage vs. accuracy:** A manual process with 95% accuracy but 20% document coverage captures approximately 19% of total risks. An AI process with 85% accuracy but 100% coverage captures approximately 85% of total risks — a 4.5x improvement in risk detection. The POC will measure both dimensions.
 
 ---
 
