@@ -38,19 +38,41 @@ Evonix has developed an AI-powered intelligence layer capable of automating this
 
 ### 2.1 Objectives
 
-The POC will:
+The engagement comprises three workstreams:
 
-(a) Process a defined set of the Client's NFR documents through the Evonix AI pipeline;
+**Workstream 1 — AI Governance & Readiness (Weeks 1-2):**
 
-(b) Extract risk events, control findings, and governance information with confidence scores and source references;
+(a) Review the Client's existing AI governance framework (Responsible AI policy, model risk management, vendor AI assessment requirements);
 
-(c) Categorise findings against the Client's own risk taxonomy;
+(b) Map Evonix capabilities against the Client's internal AI governance requirements;
 
-(d) Produce a side-by-side comparison of AI output versus the Client's existing analyst output;
+(c) Pre-complete the Client's vendor AI risk assessment questionnaire;
 
-(e) Measure and report on coverage, consistency, speed, and auditability; and
+(d) Deliver an AI Governance Alignment Report showing how Evonix meets each requirement, with mitigations for any gaps identified.
 
-(f) Deliver an evidence-based go/no-go recommendation for a pilot phase.
+**Workstream 2 — NFR Document Processing POC (Weeks 1-6):**
+
+(e) Process a defined set of the Client's NFR documents through the Evonix AI pipeline;
+
+(f) Extract risk events, control findings, and governance information with confidence scores and source references;
+
+(g) Categorise findings against the Client's own risk taxonomy;
+
+(h) Produce a side-by-side comparison of AI output versus the Client's existing analyst output;
+
+(i) Measure and report on precision, recall, categorisation accuracy, coverage, speed, and auditability; and
+
+(j) Deliver an evidence-based go/no-go recommendation for a pilot phase.
+
+**Workstream 3 — Audit & Explainability (Weeks 3-6):**
+
+(k) Implement a forensic audit trail for all AI processing during the POC (prompt, source text, AI response, confidence score, risk signals, human review status);
+
+(l) Demonstrate tamper-evident logging with cryptographic hash chain;
+
+(m) Deliver a sample audit export and explainability demo for the Client's compliance team;
+
+(n) Map audit capabilities against applicable regulatory requirements (EU AI Act Articles 9, 12, 14; HKMA AI Governance; PRA SS1/23; Fed SR 11-7 as applicable).
 
 ### 2.2 In Scope
 
@@ -86,16 +108,20 @@ Out-of-scope items may be addressed under a separate SOW or amendment by mutual 
 
 ## 3. DELIVERABLES
 
-| # | Deliverable | Format | Due |
-|---|------------|--------|-----|
-| D1 | Discovery Report | PDF | End of Week 2 |
-| D2 | Taxonomy Configuration | Technical document | End of Week 2 |
-| D3 | Interim Results & Feedback Session | Presentation + data | End of Week 4 |
-| D3b | Hallucination Audit | PDF + spreadsheet | End of Week 5 |
-| D4 | Full Comparison Report | PDF + supporting data | End of Week 5 |
-| D5 | Executive Summary & Recommendation | Presentation (PPTX) | End of Week 6 |
+| # | Deliverable | Workstream | Format | Due |
+|---|------------|------------|--------|-----|
+| D0 | AI Governance Alignment Report | WS1 | PDF | End of Week 2 |
+| D1 | Discovery Report | WS2 | PDF | End of Week 2 |
+| D2 | Taxonomy Configuration | WS2 | Technical document | End of Week 2 |
+| D3 | Interim Results & Feedback Session | WS2 | Presentation + data | End of Week 4 |
+| D3b | Hallucination Audit | WS2 | PDF + spreadsheet | End of Week 5 |
+| D4 | Full Comparison Report | WS2 | PDF + supporting data | End of Week 5 |
+| D4b | Audit Trail & Explainability Demo | WS3 | Live demo + export | End of Week 5 |
+| D5 | Executive Summary & Recommendation | All | Presentation (PPTX) | End of Week 6 |
 
 ### Deliverable Descriptions
+
+**D0 — AI Governance Alignment Report:** A comprehensive assessment mapping Evonix against the Client's internal AI governance requirements. Includes: (a) AI risk classification of Evonix within the Client's risk taxonomy; (b) model risk management documentation — which model, validation approach, known limitations, drift monitoring; (c) explainability assessment — traceability from output to input for every extraction; (d) data governance mapping — data flow, access controls, retention, deletion, cross-border transfers; (e) human oversight model — which decisions require human approval, escalation paths, override capability; (f) bias and fairness assessment — systematic extraction bias testing methodology; (g) security assessment — prompt injection resilience, adversarial input handling, data isolation; (h) continuous monitoring plan — how AI quality is measured and maintained over time; (i) regulatory mapping to EU AI Act (Articles 9, 12, 14), HKMA AI Governance Guidelines, PRA SS1/23, Fed SR 11-7 as applicable; and (j) a pre-completed vendor AI risk assessment questionnaire for the Client's procurement / third-party risk team.
 
 **D1 — Discovery Report:** Summary of the Client's current NFR reporting workflow, document types selected for the POC, risk taxonomy mapping, and agreed success criteria.
 
@@ -107,24 +133,27 @@ Out-of-scope items may be addressed under a separate SOW or amendment by mutual 
 
 **D4 — Full Comparison Report:** Comprehensive side-by-side comparison of AI output versus Client analyst baseline, including metrics on: precision (false positive rate), recall (false negative rate), categorisation accuracy, confidence calibration, coverage (documents/pages processed), processing speed, review efficiency (time for analyst to review AI output vs. manual extraction), and source traceability.
 
-**D5 — Executive Summary:** Board-ready presentation summarising POC findings, quantified value delivered, accuracy metrics from the Hallucination Audit, risks and limitations identified, and a clear go/no-go recommendation with supporting evidence.
+**D4b — Audit Trail & Explainability Demo:** A live demonstration of the forensic audit trail for the Client's compliance team. For a selected sample of findings, the demo shows: (a) the exact prompt sent to the AI; (b) the source text provided as context; (c) the raw AI response; (d) the parsed extraction with confidence score; (e) risk signal scores (hallucination heuristics, weak grounding); (f) human review status and reviewer identity; (g) the cryptographic hash chain proving record integrity. Includes an exported audit package in machine-readable format (JSON) that the Client's compliance or model risk team can independently review. Regulatory mapping to EU AI Act Article 12 logging requirements is included.
+
+**D5 — Executive Summary:** Board-ready presentation summarising POC findings across all three workstreams: AI governance alignment status, quantified processing value, accuracy metrics from the Hallucination Audit, audit trail and explainability capabilities, risks and limitations identified, and a clear go/no-go recommendation with supporting evidence.
 
 ---
 
 ## 4. TIMELINE
 
-| Phase | Activities | Duration | Weeks |
-|-------|-----------|----------|-------|
-| **Phase 1: Discovery & Setup** | Kick-off meeting, scope confirmation, document collection, taxonomy mapping, secure environment provisioning | 2 weeks | 1-2 |
-| **Phase 2: Processing & Calibration** | AI document processing, extraction calibration, interim feedback session, taxonomy refinement | 2 weeks | 3-4 |
-| **Phase 3: Analysis & Reporting** | Full comparison analysis, metrics compilation, executive presentation, go/no-go recommendation | 2 weeks | 5-6 |
+| Phase | Activities | Workstreams | Weeks |
+|-------|-----------|-------------|-------|
+| **Phase 1: Discovery, Governance & Setup** | Kick-off meeting, scope confirmation, document collection, taxonomy mapping, secure environment provisioning, AI governance review, vendor AI assessment pre-completion | WS1 + WS2 | 1-2 |
+| **Phase 2: Processing, Calibration & Audit Setup** | AI document processing, extraction calibration, interim feedback session, taxonomy refinement, audit trail implementation | WS2 + WS3 | 3-4 |
+| **Phase 3: Analysis, Explainability & Reporting** | Full comparison analysis, hallucination audit, audit trail demo, metrics compilation, executive presentation, go/no-go recommendation | WS2 + WS3 | 5-6 |
 
 **Total Duration:** 6 weeks from the Effective Date.
 
 The timeline assumes:
 - Client provides all in-scope documents within 5 business days of kick-off;
 - Client makes subject matter experts available for 2 feedback sessions (Weeks 2 and 4);
-- Client provides risk taxonomy documentation within 5 business days of kick-off.
+- Client provides risk taxonomy documentation within 5 business days of kick-off;
+- Client provides their AI governance policy / vendor AI assessment questionnaire within 5 business days of kick-off (for Workstream 1).
 
 Delays in Client-side inputs may extend the timeline proportionally.
 

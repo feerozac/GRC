@@ -157,11 +157,28 @@ Step 3: "Now imagine this running on every document your NFR team reads"
 - Trial in an afternoon, not a quarter
 - Creates undeniable proof of value before any commercial conversation
 
+### AI Governance as a Service
+
+A critical differentiator: **we don't just deliver technology — we help banks navigate their own AI governance requirements.**
+
+Every bank deploying AI must satisfy internal AI governance frameworks, model risk management functions, and regulatory requirements (EU AI Act, HKMA, PRA SS1/23, Fed SR 11-7). Most AI vendors leave this to the buyer. Evonix includes it in the engagement:
+
+| Deliverable | What It Covers | Value |
+|---|---|---|
+| **AI Governance Alignment Report** | Maps Evonix against the bank's internal Responsible AI policy, model risk requirements, and vendor AI assessment criteria | Removes the #1 internal blocker — the AI Risk Committee |
+| **Vendor AI Assessment Pre-Completion** | Pre-completes the bank's third-party AI risk questionnaire | Saves 2-3 months of procurement back-and-forth |
+| **Forensic Audit Trail** | Tamper-evident logging of every AI decision — prompt, response, confidence, source, human review status | EU AI Act Article 12 compliant. More transparent than manual process. |
+| **Regulatory Mapping** | Explicit mapping to EU AI Act (Arts 9, 12, 14), HKMA, PRA, Fed as applicable | De-risks the compliance conversation |
+
+**Positioning:** *"We don't just pass your AI governance assessment — we help you build the case internally. Your Head of NFR shouldn't have to fight the AI Risk Committee alone."*
+
+This consulting layer adds $20-30K of perceived value to the engagement while costing minimal incremental effort — the documentation is standardised and reusable across clients.
+
 ### Expand Strategy: From Public to Internal
 
 ```
 Month 1: Say-Do Analysis on public documents (Use Case 2) — free pilot
-Month 2: NFR Reporting pilot on 1 document type (Use Case 1) — paid POC
+Month 2: NFR Reporting pilot on 1 document type (Use Case 1) — paid POC + AI governance alignment
 Month 3: Expand NFR to full document portfolio — annual contract
 Month 6: Board Reporting integration (Use Case 3) — upsell
 Month 9: Regulatory Change monitoring (Use Case 4) — platform expansion
